@@ -1,5 +1,7 @@
 .ruby-version
 .ruby-gemset
 
-data.txt
-result.json
+*.txt
+*.json
+*.html
+*.callgrind*
