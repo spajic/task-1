@@ -16,8 +16,8 @@ class User
   end
 end
 
-def parse_user(user)
-  fields = user.split(',')
+def parse_user(fields)
+  # fields = user.split(',')
   parsed_result = {
     'id' => fields[1],
     'first_name' => fields[2],
@@ -26,8 +26,8 @@ def parse_user(user)
   }
 end
 
-def parse_session(session)
-  fields = session.split(',')
+def parse_session(fields)
+  # fields = session.split(',')
   parsed_result = {
     'user_id' => fields[1],
     'session_id' => fields[2],
@@ -50,15 +50,17 @@ end
 
 def work(filename = 'data_large.txt')
   file_lines = File.read(filename).split("\n")
+  puts "Handle file_lines #{file_lines.size} count"
 
   users = []
   sessions = []
 
   lines_handle_time = Benchmark.realtime do
-    file_lines[0..20000].each do |line|
+    # file_lines[0..2000000].each do |line|
+    file_lines.each do |line|
       cols = line.split(',')
-      users = users + [parse_user(line)] if cols[0] == 'user'
-      sessions = sessions + [parse_session(line)] if cols[0] == 'session'
+      users.push(parse_user(cols)) if cols[0] == 'user'
+      sessions.push(parse_session(cols)) if cols[0] == 'session'
     end
   end
 
@@ -84,40 +86,34 @@ def work(filename = 'data_large.txt')
   report[:totalUsers] = users.count
 
   # Подсчёт количества уникальных браузеров
-  uniqueBrowsers = []
   uniq_browsers_count_time = Benchmark.realtime do
-    sessions.each do |session|
-      browser = session['browser']
-      uniqueBrowsers += [browser] if uniqueBrowsers.all? { |b| b != browser }
-    end
+    report['uniqueBrowsersCount'] = sessions.uniq { |session| session['browser'] }.count
   end
 
   puts "uniq_browsers_count_time eq #{uniq_browsers_count_time.round(4)}"
-
-  report['uniqueBrowsersCount'] = uniqueBrowsers.count
 
   report['totalSessions'] = sessions.count
 
   all_browsers_time = Benchmark.realtime do
     report['allBrowsers'] =
       sessions
-        .map { |s| s['browser'] }
-        .map { |b| b.upcase }
-        .sort
+        .map { |s| s['browser'].upcase }
         .uniq
+        .sort
         .join(',')
   end
   puts "all_browsers_time #{all_browsers_time.round(4)}"
 
   # Статистика по пользователям
   users_objects = []
+  grouped_sessions = sessions.group_by { |session| session['user_id'] }
 
   build_users_time = Benchmark.realtime do
     users.each do |user|
       attributes = user
-      user_sessions = sessions.select { |session| session['user_id'] == user['id'] }
+      user_sessions = grouped_sessions[user['id']] || []
       user_object = User.new(attributes: attributes, sessions: user_sessions)
-      users_objects = users_objects + [user_object]
+      users_objects.push(user_object)
     end
   end
   puts "Users builded in #{build_users_time.round(4)}"
@@ -156,15 +152,15 @@ def work(filename = 'data_large.txt')
 
   # Даты сессий через запятую в обратном порядке в формате iso8601
   collect_stats_from_users(report, users_objects) do |user|
-    { 'dates' => user.sessions.map{|s| s['date']}.map {|d| Date.parse(d)}.sort.reverse.map { |d| d.iso8601 } }
+    { 'dates' => user.sessions.map{ |s| s['date'] }.sort.reverse }
   end
 
   File.write('result.json', "#{report.to_json}\n")
 end
 
-puts 'start work'
+puts "start work #{Time.now}"
 work
-puts 'end work'
+puts "end work #{Time.now}"
 
 class TestMe < Minitest::Test
   def setup
