@@ -18,13 +18,13 @@ def test
   puts 'START'
   time = Benchmark.realtime do
     puts "rss before concatenation: #{print_memory_usage}"
-    report = RubyProf.profile do
-      # report = MemoryProfiler.report do
+    # report = RubyProf.profile do
+    report = MemoryProfiler.report do
       work
     end
-    # report.pretty_print(scale_bytes: true)
-    printer = RubyProf::CallTreePrinter.new(report)
-    printer.print(path: '.', profile: 'profile')
+    report.pretty_print(scale_bytes: true)
+    # printer = RubyProf::CallTreePrinter.new(report)
+    # printer.print(path: '.', profile: 'profile')
     # printer = RubyProf::GraphHtmlPrinter.new(result)
     # printer.print(File.open("ruby_prof_graph_alloc.html", "w+"))
     puts "rss after concatenation: #{print_memory_usage}"
@@ -73,21 +73,21 @@ def collect_stats_from_users(report, users_objects)
   users_objects.each do |user|
     user_key = "#{user.attributes['first_name']} #{user.attributes['last_name']}"
     report['usersStats'][user_key] ||= {}
-    # report['usersStats'][user_key] = report['usersStats'][user_key].merge(yield(user))
+
     report['usersStats'][user_key] = {
-      'sessionsCount' => user.sessions.count,
-      'totalTime' => user.total_time,
-      'longestSession' => user.longest_session,
-      'browsers' => user.browsers.join(', '),
-      'usedIE' => user.browsers.any? { |b| b =~ /INTERNET EXPLORER/ },
-      'alwaysUsedChrome' => user.browsers.all? { |b| b =~ /CHROME/ },
-      'dates' => user.sessions.map { |s| s['date'] }.map { |d| Date.parse(d) }.sort.reverse.map(&:iso8601)
+      'sessionsCount' => user.sessions.count, # Собираем количество сессий по пользователям
+      'totalTime' => user.total_time, # Собираем количество времени по пользователям
+      'longestSession' => user.longest_session, # Выбираем самую длинную сессию пользователя
+      'browsers' => user.browsers.join(', '), # Браузеры пользователя через запятую
+      'usedIE' => user.browsers.any? { |b| b =~ /INTERNET EXPLORER/ }, # Хоть раз использовал IE?
+      'alwaysUsedChrome' => user.browsers.all? { |b| b =~ /CHROME/ }, # Всегда использовал только Chrome?
+      'dates' => user.sessions.map { |s| s['date'] }.map { |d| Date.parse(d) }.sort.reverse.map(&:iso8601) # Даты сессий через запятую в обратном порядке в формате iso8601
     }
   end
 end
 
 def work
-  file_lines = File.read('test.txt').split("\n")
+  file_lines = File.read('test_30k.txt').split("\n")
 
   users = {}
   sessions = {}
@@ -124,72 +124,22 @@ def work
   report[:totalUsers] = users.keys.count
 
   all_browsers = sessions.values.flatten.map { |s| s['browser'] }
+
   # Подсчёт количества уникальных браузеров
   unique_browsers = all_browsers.uniq
-  # sessions.values.flatten.each do |session|
-  #   uniqueBrowsers << session['browser']
-  # end
-  # uniqueBrowsers.uniq!
 
+  report['usersStats'] = {}
   report['uniqueBrowsersCount'] = unique_browsers.count
   report['totalSessions'] = sessions.values.flatten.count
-
-  report['allBrowsers'] =
-    unique_browsers
-    .map(&:upcase)
-    .sort
-    .join(',')
+  report['allBrowsers'] = unique_browsers.map(&:upcase).sort.join(',')
 
   # Статистика по пользователям
   users_objects = users.each.with_object([]) do |(user_id, attrs), arr|
     arr << User.new(attributes: attrs, sessions: sessions[user_id])
   end
 
-  report['usersStats'] = {}
-
   # Собираем количество сессий по пользователям
   collect_stats_from_users(report, users_objects)
-  # collect_stats_from_users(report, users_objects) do |user|
-  #   {
-  #     'sessionsCount' => user.sessions.count,
-  #     'totalTime' => user.total_time,
-  #     'longestSession' => user.longest_session,
-  #     'browsers' => user.browsers.join(', '),
-  #     'usedIE' => user.browsers.any? { |b| b =~ /INTERNET EXPLORER/ },
-  #     'alwaysUsedChrome' => user.browsers.all? { |b| b =~ /CHROME/ },
-  #     'dates' => user.sessions.map { |s| s['date'] }.map { |d| Date.parse(d) }.sort.reverse.map(&:iso8601)
-  #   }
-  # end
-
-  # # Собираем количество времени по пользователям
-  # collect_stats_from_users(report, users_objects) do |user|
-  #   { 'totalTime' => user.total_time }
-  # end
-
-  # # Выбираем самую длинную сессию пользователя
-  # collect_stats_from_users(report, users_objects) do |user|
-  #   { 'longestSession' => user.longest_session }
-  # end
-
-  # # Браузеры пользователя через запятую
-  # collect_stats_from_users(report, users_objects) do |user|
-  #   { 'browsers' => user.browsers.join(', ') }
-  # end
-
-  # # Хоть раз использовал IE?
-  # collect_stats_from_users(report, users_objects) do |user|
-  #   { 'usedIE' => user.browsers.any? { |b| b =~ /INTERNET EXPLORER/ } }
-  # end
-
-  # # Всегда использовал только Chrome?
-  # collect_stats_from_users(report, users_objects) do |user|
-  #   { 'alwaysUsedChrome' => user.browsers.all? { |b| b =~ /CHROME/ } }
-  # end
-
-  # # Даты сессий через запятую в обратном порядке в формате iso8601
-  # collect_stats_from_users(report, users_objects) do |user|
-  #   { 'dates' => user.sessions.map { |s| s['date'] }.map { |d| Date.parse(d) }.sort.reverse.map(&:iso8601) }
-  # end
 
   File.write('result.json', "#{report.to_json}\n")
 end
@@ -198,25 +148,25 @@ class TestMe < Minitest::Test
   def setup
     File.write('result.json', '')
     File.write('data.txt',
-'user,0,Leida,Cira,0
-session,0,0,Safari 29,87,2016-10-23
-session,0,1,Firefox 12,118,2017-02-27
-session,0,2,Internet Explorer 28,31,2017-03-28
-session,0,3,Internet Explorer 28,109,2016-09-15
-session,0,4,Safari 39,104,2017-09-27
-session,0,5,Internet Explorer 35,6,2016-09-01
-user,1,Palmer,Katrina,65
-session,1,0,Safari 17,12,2016-10-21
-session,1,1,Firefox 32,3,2016-12-20
-session,1,2,Chrome 6,59,2016-11-11
-session,1,3,Internet Explorer 10,28,2017-04-29
-session,1,4,Chrome 13,116,2016-12-28
-user,2,Gregory,Santos,86
-session,2,0,Chrome 35,6,2018-09-21
-session,2,1,Safari 49,85,2017-05-22
-session,2,2,Firefox 47,17,2018-02-02
-session,2,3,Chrome 20,84,2016-11-25
-')
+               'user,0,Leida,Cira,0
+               session,0,0,Safari 29,87,2016-10-23
+               session,0,1,Firefox 12,118,2017-02-27
+               session,0,2,Internet Explorer 28,31,2017-03-28
+               session,0,3,Internet Explorer 28,109,2016-09-15
+               session,0,4,Safari 39,104,2017-09-27
+               session,0,5,Internet Explorer 35,6,2016-09-01
+               user,1,Palmer,Katrina,65
+               session,1,0,Safari 17,12,2016-10-21
+               session,1,1,Firefox 32,3,2016-12-20
+               session,1,2,Chrome 6,59,2016-11-11
+               session,1,3,Internet Explorer 10,28,2017-04-29
+               session,1,4,Chrome 13,116,2016-12-28
+               user,2,Gregory,Santos,86
+               session,2,0,Chrome 35,6,2018-09-21
+               session,2,1,Safari 49,85,2017-05-22
+               session,2,2,Firefox 47,17,2018-02-02
+               session,2,3,Chrome 20,84,2016-11-25
+               ')
   end
 
   def test_result
