@@ -50,11 +50,20 @@ def work(file_path)
 
   users = []
   sessions = []
+  user_sessions = {}
 
   file_lines.each do |line|
     cols = line.split(',')
-    users = users + [parse_user(line)] if cols[0] == 'user'
-    sessions = sessions + [parse_session(line)] if cols[0] == 'session'
+    case cols[0]
+    when 'user'
+      users = users + [parse_user(line)]
+    when 'session'
+      session = parse_session(line)
+      user_id = session['user_id']
+      user_sessions[user_id] ||= []
+      user_sessions[user_id] << session
+      sessions << session
+    end
   end
 
   # Отчёт в json
@@ -100,8 +109,8 @@ def work(file_path)
 
   users.each do |user|
     attributes = user
-    user_sessions = sessions.select { |session| session['user_id'] == user['id'] }
-    user_object = User.new(attributes: attributes, sessions: user_sessions)
+    currnet_user_sessions = Array(user_sessions[user['id']])
+    user_object = User.new(attributes: attributes, sessions: currnet_user_sessions)
     users_objects = users_objects + [user_object]
   end
 
@@ -188,12 +197,12 @@ if ENV['MEASURE']
   puts '=' * 20
   before_mem = after_mem = profiling_result = nil
   time = Benchmark.realtime do
-    before_mem = MemoryMeasure.call
+    before_mem = MemoryMeasure.call    
     profiling_result = RubyProf.profile { work(ENV['MEASURE']) }
     after_mem = MemoryMeasure.call
   end
 
-  puts "Time taken: #{time}"
+  puts "Time taken: #{time.round(2)}"
 
   mem_diff = after_mem - before_mem
   puts "RSS diff #{mem_diff} KB"
