@@ -138,12 +138,14 @@ def work(file_path)
 
   # Хоть раз использовал IE?
   collect_stats_from_users(report, users_objects) do |user|
-    { 'usedIE' => user.sessions.map{|s| s['browser']}.any? { |b| b.upcase =~ /INTERNET EXPLORER/ } }
+    regexp = /INTERNET EXPLORER/i
+    { 'usedIE' => user.sessions.any? { |s| s['browser'].match?(regexp) } }
   end
 
   # Всегда использовал только Chrome?
   collect_stats_from_users(report, users_objects) do |user|
-    { 'alwaysUsedChrome' => user.sessions.map{|s| s['browser']}.all? { |b| b.upcase =~ /CHROME/ } }
+    regexp = /CHROME/i
+    { 'alwaysUsedChrome' => user.sessions.all? { |s| s['browser'].match?(regexp) } }
   end
 
   # Даты сессий через запятую в обратном порядке в формате iso8601
