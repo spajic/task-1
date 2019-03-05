@@ -5,3 +5,5 @@
 *.json
 *.html
 *.callgrind*
+
+.DS_Store
