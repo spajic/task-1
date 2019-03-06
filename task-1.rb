@@ -43,7 +43,7 @@ def work(file_path)
     type, *rest = line.split(',')
     case type
     when 'user'
-      users = users << parse_user(rest)
+      users << parse_user(rest)
     when 'session'
       session = parse_session(rest)
       user_id = session['user_id']
@@ -93,11 +93,10 @@ def work(file_path)
   # Статистика по пользователям
   users_objects = []
 
-  users.each do |user|
-    attributes = user
-    currnet_user_sessions = Array(user_sessions[user['id']])
-    user_object = User.new(attributes: attributes, sessions: currnet_user_sessions)
-    users_objects = users_objects + [user_object]
+  users.each do |user_attrs|
+    currnet_user_sessions = Array(user_sessions[user_attrs['id']])
+    user_object = User.new(attributes: user_attrs, sessions: currnet_user_sessions)
+    users_objects << user_object
   end
 
   report['usersStats'] = {}
