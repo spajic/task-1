@@ -126,11 +126,11 @@ def work(file_path)
       report[:totalSessions] += 1
     end
 
+    result[:dates].sort! { |d1, d2| d2 <=> d1 }
     result.merge!(
       totalTime:        "#{result[:totalTime]} min.",
       longestSession:   "#{result[:longestSession]} min.",
-      browsers:         result[:browsers].sort!.join(', '),
-      dates:            result[:dates].sort! { |d1, d2| d2 <=> d1 }
+      browsers:         result[:browsers].sort!.join(', ')
     )
   end
 
