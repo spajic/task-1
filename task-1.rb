@@ -117,41 +117,76 @@ def work(file_path)
   report['usersStats'] = {}
 
   # Собираем количество сессий по пользователям
-  collect_stats_from_users(report, users_objects) do |user|
-    { 'sessionsCount' => user.sessions.count }
-  end
+  # collect_stats_from_users(report, users_objects) do |user|
+  #   { 'sessionsCount' => user.sessions.count }
+  # end
 
   # Собираем количество времени по пользователям
-  collect_stats_from_users(report, users_objects) do |user|
-    { 'totalTime' => user.sessions.map {|s| s['time']}.map {|t| t.to_i}.sum.to_s + ' min.' }
-  end
+  # collect_stats_from_users(report, users_objects) do |user|
+  #   { 'totalTime' => user.sessions.map {|s| s['time']}.map {|t| t.to_i}.sum.to_s + ' min.' }
+  # end
 
-  # Выбираем самую длинную сессию пользователя
-  collect_stats_from_users(report, users_objects) do |user|
-    { 'longestSession' => user.sessions.map {|s| s['time']}.map {|t| t.to_i}.max.to_s + ' min.' }
-  end
+  # # Выбираем самую длинную сессию пользователя
+  # collect_stats_from_users(report, users_objects) do |user|
+  #   { 'longestSession' => user.sessions.map {|s| s['time']}.map {|t| t.to_i}.max.to_s + ' min.' }
+  # end
 
-  # Браузеры пользователя через запятую
-  collect_stats_from_users(report, users_objects) do |user|
-    { 'browsers' => user.sessions.map {|s| s['browser']}.map {|b| b.upcase}.sort.join(', ') }
-  end
+  # # Браузеры пользователя через запятую
+  # collect_stats_from_users(report, users_objects) do |user|
+  #   { 'browsers' => user.sessions.map {|s| s['browser']}.map {|b| b.upcase}.sort.join(', ') }
+  # end
 
-  # Хоть раз использовал IE?
-  collect_stats_from_users(report, users_objects) do |user|
-    regexp = /INTERNET EXPLORER/i
-    { 'usedIE' => user.sessions.any? { |s| s['browser'].match?(regexp) } }
-  end
+
+  # collect_stats_from_users(report, users_objects) do |user|
+  #   regexp = /INTERNET EXPLORER/i
+  #   { 'usedIE' => user.sessions.any? { |s| s['browser'].match?(regexp) } }
+  # end
 
   # Всегда использовал только Chrome?
-  collect_stats_from_users(report, users_objects) do |user|
-    regexp = /CHROME/i
-    { 'alwaysUsedChrome' => user.sessions.all? { |s| s['browser'].match?(regexp) } }
-  end
+  # collect_stats_from_users(report, users_objects) do |user|
+  #   regexp = /CHROME/i
+  #   { 'alwaysUsedChrome' => user.sessions.all? { |s| s['browser'].match?(regexp) } }
+  # end
 
-  # Даты сессий через запятую в обратном порядке в формате iso8601
   collect_stats_from_users(report, users_objects) do |user|
-    result = user.sessions.map { |s| Date.iso8601(s['date']) }.sort { |d1, d2| d2 <=> d1 }
-    { 'dates' => result }
+    initial_state = {
+      'sessionsCount' => user.sessions.size, # Собираем количество сессий по пользователям
+      'totalTime' => 0, # Собираем количество времени по пользователям
+      'longestSession' => 0, # Выбираем самую длинную сессию пользователя
+      'browsers' => [], # Браузеры пользователя через запятую
+      'usedIE' => false, # Хоть раз использовал IE?
+      'alwaysUsedChrome' => true, # Всегда использовал только Chrome?
+      'dates' => [] # Даты сессий через запятую в обратном порядке в формате iso8601
+    }
+    chrome_regexp = /CHROME/
+    ie_regexp     = /INTERNET EXPLORER/
+
+    user.sessions.each.with_object(initial_state) do |session, result|
+      result['dates'] << Date.iso8601(session['date'])
+
+      browser = session['browser'].upcase
+      result['alwaysUsedChrome'] &&= browser.match?(chrome_regexp)
+      result['usedIE'] ||= browser.match?(ie_regexp)
+      result['browsers'] << browser
+
+      time = session['time'].to_i
+      result['longestSession'] = [result['longestSession'], time].max
+      result['totalTime'] += time
+    end.then do |result|
+      {
+        'sessionsCount' => result['sessionsCount'],
+        'totalTime' => "#{result['totalTime']} min.",
+        'longestSession' => "#{result['longestSession']} min.",
+        'browsers' => result['browsers'].sort!.join(', '),
+        'usedIE' => result['usedIE'],
+        'alwaysUsedChrome' => result['alwaysUsedChrome'],
+        'dates' => result['dates'].sort! { |d1, d2| d2 <=> d1 }
+      }
+      # result['dates'].sort! { |d1, d2| d2 <=> d1 }
+      # result['browsers'] = result['browsers'].sort!.join(', ')
+      # result['longestSession'] = "#{result['longestSession'].max} min."
+      # result['totalTime'] = "#{result['longestSession'].sum} min."
+    end
   end
 
   File.write('result.json', "#{report.to_json}\n")
@@ -192,7 +227,7 @@ session,2,3,Chrome 20,84,2016-11-25
     work('data.txt')
 
     expected_result = '{"totalUsers":3,"uniqueBrowsersCount":14,"totalSessions":15,"allBrowsers":"CHROME 13,CHROME 20,CHROME 35,CHROME 6,FIREFOX 12,FIREFOX 32,FIREFOX 47,INTERNET EXPLORER 10,INTERNET EXPLORER 28,INTERNET EXPLORER 35,SAFARI 17,SAFARI 29,SAFARI 39,SAFARI 49","usersStats":{"Leida Cira":{"sessionsCount":6,"totalTime":"455 min.","longestSession":"118 min.","browsers":"FIREFOX 12, INTERNET EXPLORER 28, INTERNET EXPLORER 28, INTERNET EXPLORER 35, SAFARI 29, SAFARI 39","usedIE":true,"alwaysUsedChrome":false,"dates":["2017-09-27","2017-03-28","2017-02-27","2016-10-23","2016-09-15","2016-09-01"]},"Palmer Katrina":{"sessionsCount":5,"totalTime":"218 min.","longestSession":"116 min.","browsers":"CHROME 13, CHROME 6, FIREFOX 32, INTERNET EXPLORER 10, SAFARI 17","usedIE":true,"alwaysUsedChrome":false,"dates":["2017-04-29","2016-12-28","2016-12-20","2016-11-11","2016-10-21"]},"Gregory Santos":{"sessionsCount":4,"totalTime":"192 min.","longestSession":"85 min.","browsers":"CHROME 20, CHROME 35, FIREFOX 47, SAFARI 49","usedIE":false,"alwaysUsedChrome":false,"dates":["2018-09-21","2018-02-02","2017-05-22","2016-11-25"]}}}' + "\n"
-    assert_equal expected_result, File.read('result.json')    
+    assert_equal expected_result, File.read('result.json')
   end
 end
 
@@ -200,7 +235,7 @@ if ENV['MEASURE']
   puts '=' * 20
   before_mem = after_mem = profiling_result = nil
   time = Benchmark.realtime do
-    before_mem = MemoryMeasure.call    
+    before_mem = MemoryMeasure.call
     profiling_result = RubyProf.profile { work(ENV['MEASURE']) }
     after_mem = MemoryMeasure.call
   end
