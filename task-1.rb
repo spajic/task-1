@@ -18,35 +18,36 @@ end
 
 def parse_user(fields)
   {
-    'id' => fields[0],
-    'first_name' => fields[1],
-    'last_name' => fields[2],
-    'age' => fields[3]
+    id:         fields[0],
+    first_name: fields[1],
+    last_name:  fields[2],
+    age:        fields[3]
   }
 end
 
 def parse_session(fields)
   {
-    'user_id' => fields[0],
-    'session_id' => fields[1],
-    'browser' => fields[2],
-    'time' => fields[3],
-    'date' => fields[4]
+    user_id:    fields[0],
+    session_id: fields[1],
+    browser:    fields[2],
+    time:       fields[3],
+    date:       fields[4]
   }
 end
 
-def collect_stats_from_users(report, users_objects, &block)
+def collect_stats_from_users(report, users_objects)
   users_objects.each do |user|
-    user_key = "#{user.attributes['first_name']}" + ' ' + "#{user.attributes['last_name']}"
-    report['usersStats'][user_key] ||= {}
-    report['usersStats'][user_key] = report['usersStats'][user_key].merge(block.call(user))
+    user_key = "#{user.attributes[:first_name]} #{user.attributes[:last_name]}"
+
+    report[:usersStats][user_key] ||= {}
+    report[:usersStats][user_key]   = report[:usersStats][user_key].merge(yield(user))
   end
 end
 
 def work(file_path)
   file_lines = File.read(file_path).split("\n")
 
-  users = []
+  users         = []
   user_sessions = {}
 
   file_lines.each do |line|
@@ -55,10 +56,10 @@ def work(file_path)
     when 'user'
       users << parse_user(rest)
     when 'session'
-      session = parse_session(rest)
-      user_id = session['user_id']
+      session                  = parse_session(rest)
+      user_id                  = session[:user_id]
       user_sessions[user_id] ||= []
-      user_sessions[user_id] << session
+      user_sessions[user_id]  << session
     end
   end
 
@@ -81,65 +82,62 @@ def work(file_path)
 
   report[:totalUsers] = users.count
 
-  report['uniqueBrowsersCount'] = 0
+  report[:uniqueBrowsersCount] = 0
 
-  report['totalSessions'] = 0
+  report[:totalSessions] = 0
 
-  report['allBrowsers'] = Set.new
+  report[:allBrowsers] = Set.new
 
   # Статистика по пользователям
   users_objects = []
 
   users.each do |user_attrs|
-    currnet_user_sessions = Array(user_sessions[user_attrs['id']])
-    user_object = User.new(attributes: user_attrs, sessions: currnet_user_sessions)
-    users_objects << user_object
+    currnet_user_sessions = Array(user_sessions[user_attrs[:id]])
+    user_object           = User.new(attributes: user_attrs, sessions: currnet_user_sessions)
+    users_objects        << user_object
   end
 
-  report['usersStats'] = {}
+  report[:usersStats] = {}
 
   collect_stats_from_users(report, users_objects) do |user|
-    initial_state = {
-      'sessionsCount' => user.sessions.size, # Собираем количество сессий по пользователям
-      'totalTime' => 0, # Собираем количество времени по пользователям
-      'longestSession' => 0, # Выбираем самую длинную сессию пользователя
-      'browsers' => [], # Браузеры пользователя через запятую
-      'usedIE' => false, # Хоть раз использовал IE?
-      'alwaysUsedChrome' => true, # Всегда использовал только Chrome?
-      'dates' => [] # Даты сессий через запятую в обратном порядке в формате iso8601
+    result = {
+      sessionsCount:    user.sessions.size, # Собираем количество сессий по пользователям
+      totalTime:        0, # Собираем количество времени по пользователям
+      longestSession:   0, # Выбираем самую длинную сессию пользователя
+      browsers:         [], # Браузеры пользователя через запятую
+      usedIE:           false, # Хоть раз использовал IE?
+      alwaysUsedChrome: true, # Всегда использовал только Chrome?
+      dates:            [] # Даты сессий через запятую в обратном порядке в формате iso8601
     }
     chrome_regexp = /CHROME/
     ie_regexp     = /INTERNET EXPLORER/
 
-    user.sessions.each.with_object(initial_state) do |session, result|
-      result['dates'] << Date.iso8601(session['date'])
+    user.sessions.each do |session|
+      result[:dates] << Date.iso8601(session[:date])
 
-      browser = session['browser'].upcase
-      result['alwaysUsedChrome'] &&= browser.match?(chrome_regexp)
-      result['usedIE'] ||= browser.match?(ie_regexp)
-      result['browsers'] << browser
+      browser                     = session[:browser].upcase
+      result[:alwaysUsedChrome] &&= browser.match?(chrome_regexp)
+      result[:usedIE]           ||= browser.match?(ie_regexp)
+      result[:browsers]          << browser
 
-      time = session['time'].to_i
-      result['longestSession'] = [result['longestSession'], time].max
-      result['totalTime'] += time
+      time                    = session[:time].to_i
+      result[:longestSession] = [result[:longestSession], time].max
+      result[:totalTime]     += time
 
-      report['allBrowsers'] << browser
-      report['totalSessions'] += 1
-    end.then do |result|
-      {
-        'sessionsCount' => result['sessionsCount'],
-        'totalTime' => "#{result['totalTime']} min.",
-        'longestSession' => "#{result['longestSession']} min.",
-        'browsers' => result['browsers'].sort!.join(', '),
-        'usedIE' => result['usedIE'],
-        'alwaysUsedChrome' => result['alwaysUsedChrome'],
-        'dates' => result['dates'].sort! { |d1, d2| d2 <=> d1 }
-      }
+      report[:allBrowsers]   << browser
+      report[:totalSessions] += 1
     end
+
+    result.merge!(
+      totalTime:        "#{result[:totalTime]} min.",
+      longestSession:   "#{result[:longestSession]} min.",
+      browsers:         result[:browsers].sort!.join(', '),
+      dates:            result[:dates].sort! { |d1, d2| d2 <=> d1 }
+    )
   end
 
-  report['uniqueBrowsersCount'] = report['allBrowsers'].size # Подсчёт количества уникальных браузеров
-  report['allBrowsers'] = report['allBrowsers'].sort.join(',')
+  report[:uniqueBrowsersCount] = report[:allBrowsers].size # Подсчёт количества уникальных браузеров
+  report[:allBrowsers]         = report[:allBrowsers].sort.join(',')
 
   File.write('result.json', "#{report.to_json}\n")
 end
