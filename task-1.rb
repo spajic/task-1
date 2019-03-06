@@ -150,7 +150,8 @@ def work(file_path)
 
   # Даты сессий через запятую в обратном порядке в формате iso8601
   collect_stats_from_users(report, users_objects) do |user|
-    { 'dates' => user.sessions.map{|s| s['date']}.map {|d| Date.parse(d)}.sort.reverse.map { |d| d.iso8601 } }
+    result = user.sessions.map { |s| Date.iso8601(s['date']) }.sort { |d1, d2| d2 <=> d1 }
+    { 'dates' => result }
   end
 
   File.write('result.json', "#{report.to_json}\n")
