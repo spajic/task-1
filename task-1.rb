@@ -86,13 +86,12 @@ def work(file_path)
   report[:totalUsers] = users.count
 
   # Подсчёт количества уникальных браузеров
-  uniqueBrowsers = []
+  uniqueBrowsers = Set.new
   sessions.each do |session|
-    browser = session['browser']
-    uniqueBrowsers += [browser] if uniqueBrowsers.all? { |b| b != browser }
+    uniqueBrowsers << session['browser']
   end
 
-  report['uniqueBrowsersCount'] = uniqueBrowsers.count
+  report['uniqueBrowsersCount'] = uniqueBrowsers.size
 
   report['totalSessions'] = sessions.count
 
@@ -115,38 +114,6 @@ def work(file_path)
   end
 
   report['usersStats'] = {}
-
-  # Собираем количество сессий по пользователям
-  # collect_stats_from_users(report, users_objects) do |user|
-  #   { 'sessionsCount' => user.sessions.count }
-  # end
-
-  # Собираем количество времени по пользователям
-  # collect_stats_from_users(report, users_objects) do |user|
-  #   { 'totalTime' => user.sessions.map {|s| s['time']}.map {|t| t.to_i}.sum.to_s + ' min.' }
-  # end
-
-  # # Выбираем самую длинную сессию пользователя
-  # collect_stats_from_users(report, users_objects) do |user|
-  #   { 'longestSession' => user.sessions.map {|s| s['time']}.map {|t| t.to_i}.max.to_s + ' min.' }
-  # end
-
-  # # Браузеры пользователя через запятую
-  # collect_stats_from_users(report, users_objects) do |user|
-  #   { 'browsers' => user.sessions.map {|s| s['browser']}.map {|b| b.upcase}.sort.join(', ') }
-  # end
-
-
-  # collect_stats_from_users(report, users_objects) do |user|
-  #   regexp = /INTERNET EXPLORER/i
-  #   { 'usedIE' => user.sessions.any? { |s| s['browser'].match?(regexp) } }
-  # end
-
-  # Всегда использовал только Chrome?
-  # collect_stats_from_users(report, users_objects) do |user|
-  #   regexp = /CHROME/i
-  #   { 'alwaysUsedChrome' => user.sessions.all? { |s| s['browser'].match?(regexp) } }
-  # end
 
   collect_stats_from_users(report, users_objects) do |user|
     initial_state = {
