@@ -14,12 +14,11 @@ class User
 end
 
 def parse_user(user)
-  fields = user.split(',')
-  parsed_result = {
-    'id' => fields[1],
-    'first_name' => fields[2],
-    'last_name' => fields[3],
-    'age' => fields[4]
+  {
+    'id' => user[1],
+    'first_name' => user[2],
+    'last_name' => user[3],
+    'age' => user[4]
   }
 end
 
@@ -44,12 +43,12 @@ end
 def work(file_name)
   file_lines = File.read(file_name).split("\n")
 
-  users = []
+  users = {}
   sessions = {}
 
   file_lines.each do |line|
     cols = line.split(',')
-    users += [parse_user(line)] if cols[0] == 'user'
+    users[cols[1]] = parse_user(cols) if cols[0] == 'user'
 
     next unless cols[0] == 'session'
 
@@ -75,7 +74,7 @@ def work(file_name)
 
   report = {}
 
-  report[:totalUsers] = users.count
+  report[:totalUsers] = users.keys.count
 
   # Подсчёт количества уникальных браузеров
   uniqueBrowsers = []
@@ -97,13 +96,8 @@ def work(file_name)
             .join(',')
 
   # Статистика по пользователям
-  users_objects = []
-
-  users.each do |user|
-    attributes = user
-    user_sessions = sessions.values.flatten.select { |session| session['user_id'] == user['id'] }
-    user_object = User.new(attributes: attributes, sessions: user_sessions)
-    users_objects += [user_object]
+  users_objects = users.each.with_object([]) do |(user_id, attrs), arr|
+    arr << User.new(attributes: attrs, sessions: sessions[user_id])
   end
 
   report['usersStats'] = {}
