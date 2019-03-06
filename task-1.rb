@@ -16,25 +16,12 @@ class User
   end
 end
 
-def parse_user(user)
-  fields = user.split(',')
-  parsed_result = {
-    'id' => fields[1],
-    'first_name' => fields[2],
-    'last_name' => fields[3],
-    'age' => fields[4],
-  }
+def parse_user(fields)
+  %w[id first_name last_name age].zip(fields).to_h
 end
 
-def parse_session(session)
-  fields = session.split(',')
-  parsed_result = {
-    'user_id' => fields[1],
-    'session_id' => fields[2],
-    'browser' => fields[3],
-    'time' => fields[4],
-    'date' => fields[5],
-  }
+def parse_session(fields)
+  %w[user_id session_id browser time date].zip(fields).to_h
 end
 
 def collect_stats_from_users(report, users_objects, &block)
@@ -53,12 +40,12 @@ def work(file_path)
   user_sessions = {}
 
   file_lines.each do |line|
-    cols = line.split(',')
-    case cols[0]
+    type, *rest = line.split(',')
+    case type
     when 'user'
-      users = users + [parse_user(line)]
+      users = users << parse_user(rest)
     when 'session'
-      session = parse_session(line)
+      session = parse_session(rest)
       user_id = session['user_id']
       user_sessions[user_id] ||= []
       user_sessions[user_id] << session
