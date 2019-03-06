@@ -17,11 +17,22 @@ class User
 end
 
 def parse_user(fields)
-  %w[id first_name last_name age].zip(fields).to_h
+  {
+    'id' => fields[0],
+    'first_name' => fields[1],
+    'last_name' => fields[2],
+    'age' => fields[3]
+  }
 end
 
 def parse_session(fields)
-  %w[user_id session_id browser time date].zip(fields).to_h
+  {
+    'user_id' => fields[0],
+    'session_id' => fields[1],
+    'browser' => fields[2],
+    'time' => fields[3],
+    'date' => fields[4]
+  }
 end
 
 def collect_stats_from_users(report, users_objects, &block)
