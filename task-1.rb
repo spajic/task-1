@@ -45,12 +45,10 @@ def collect_stats_from_users(report, users_objects)
 end
 
 def work(file_path)
-  file_lines = File.read(file_path).split("\n")
-
   users         = []
   user_sessions = {}
 
-  file_lines.each do |line|
+  File.foreach(file_path) do |line|
     type, *rest = line.split(',')
     case type
     when 'user'
