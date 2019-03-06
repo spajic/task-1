@@ -47,7 +47,6 @@ def work(file_path)
   file_lines = File.read(file_path).split("\n")
 
   users = []
-  sessions = []
   user_sessions = {}
 
   file_lines.each do |line|
@@ -60,7 +59,6 @@ def work(file_path)
       user_id = session['user_id']
       user_sessions[user_id] ||= []
       user_sessions[user_id] << session
-      sessions << session
     end
   end
 
@@ -83,23 +81,11 @@ def work(file_path)
 
   report[:totalUsers] = users.count
 
-  # Подсчёт количества уникальных браузеров
-  uniqueBrowsers = Set.new
-  sessions.each do |session|
-    uniqueBrowsers << session['browser']
-  end
+  report['uniqueBrowsersCount'] = 0
 
-  report['uniqueBrowsersCount'] = uniqueBrowsers.size
+  report['totalSessions'] = 0
 
-  report['totalSessions'] = sessions.count
-
-  report['allBrowsers'] =
-    sessions
-      .map { |s| s['browser'] }
-      .map { |b| b.upcase }
-      .sort
-      .uniq
-      .join(',')
+  report['allBrowsers'] = Set.new
 
   # Статистика по пользователям
   users_objects = []
@@ -136,6 +122,9 @@ def work(file_path)
       time = session['time'].to_i
       result['longestSession'] = [result['longestSession'], time].max
       result['totalTime'] += time
+
+      report['allBrowsers'] << browser
+      report['totalSessions'] += 1
     end.then do |result|
       {
         'sessionsCount' => result['sessionsCount'],
@@ -146,12 +135,11 @@ def work(file_path)
         'alwaysUsedChrome' => result['alwaysUsedChrome'],
         'dates' => result['dates'].sort! { |d1, d2| d2 <=> d1 }
       }
-      # result['dates'].sort! { |d1, d2| d2 <=> d1 }
-      # result['browsers'] = result['browsers'].sort!.join(', ')
-      # result['longestSession'] = "#{result['longestSession'].max} min."
-      # result['totalTime'] = "#{result['longestSession'].sum} min."
     end
   end
+
+  report['uniqueBrowsersCount'] = report['allBrowsers'].size # Подсчёт количества уникальных браузеров
+  report['allBrowsers'] = report['allBrowsers'].sort.join(',')
 
   File.write('result.json', "#{report.to_json}\n")
 end
