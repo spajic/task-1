@@ -93,7 +93,7 @@ def work(file_name)
 
   report = {}
 
-  report[:totalUsers] = users.keys.count
+  report['totalUsers'] = users.keys.count
 
   # Подсчёт количества уникальных браузеров
   uniqueBrowsers = []
@@ -123,5 +123,9 @@ def work(file_name)
 
   collect_stats_from_users(report, users_objects)
 
-  File.write('result.json', "#{report.to_json}\n")
+  # File.write('result.json', "#{report.to_json}\n")
+  File.open('result.json', 'w') do |file|
+    file.write(report.to_json)
+    file.write("\n")
+  end
 end
