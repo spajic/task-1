@@ -44,19 +44,22 @@ end
 
 def collect_stats_from_users(report, users_objects)
   users_objects.each do |user|
-    user_key = user.attributes['first_name'].to_s + ' ' + user.attributes['last_name'].to_s
+    user_key = "#{user.attributes['first_name']} #{user.attributes['last_name']}"
     report['usersStats'][user_key] ||= {}
-    # report['usersStats'][user_key] = report['usersStats'][user_key].merge(yield(user))
-    report['usersStats'][user_key] = {
-      'sessionsCount' => user.sessions.count, # Собираем количество сессий по пользователям
-      'totalTime' => user.total_time, # Собираем количество времени по пользователям
-      'longestSession' => user.longest_session, # Выбираем самую длинную сессию пользователя
-      'browsers' => user.browsers.join(', '), # Браузеры пользователя через запятую
-      'usedIE' => user.browsers.any? { |b| b =~ /INTERNET EXPLORER/ }, # Хоть раз использовал IE?
-      'alwaysUsedChrome' => user.browsers.uniq.all? { |b| b =~ /CHROME/ }, # Всегда использовал только Chrome?
-      'dates' => user.sessions.map { |s| s['date'] }.sort.reverse.map { |d| Date.iso8601(d) } # Даты сессий через запятую в обратном порядке в формате iso8601
-    }
+    report['usersStats'][user_key] = user_stats(user)
   end
+end
+
+def user_stats(user)
+  {
+    'sessionsCount' => user.sessions.count,
+    'totalTime' => user.total_time,
+    'longestSession' => user.longest_session,
+    'browsers' => user.browsers.join(', '),
+    'usedIE' => user.browsers.any? { |b| b =~ /INTERNET EXPLORER/ },
+    'alwaysUsedChrome' => user.browsers.uniq.all? { |b| b =~ /CHROME/ },
+    'dates' => user.sessions.map { |s| s['date'] }.sort.reverse.map { |d| Date.iso8601(d) }
+  }
 end
 
 def work(file_name)
@@ -92,38 +95,24 @@ def work(file_name)
   #     - даты сессий в порядке убывания через запятую +
 
   report = {}
-
   report['totalUsers'] = users.keys.count
+  all_browsers = sessions.values.flatten.map { |s| s['browser'] }
 
   # Подсчёт количества уникальных браузеров
-  uniqueBrowsers = []
-  sessions.values.flatten.each do |session|
-    browser = session['browser']
-    uniqueBrowsers += [browser] if uniqueBrowsers.all? { |b| b != browser }
-  end
+  unique_browsers = all_browsers.uniq
 
-  report['uniqueBrowsersCount'] = uniqueBrowsers.count
-
+  report['uniqueBrowsersCount'] = unique_browsers.count
   report['totalSessions'] = sessions.values.flatten.count
-
-  report['allBrowsers'] =
-    sessions.values.flatten
-            .map { |s| s['browser'] }
-            .map(&:upcase)
-            .sort
-            .uniq
-            .join(',')
+  report['allBrowsers'] = unique_browsers.map(&:upcase).sort.join(',')
+  report['usersStats'] = {}
 
   # Статистика по пользователям
   users_objects = users.each.with_object([]) do |(user_id, attrs), arr|
     arr << User.new(attributes: attrs, sessions: sessions[user_id])
   end
 
-  report['usersStats'] = {}
-
   collect_stats_from_users(report, users_objects)
 
-  # File.write('result.json', "#{report.to_json}\n")
   File.open('result.json', 'w') do |file|
     file.write(report.to_json)
     file.write("\n")
