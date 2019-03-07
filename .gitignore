@@ -1,0 +1,8 @@
+.idea
+
+profile/**/*
+data_large.txt
+
+task_1_result.rb
+result.json
+data.txt
