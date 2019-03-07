@@ -1,5 +1,17 @@
 # Deoptimized version of homework task
+  
+# Stackprof ObjectAllocations and Flamegraph
+# stackprof tmp/stackprof.dump --text --limit 3
+# stackprof tmp/stackprof.dump --method 'Object#make_csv_of_data'
+#
+# Flamegraph
+# raw: true
+# stackprof --flamegraph tmp/stackprof.dump > tmp/flamegraph
+# stackprof --flamegraph-viewer=tmp/flamegraph
+#
+# dot -Tpng graphviz.dot > graphviz.png
 
+require 'stackprof'
 require 'json'
 require 'date'
 require 'benchmark'
@@ -109,12 +121,27 @@ class Parser
         # GC::Profiler.enable
         # GC::Tracer.start_logging('gc_tracer.csv') do
         # report = MemoryProfiler.report do
+        StackProf.run(mode: :object, out: 'tmp/stackprof.dump', raw: true) do
           users.each do |user|
             attributes = user
             user_sessions = sessions.select { |session| session['user_id'] == user['id'] }
             user_object = User.new(attributes: attributes, sessions: user_sessions)
             users_objects = users_objects + [user_object]
           end
+        end
+
+        profile_data = StackProf.run(mode: :object) do
+          users.each do |user|
+            attributes = user
+            user_sessions = sessions.select { |session| session['user_id'] == user['id'] }
+            user_object = User.new(attributes: attributes, sessions: user_sessions)
+            users_objects = users_objects + [user_object]
+          end
+        end
+
+        StackProf::Report.new(profile_data).print_text
+        StackProf::Report.new(profile_data).print_method(/work/)
+        StackProf::Report.new(profile_data).print_graphviz
         # end
         # report.pretty_print(scale_bytes: true)
         # end
