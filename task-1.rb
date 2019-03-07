@@ -10,56 +10,48 @@ class User
   def initialize(attributes:, sessions:)
     @attributes = attributes
     @sessions = sessions
-    @browsers = sessions.map { |s| s['browser'] }.map(&:upcase).sort
-    @time = sessions.map { |s| s['time'] }.map(&:to_i)
+    @browsers = sessions.map { |s| s[:browser] }.map!(&:upcase).sort!
+    @time = sessions.map { |s| s[:time] }.map!(&:to_i)
   end
 
-  def total_time
-    "#{time.sum} min."
-  end
-
-  def longest_session
-    "#{time.max} min."
+  def stats
+    {
+      sessionsCount: sessions.count,
+      totalTime: "#{time.sum} min.",
+      longestSession: "#{time.max} min.",
+      browsers: browsers.join(', '),
+      usedIE: browsers.any? { |b| b =~ /INTERNET EXPLORER/ },
+      alwaysUsedChrome: browsers.uniq.all? { |b| b =~ /CHROME/ },
+      dates: sessions.map { |s| s[:date] }.map! { |d| Date.iso8601(d) }.sort! { |x, y| y <=> x }
+    }
   end
 end
 
 def parse_user(user)
   {
-    'id' => user[1],
-    'first_name' => user[2],
-    'last_name' => user[3],
-    'age' => user[4]
+    id: user[1],
+    first_name: user[2],
+    last_name: user[3],
+    age: user[4]
   }
 end
 
 def parse_session(session)
   {
-    'user_id' => session[1],
-    'session_id' => session[2],
-    'browser' => session[3],
-    'time' => session[4],
-    'date' => session[5]
+    user_id: session[1],
+    session_id: session[2],
+    browser: session[3],
+    time: session[4],
+    date: session[5]
   }
 end
 
 def collect_stats_from_users(report, users_objects)
   users_objects.each do |user|
-    user_key = "#{user.attributes['first_name']} #{user.attributes['last_name']}"
+    user_key = "#{user.attributes[:first_name]} #{user.attributes[:last_name]}"
     report['usersStats'][user_key] ||= {}
-    report['usersStats'][user_key] = user_stats(user)
+    report['usersStats'][user_key] = user.stats
   end
-end
-
-def user_stats(user)
-  {
-    'sessionsCount' => user.sessions.count,
-    'totalTime' => user.total_time,
-    'longestSession' => user.longest_session,
-    'browsers' => user.browsers.join(', '),
-    'usedIE' => user.browsers.any? { |b| b =~ /INTERNET EXPLORER/ },
-    'alwaysUsedChrome' => user.browsers.uniq.all? { |b| b =~ /CHROME/ },
-    'dates' => user.sessions.map { |s| s['date'] }.sort.reverse.map { |d| Date.iso8601(d) }
-  }
 end
 
 def work(file_name)
@@ -94,16 +86,16 @@ def work(file_name)
   #     - Всегда использовал только Хром? +
   #     - даты сессий в порядке убывания через запятую +
 
-  report = {}
-  report['totalUsers'] = users.keys.count
-  all_browsers = sessions.values.flatten.map { |s| s['browser'] }
+  all_sessions = sessions.values.flatten
 
   # Подсчёт количества уникальных браузеров
-  unique_browsers = all_browsers.uniq
+  unique_browsers = all_sessions.map { |s| s[:browser] }.uniq!
 
+  report = {}
+  report['totalUsers'] = users.keys.count
   report['uniqueBrowsersCount'] = unique_browsers.count
-  report['totalSessions'] = sessions.values.flatten.count
-  report['allBrowsers'] = unique_browsers.map(&:upcase).sort.join(',')
+  report['totalSessions'] = all_sessions.count
+  report['allBrowsers'] = unique_browsers.map!(&:upcase).sort!.join(',')
   report['usersStats'] = {}
 
   # Статистика по пользователям
