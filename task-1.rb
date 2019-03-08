@@ -33,8 +33,11 @@ class User
 end
 
 class Parser
-  def parse_user(user)
-    fields = user.split(',')
+  attr_accessor :user
+  def initialize
+    @user = nil
+  end
+  def parse_user(fields)
     parsed_result = {
       'id' => fields[1],
       'first_name' => fields[2],
@@ -43,8 +46,7 @@ class Parser
     }
   end
 
-  def parse_session(session)
-    fields = session.split(',')
+  def parse_session(fields)
     parsed_result = {
       'user_id' => fields[1],
       'session_id' => fields[2],
@@ -64,15 +66,30 @@ class Parser
 
   def work(file)
       users = []
-      sessions = []
-     
+      user_sessions = []
+      total_sessions = 0
+      sessions = {}
+      unique_browsers = []
       File.open(file, 'r').each do |f|
         f.each_line do |line|
           cols = line.split(',')
-          users << parse_user(line) if cols[0] == 'user'
-          sessions << parse_session(line) if cols[0] == 'session'
+      
+          if cols[0] == 'user'
+            self.user = parse_user(cols)
+            users << user
+          end
+          # byebug
+          if cols[0] == 'session'
+            session = parse_session(cols)
+            sessions[user['id']] ||= []
+            sessions[user['id']] << session if session['user_id'] == user['id']
+            total_sessions += 1 
+            browser = session['browser'].upcase!
+            unique_browsers << browser unless unique_browsers.include?(browser)
+          end
         end
       end
+
       # byebug
 
       # raise StandardError, 'There is too much stuff'
@@ -95,29 +112,14 @@ class Parser
       report = {}
 
       report[:totalUsers] = users.count
-      
-      # Подсчёт количества уникальных браузеров
-      uniqueBrowsers = []
-      # it was Finish in 0.21,
-      # then Finish in 0.19
-      time = Benchmark.realtime do
-        sessions.each do |session|
-          uniqueBrowsers << session['browser'] if uniqueBrowsers.all? { |b| b != session['browser'] }
-        end
-      end
-      
-      puts "Finish in #{time.round(2)}"
 
-      report['uniqueBrowsersCount'] = uniqueBrowsers.count
+      report['uniqueBrowsersCount'] = unique_browsers.count
 
-      report['totalSessions'] = sessions.count
+      report['totalSessions'] = total_sessions
 
       report['allBrowsers'] =
-        sessions
-          .map { |s| s['browser'] }
-          .map { |b| b.upcase }
+        unique_browsers
           .sort
-          .uniq
           .join(',')
 
       # Статистика по пользователям
@@ -128,13 +130,22 @@ class Parser
         # puts  "rss before iteration: #{print_memory_usage}"
         # GC::Profiler.enable
         # GC::Tracer.start_logging('gc_tracer.csv') do
-        # report = MemoryProfiler.report do
+        # report_mem_prof = MemoryProfiler.report do
         # result = RubyProf.profile do
+        # StackProf.run(mode: :object, out: 'tmp/stackprof.dump', raw: true) do
           users.each do |user|
-            user_sessions = sessions.select { |session| session['user_id'] == user['id'] }
+            user_sessions = sessions[user['id']]
+            # byebug
             user_object = User.new(attributes: user, sessions: user_sessions)
             users_objects << user_object
           end
+        # end
+
+       
+        
+        # StackProf::Report.new(profile_data).print_text
+        # StackProf::Report.new(profile_data).print_method(/work/)
+        # StackProf::Report.new(profile_data).print_graphviz
         # end
 
         # printer = RubyProf::FlatPrinter.new(result)
@@ -147,7 +158,7 @@ class Parser
         # printer.print(File.open("ruby_prof_graph_allocations_profile_1.html", "w+"))
 
         # end
-        # report.pretty_print(scale_bytes: true)
+        # report_mem_prof.pretty_print(scale_bytes: true)
         # end
         # GC::Profiler.report
         # GC::Profiler.disable
