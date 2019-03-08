@@ -94,7 +94,7 @@ def report(file)
       # Всегда использовал только Chrome?
       alwaysUsedChrome: user_browsers.all? { |browser| browser.upcase =~ /CHROME/ },
       # Даты сессий через запятую в обратном порядке в формате iso8601
-      dates: user_sessions.map { |s| Date.strptime(s[:date], '%Y-%m-%d') }.sort!.reverse!.map!(&:iso8601)
+      dates: user_sessions.map { |s| Date.strptime(s[:date], '%Y-%m-%d') }.sort.reverse.map(&:iso8601)
     }
   end
 
