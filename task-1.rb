@@ -98,10 +98,15 @@ class Parser
       
       # Подсчёт количества уникальных браузеров
       uniqueBrowsers = []
-      sessions.each do |session|
-        browser = session['browser']
-        uniqueBrowsers += [browser] if uniqueBrowsers.all? { |b| b != browser }
+      # it was Finish in 0.21,
+      # then Finish in 0.19
+      time = Benchmark.realtime do
+        sessions.each do |session|
+          uniqueBrowsers << session['browser'] if uniqueBrowsers.all? { |b| b != session['browser'] }
+        end
       end
+      
+      puts "Finish in #{time.round(2)}"
 
       report['uniqueBrowsersCount'] = uniqueBrowsers.count
 
@@ -124,22 +129,22 @@ class Parser
         # GC::Profiler.enable
         # GC::Tracer.start_logging('gc_tracer.csv') do
         # report = MemoryProfiler.report do
-        result = RubyProf.profile do
+        # result = RubyProf.profile do
           users.each do |user|
             user_sessions = sessions.select { |session| session['user_id'] == user['id'] }
             user_object = User.new(attributes: user, sessions: user_sessions)
             users_objects << user_object
           end
-        end
+        # end
 
         # printer = RubyProf::FlatPrinter.new(result)
         # printer.print(File.open("ruby_prof_flat_allocations_profile.txt", "w+"))
 
-        printer = RubyProf::DotPrinter.new(result)
-        printer.print(File.open("ruby_prof_allocations_profile_1.dot", "w+"))
+        # printer = RubyProf::DotPrinter.new(result)
+        # printer.print(File.open("ruby_prof_allocations_profile_1.dot", "w+"))
 
-        printer = RubyProf::GraphHtmlPrinter.new(result)
-        printer.print(File.open("ruby_prof_graph_allocations_profile_1.html", "w+"))
+        # printer = RubyProf::GraphHtmlPrinter.new(result)
+        # printer.print(File.open("ruby_prof_graph_allocations_profile_1.html", "w+"))
 
         # end
         # report.pretty_print(scale_bytes: true)
@@ -151,7 +156,7 @@ class Parser
         # puts "new_stat: #{new_stat}"
       end
 
-      puts "Finish in #{time.round(2)}" #47.34 sec
+      puts "Finish in #{time.round(2)}"
 
       report['usersStats'] = {}
 
