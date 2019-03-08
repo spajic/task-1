@@ -19,8 +19,9 @@ require 'byebug'
 require 'gc_tracer'
 require 'memory_profiler'
 require 'ruby-prof'
+require 'get_process_mem'
 
-RubyProf.measure_mode = RubyProf::ALLOCATIONS
+# RubyProf.measure_mode = RubyProf::ALLOCATIONS
 
 class User
   attr_reader :attributes, :sessions
@@ -125,10 +126,9 @@ class Parser
         # report = MemoryProfiler.report do
         result = RubyProf.profile do
           users.each do |user|
-            attributes = user
             user_sessions = sessions.select { |session| session['user_id'] == user['id'] }
-            user_object = User.new(attributes: attributes, sessions: user_sessions)
-            users_objects = users_objects + [user_object]
+            user_object = User.new(attributes: user, sessions: user_sessions)
+            users_objects << user_object
           end
         end
 
@@ -136,10 +136,10 @@ class Parser
         # printer.print(File.open("ruby_prof_flat_allocations_profile.txt", "w+"))
 
         printer = RubyProf::DotPrinter.new(result)
-        printer.print(File.open("ruby_prof_allocations_profile.dot", "w+"))
+        printer.print(File.open("ruby_prof_allocations_profile_1.dot", "w+"))
 
-        # printer = RubyProf::GraphHtmlPrinter.new(result)
-        # printer.print(File.open("ruby_prof_graph_allocations_profile.html", "w+"))
+        printer = RubyProf::GraphHtmlPrinter.new(result)
+        printer.print(File.open("ruby_prof_graph_allocations_profile_1.html", "w+"))
 
         # end
         # report.pretty_print(scale_bytes: true)
@@ -191,6 +191,8 @@ class Parser
       end
 
       File.write('result.json', "#{report.to_json}\n")
+      mem = GetProcessMem.new
+      puts mem.inspect
     
     end
 
