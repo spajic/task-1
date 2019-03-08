@@ -30448,4 +30448,3 @@ session,4661,3,Firefox 29,27,2017-06-17
 session,4661,4,Firefox 34,109,2019-01-29
 session,4661,5,Internet Explorer 42,81,2018-06-19
 session,4661,6,Safari 42,61,2017-11-04
-user,4662,Gary,Dania,48
