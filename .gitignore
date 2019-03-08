@@ -2,3 +2,8 @@
 data_large.txt
 data_small.txt
 tmp/
+graphviz.png
+ruby_prof_allocations_profile.dot
+ruby_prof_graph_allocations_profile.html
+ruby_prof.png
+data.txt

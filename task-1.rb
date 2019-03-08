@@ -18,7 +18,9 @@ require 'benchmark'
 require 'byebug'
 require 'gc_tracer'
 require 'memory_profiler'
+require 'ruby-prof'
 
+RubyProf.measure_mode = RubyProf::ALLOCATIONS
 
 class User
   attr_reader :attributes, :sessions
@@ -121,7 +123,7 @@ class Parser
         # GC::Profiler.enable
         # GC::Tracer.start_logging('gc_tracer.csv') do
         # report = MemoryProfiler.report do
-        StackProf.run(mode: :object, out: 'tmp/stackprof.dump', raw: true) do
+        result = RubyProf.profile do
           users.each do |user|
             attributes = user
             user_sessions = sessions.select { |session| session['user_id'] == user['id'] }
@@ -130,18 +132,15 @@ class Parser
           end
         end
 
-        profile_data = StackProf.run(mode: :object) do
-          users.each do |user|
-            attributes = user
-            user_sessions = sessions.select { |session| session['user_id'] == user['id'] }
-            user_object = User.new(attributes: attributes, sessions: user_sessions)
-            users_objects = users_objects + [user_object]
-          end
-        end
+        # printer = RubyProf::FlatPrinter.new(result)
+        # printer.print(File.open("ruby_prof_flat_allocations_profile.txt", "w+"))
 
-        StackProf::Report.new(profile_data).print_text
-        StackProf::Report.new(profile_data).print_method(/work/)
-        StackProf::Report.new(profile_data).print_graphviz
+        printer = RubyProf::DotPrinter.new(result)
+        printer.print(File.open("ruby_prof_allocations_profile.dot", "w+"))
+
+        # printer = RubyProf::GraphHtmlPrinter.new(result)
+        # printer.print(File.open("ruby_prof_graph_allocations_profile.html", "w+"))
+
         # end
         # report.pretty_print(scale_bytes: true)
         # end
