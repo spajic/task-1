@@ -1,0 +1,76 @@
+Metric: elapsed real time:
+Input: data_medium.txt (300k lines)
+
+Inital value:
+  22.129166
+  22.371873
+
+COLUMN = ','.freeze
+  21.868189
+  22.579466
+
+Fixed Даты сессий через запятую в обратном порядке в формате iso8601
+  22.593317
+  22.674846
+
+Symbolize user and session keys
+  18.047042
+  18.122384
+
+Memoize string user key in user attributes
+  18.130124
+  18.482202
+
+Symbolize all keys
+  17.839126
+  18.543167
+
+GLobalize all strings from loops
+  18.119733
+  17.485155
+
+Globalize Regex from loops
+  17.934887
+  18.511843
+
+Replace sum of arrays with append
+  16.119590
+  16.125077
+
+-- Caching formatted dates
+  17.937797
+  18.945156
+
+Remove formatting
+  14.911454
+  15.445113
+
+Total bang for session agg
+  15.949350
+  16.319774
+
+merge! in collect_stats_from_users
+  15.963413
+  16.215952
+
+Preupcase browsers
+  15.977804
+  16.207354
+
+Time pre converted to integer
+  15.748887
+  15.944109
+
+Simplify time total and max calc
+  15.760185
+  16.358246
+
+Optimize browsers agg
+  16.237265
+  15.894111
+
+36:29
+
+Count of allocations:
+before = 1490585
+after  = 704567

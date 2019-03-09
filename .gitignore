@@ -1,2 +1,4 @@
-*.txt
+.DS_Store
 *.json
+massif.out.*
+tmp/*
