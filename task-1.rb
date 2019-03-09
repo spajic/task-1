@@ -24,11 +24,12 @@ require 'get_process_mem'
 # RubyProf.measure_mode = RubyProf::ALLOCATIONS
 
 class User
-  attr_reader :attributes, :sessions
+  attr_reader :attributes, :sessions, :user_key
 
   def initialize(attributes:, sessions:)
     @attributes = attributes
     @sessions = sessions
+    @user_key = "#{attributes['first_name']}" + ' ' + "#{attributes['last_name']}"
   end
 end
 
@@ -58,13 +59,15 @@ class Parser
 
   def collect_stats_from_users(report, users_objects, &block)
     users_objects.each do |user|
-      user_key = "#{user.attributes['first_name']}" + ' ' + "#{user.attributes['last_name']}"
-      report['usersStats'][user_key] ||= {}
-      report['usersStats'][user_key] = report['usersStats'][user_key].merge(block.call(user))
+      report['usersStats'][user.user_key] ||= {}
+      report['usersStats'][user.user_key] = report['usersStats'][user.user_key].merge(block.call(user))
     end
   end
 
   def work(file)
+    puts  "rss before iteration: #{print_memory_usage}"
+    report_mem_prof = MemoryProfiler.report do
+    time = Benchmark.realtime do
       users = []
       user_sessions = []
       total_sessions = 0
@@ -124,13 +127,12 @@ class Parser
 
       # Статистика по пользователям
       users_objects = []
-      time = Benchmark.realtime do
+      
         # old_stat = GC.stat
         # puts "old_stat: #{old_stat}"
-        # puts  "rss before iteration: #{print_memory_usage}"
+      
         # GC::Profiler.enable
         # GC::Tracer.start_logging('gc_tracer.csv') do
-        # report_mem_prof = MemoryProfiler.report do
         # result = RubyProf.profile do
         # StackProf.run(mode: :object, out: 'tmp/stackprof.dump', raw: true) do
           users.each do |user|
@@ -157,17 +159,14 @@ class Parser
         # printer = RubyProf::GraphHtmlPrinter.new(result)
         # printer.print(File.open("ruby_prof_graph_allocations_profile_1.html", "w+"))
 
-        # end
-        # report_mem_prof.pretty_print(scale_bytes: true)
+       
         # end
         # GC::Profiler.report
         # GC::Profiler.disable
-        # puts  "rss after iteration: #{print_memory_usage}"
+       
         # new_stat = GC.stat
         # puts "new_stat: #{new_stat}"
-      end
-
-      puts "Finish in #{time.round(2)}"
+      
 
       report['usersStats'] = {}
 
@@ -203,13 +202,20 @@ class Parser
 
       # Даты сессий через запятую в обратном порядке в формате iso8601
       collect_stats_from_users(report, users_objects) do |user|
-        { 'dates' => user.sessions.map{|s| s['date']}.map {|d| Date.parse(d)}.sort.reverse.map { |d| d.iso8601 } }
+        # byebug
+        { 'dates' => user.sessions.map{ |s| Date.parse(s['date']).iso8601 }.sort.reverse }
       end
 
       File.write('result.json', "#{report.to_json}\n")
       mem = GetProcessMem.new
       puts mem.inspect
-    
+
+    end
+
+    puts "Finish in #{time.round(2)}"
+    end
+    report_mem_prof.pretty_print(scale_bytes: true)
+     puts  "rss after iteration: #{print_memory_usage}"
     end
 
     private
