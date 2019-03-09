@@ -1,0 +1,9 @@
+.ruby-version
+.ruby-gemset
+
+*.txt
+*.json
+*.html
+*.callgrind*
+
+.DS_Store
