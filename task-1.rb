@@ -58,15 +58,28 @@ class Parser
   end
 
   def collect_stats_from_users(report, users_objects, &block)
+    # report_result_per_user = {
+    #   sessionsCount: 0,
+    #   totalTime: 0,
+    #   longestSession: 0,
+    #   browsers: [],
+    #   usedIE: false,
+    #   alwaysUsedChrome: false,
+    #   dates: [    
+    #   ]
+
+    # }
     users_objects.each do |user|
+      # report_result_per_user[:dates] = user.sessions.sort_by{ |s| Date.iso8601(s['date']) }.reverse
+        
       report['usersStats'][user.user_key] ||= {}
       report['usersStats'][user.user_key] = report['usersStats'][user.user_key].merge(block.call(user))
     end
   end
 
   def work(file)
-    puts  "rss before iteration: #{print_memory_usage}"
-    report_mem_prof = MemoryProfiler.report do
+    # puts  "rss before iteration: #{print_memory_usage}"
+    # report_mem_prof = MemoryProfiler.report do
     time = Benchmark.realtime do
       users = []
       user_sessions = []
@@ -203,7 +216,7 @@ class Parser
       # Даты сессий через запятую в обратном порядке в формате iso8601
       collect_stats_from_users(report, users_objects) do |user|
         # byebug
-        { 'dates' => user.sessions.map{ |s| Date.parse(s['date']).iso8601 }.sort.reverse }
+        { 'dates' => user.sessions.sort_by!{ |s| s['date'] }.reverse!.map{ |s| Date.iso8601(s['date']) } }
       end
 
       File.write('result.json', "#{report.to_json}\n")
@@ -213,15 +226,15 @@ class Parser
     end
 
     puts "Finish in #{time.round(2)}"
-    end
-    report_mem_prof.pretty_print(scale_bytes: true)
-     puts  "rss after iteration: #{print_memory_usage}"
-    end
+    # end
+    # report_mem_prof.pretty_print(scale_bytes: true)
+    #  puts  "rss after iteration: #{print_memory_usage}"
+  end
 
-    private
+  private
 
-    #amount of RAM, allocated for the process currently
-    def print_memory_usage
-      "%d MB" % (`ps -o rss= -p #{Process.pid}`.to_i / 1024)
-    end
+  #amount of RAM, allocated for the process currently
+  def print_memory_usage
+    "%d MB" % (`ps -o rss= -p #{Process.pid}`.to_i / 1024)
+  end
 end
