@@ -1,16 +1,3 @@
-# Deoptimized version of homework task
-  
-# Stackprof ObjectAllocations and Flamegraph
-# stackprof tmp/stackprof.dump --text --limit 3
-# stackprof tmp/stackprof.dump --method 'Object#make_csv_of_data'
-#
-# Flamegraph
-# raw: true
-# stackprof --flamegraph tmp/stackprof.dump > tmp/flamegraph
-# stackprof --flamegraph-viewer=tmp/flamegraph
-#
-# dot -Tpng graphviz.dot > graphviz.png
-
 require 'stackprof'
 require 'json'
 require 'date'
@@ -20,8 +7,6 @@ require 'gc_tracer'
 require 'memory_profiler'
 require 'ruby-prof'
 require 'get_process_mem'
-
-# RubyProf.measure_mode = RubyProf::ALLOCATIONS
 
 class User
   attr_reader :attributes, :sessions, :user_key
@@ -37,6 +22,7 @@ class Parser
 
   IE_REGEX = /INTERNET EXPLORER/.freeze
   CHROME_REGEX = /CHROME/.freeze
+  COMMA_SEPARATOR = ', '
 
   attr_accessor :user
 
@@ -45,7 +31,6 @@ class Parser
   end
 
   def parse_user(fields)
-    # byebug
     parsed_result = {
       id: fields[1],
       full_name: fields[2] + ' ' + fields[3],
@@ -54,7 +39,6 @@ class Parser
   end
 
   def parse_session(fields)
-    # byebug
     parsed_result = {
       user_id: fields[1],
       session_id: fields[2],
@@ -80,17 +64,16 @@ class Parser
     users_objects.each do |user|
       session_time = user.sessions.map{ |s| s[:time].to_i }
       user_session_browsers = user.sessions.map {|s| s[:browser]}
-      
       report[:usersStats][user.user_key] ||= {}
       report_result_per_user[:sessionsCount] = user.sessions.count 
       report_result_per_user[:totalTime] = "#{session_time.sum} min."
       report_result_per_user[:longestSession] ="#{session_time.max} min."
-      report_result_per_user[:browsers] = user_session_browsers.sort.join(', ')
+      report_result_per_user[:browsers] = user_session_browsers.sort.join(COMMA_SEPARATOR)
       report_result_per_user[:usedIE] = user_session_browsers.any? { |b| b =~ IE_REGEX }
       report_result_per_user[:alwaysUsedChrome] = user_session_browsers.all? { |b| b =~ CHROME_REGEX }
-      report_result_per_user[:dates] = user.sessions.sort_by!{ |s| s[:date] }.reverse!.map{ |s| Date.iso8601(s[:date]) } 
+      report_result_per_user[:dates] = user.sessions.sort_by!{ |s| s[:date] }.reverse!.map!{ |s| Date.iso8601(s[:date]) } 
       report[:usersStats][user.user_key].merge!(report_result_per_user)
-      # byebug
+
     end
   end
 
@@ -151,7 +134,7 @@ class Parser
       report[:allBrowsers] =
         unique_browsers
           .sort
-          .join(',')
+          .join(COMMA_SEPARATOR)
 
       report[:usersStats] = {}
 
@@ -164,12 +147,9 @@ class Parser
         
 
       collect_stats_from_users(report, users_objects)
-      # byebug
 
 
       File.write('result.json', "#{report.to_json}\n")
-      # mem = GetProcessMem.new
-      # puts mem.inspect
   end 
 end
 
@@ -185,7 +165,7 @@ parser = Parser.new()
 # result = RubyProf.profile do
 # StackProf.run(mode: :object, out: 'tmp/stackprof.dump', raw: true) do
 time = Benchmark.realtime do
-  parser.work('data_small.txt')
+  parser.work('data_large.txt')
 end
 
 puts "Finish in #{time.round(2)}"
