@@ -1,8 +1,10 @@
-# Deoptimized version of homework task
+# frozen_string_literal: true
 
 require 'json'
 require 'pry'
 require 'date'
+
+FIRST_COLUMN_REGEXP = /^\w+(?=,)/.freeze
 
 class User
   attr_reader :attributes, :sessions
@@ -13,9 +15,8 @@ class User
   end
 end
 
-def parse_user(user)
-  fields = user.split(',')
-  parsed_result = {
+def parse_user(fields)
+  {
     'id' => fields[1],
     'first_name' => fields[2],
     'last_name' => fields[3],
@@ -23,9 +24,8 @@ def parse_user(user)
   }
 end
 
-def parse_session(session)
-  fields = session.split(',')
-  parsed_result = {
+def parse_session(fields)
+  {
     'user_id' => fields[1],
     'session_id' => fields[2],
     'browser' => fields[3],
@@ -48,10 +48,12 @@ def work
   users = []
   sessions = []
 
+  # File.open('data.txt', 'r').each do |line|
+
   file_lines.each do |line|
     cols = line.split(',')
-    users = users + [parse_user(line)] if cols[0] == 'user'
-    sessions = sessions + [parse_session(line)] if cols[0] == 'session'
+    users << parse_user(cols) if cols[0] == 'user'
+    sessions << parse_session(cols) if cols[0] == 'session'
   end
 
   # Отчёт в json
@@ -77,29 +79,26 @@ def work
   uniqueBrowsers = []
   sessions.each do |session|
     browser = session['browser']
-    uniqueBrowsers += [browser] if uniqueBrowsers.all? { |b| b != browser }
+    next if uniqueBrowsers.include?(browser)
+
+    uniqueBrowsers << browser
   end
 
   report['uniqueBrowsersCount'] = uniqueBrowsers.count
-
   report['totalSessions'] = sessions.count
-
-  report['allBrowsers'] =
-    sessions
-      .map { |s| s['browser'] }
-      .map { |b| b.upcase }
-      .sort
-      .uniq
-      .join(',')
+  report['allBrowsers'] = uniqueBrowsers.map(&:upcase).sort.join(',')
 
   # Статистика по пользователям
   users_objects = []
 
+  grouped_sessions_by_user_id = sessions.group_by do |session|
+    session['user_id']
+  end
+
   users.each do |user|
-    attributes = user
-    user_sessions = sessions.select { |session| session['user_id'] == user['id'] }
-    user_object = User.new(attributes: attributes, sessions: user_sessions)
-    users_objects = users_objects + [user_object]
+    user_sessions = grouped_sessions_by_user_id[user['id']]
+    user_object = User.new(attributes: user, sessions: Array(user_sessions))
+    users_objects << user_object
   end
 
   report['usersStats'] = {}
