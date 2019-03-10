@@ -1,22 +1,41 @@
 require 'benchmark'
 require './task-1'
 
-arr = []
+def allocated_memory
+  `ps -o rss= -p #{Process.pid}`.to_i / 1024
+end
 
-from = 10_000
-to   = 15_000
+from = 50_000
+to   = 55_000
 step = 1000
+
+times = []
+allocations = []
 
 (from..to).step(step) do |lines_num|
   system "zcat data_large.txt.gz | head -n #{lines_num} > data.txt"
 
-  time = Benchmark.realtime { work }.round(2)
+  time = Benchmark.realtime do
+    memory = allocated_memory
+    work
+    allocations << allocated_memory - memory
+  end.round(2)
 
-  puts "[#{lines_num}/#{to}] performed in #{time} s."
+  puts "#{lines_num} lines performed in #{time} s. + #{allocations.last}MB"
 
-  arr << time.round(2)
+  times << time.round(2)
 end
 
-avg = arr.reduce(:+) / arr.size
+deltas = []
 
-puts "Average time between #{from} and #{to} lines with step #{step}:\n#{avg}"
+times.each_index do |i|
+  break if times[i.next].nil?
+
+  deltas << times[i.next] - times[i]
+end
+
+avg_delta = deltas.reduce(:+) / deltas.size
+mem_delta = (allocations.reduce(:+) / allocations.size.to_f).round(2)
+
+puts "Average period for each #{step} lines: #{avg_delta}s."
+puts "Average memory allocation for each #{step} lines: #{mem_delta}MB"
