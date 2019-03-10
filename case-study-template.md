@@ -90,6 +90,7 @@ Wall mode
 В результате проделанной оптимизации наконец удалось обработать файл с данными.
 Удалось улучшить метрику системы
 
+### Step 1
 Was
 ```
 10000 lines performed in 5.98 s. + 74MB
@@ -102,7 +103,7 @@ Average period for each 1000 lines: 2.026s.
 Average memory allocation for each 1000 lines: 33.5MB
 ```
 
-Now
+Became
 ```
 10000 lines performed in 0.25 s. + 14MB
 11000 lines performed in 0.34 s. + 1MB
@@ -112,6 +113,31 @@ Now
 15000 lines performed in 0.48 s. + 1MB
 Average period for each 1000 lines: 0.046s.
 Average memory allocation for each 1000 lines: 4.0MB
+```
+
+### Step 2
+Was
+```
+50000 lines performed in 1.26 s. + 68MB
+51000 lines performed in 1.45 s. + 6MB
+52000 lines performed in 1.52 s. + 1MB
+53000 lines performed in 1.58 s. + 0MB
+54000 lines performed in 1.85 s. + -2MB
+55000 lines performed in 1.58 s. + 64MB
+Average period for each 1000 lines: 0.06400000000000002s.
+Average memory allocation for each 1000 lines: 22.83MB
+```
+
+Became
+```
+50000 lines performed in 1.09 s. + 66MB
+51000 lines performed in 1.28 s. + 6MB
+52000 lines performed in 1.37 s. + 2MB
+53000 lines performed in 1.4 s. + 1MB
+54000 lines performed in 1.52 s. + 0MB
+55000 lines performed in 1.54 s. + 0MB
+Average period for each 1000 lines: 0.09s.
+Average memory allocation for each 1000 lines: 12.5MB
 ```
 
 *Какими ещё результами можете поделиться*
