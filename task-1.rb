@@ -29,7 +29,7 @@ class User
   def initialize(attributes:, sessions:)
     @attributes = attributes
     @sessions = sessions
-    @user_key = "#{attributes['first_name']}" + ' ' + "#{attributes['last_name']}"
+    @user_key = attributes[:full_name]
   end
 end
 
@@ -39,47 +39,62 @@ class Parser
     @user = nil
   end
   def parse_user(fields)
+    # byebug
     parsed_result = {
-      'id' => fields[1],
-      'first_name' => fields[2],
-      'last_name' => fields[3],
-      'age' => fields[4],
+      id: fields[1],
+      full_name: fields[2] + ' ' + fields[3],
+      age: fields[4],
     }
   end
 
   def parse_session(fields)
+    # byebug
     parsed_result = {
-      'user_id' => fields[1],
-      'session_id' => fields[2],
-      'browser' => fields[3],
-      'time' => fields[4],
-      'date' => fields[5],
+      user_id: fields[1],
+      session_id: fields[2],
+      browser: fields[3],
+      time: fields[4],
+      date: fields[5],
     }
   end
 
-  def collect_stats_from_users(report, users_objects, &block)
-    # report_result_per_user = {
-    #   sessionsCount: 0,
-    #   totalTime: 0,
-    #   longestSession: 0,
-    #   browsers: [],
-    #   usedIE: false,
-    #   alwaysUsedChrome: false,
-    #   dates: [    
-    #   ]
+  def collect_stats_from_users(report, users_objects)
+    report_result_per_user = {
+      sessionsCount: 0,
+      totalTime: 0,
+      longestSession: 0,
+      browsers: [],
+      usedIE: false,
+      alwaysUsedChrome: false,
+      dates: [    
+      ]
 
-    # }
+    }
     users_objects.each do |user|
-      # report_result_per_user[:dates] = user.sessions.sort_by{ |s| Date.iso8601(s['date']) }.reverse
-        
-      report['usersStats'][user.user_key] ||= {}
-      report['usersStats'][user.user_key] = report['usersStats'][user.user_key].merge(block.call(user))
+      
+      report[:usersStats][user.user_key] ||= {}
+      report_result_per_user[:sessionsCount] = user.sessions.count 
+      report_result_per_user[:totalTime] = user.sessions.map{|s| s[:time].to_i}.sum.to_s << ' min.'
+      report_result_per_user[:longestSession] = user.sessions.map {|s| s[:time]}.map {|t| t.to_i}.max.to_s + ' min.'
+      report_result_per_user[:browsers] = user.sessions.map {|s| s[:browser]}.map {|b| b.upcase}.sort.join(', ')
+      report_result_per_user[:usedIE] = user.sessions.map{|s| s[:browser]}.any? { |b| b.upcase =~ /INTERNET EXPLORER/ }
+      report_result_per_user[:alwaysUsedChrome] = user.sessions.map{|s| s[:browser]}.all? { |b| b.upcase =~ /CHROME/ }
+      report_result_per_user[:dates] = user.sessions.sort_by!{ |s| s[:date] }.reverse!.map{ |s| Date.iso8601(s[:date]) } 
+      report[:usersStats][user.user_key] = report[:usersStats][user.user_key].merge!(report_result_per_user)
+      # byebug
     end
   end
 
   def work(file)
     # puts  "rss before iteration: #{print_memory_usage}"
     # report_mem_prof = MemoryProfiler.report do
+    # old_stat = GC.stat
+    # puts "old_stat: #{old_stat}"
+  
+    # GC::Profiler.enable
+    # GC::Tracer.start_logging('gc_tracer.csv') do
+    # result = RubyProf.profile do
+    # StackProf.run(mode: :object, out: 'tmp/stackprof.dump', raw: true) do
     time = Benchmark.realtime do
       users = []
       user_sessions = []
@@ -97,10 +112,10 @@ class Parser
           # byebug
           if cols[0] == 'session'
             session = parse_session(cols)
-            sessions[user['id']] ||= []
-            sessions[user['id']] << session if session['user_id'] == user['id']
+            sessions[user[:id]] ||= []
+            sessions[user[:id]] << session if session[:user_id] == user[:id]
             total_sessions += 1 
-            browser = session['browser'].upcase!
+            browser = session[:browser].upcase!
             unique_browsers << browser unless unique_browsers.include?(browser)
           end
         end
@@ -129,99 +144,34 @@ class Parser
 
       report[:totalUsers] = users.count
 
-      report['uniqueBrowsersCount'] = unique_browsers.count
+      report[:uniqueBrowsersCount] = unique_browsers.count
 
-      report['totalSessions'] = total_sessions
+      report[:totalSessions] = total_sessions
 
-      report['allBrowsers'] =
+      report[:allBrowsers] =
         unique_browsers
           .sort
           .join(',')
 
+      report[:usersStats] = {}
+
       # Статистика по пользователям
       users_objects = []
       
-        # old_stat = GC.stat
-        # puts "old_stat: #{old_stat}"
-      
-        # GC::Profiler.enable
-        # GC::Tracer.start_logging('gc_tracer.csv') do
-        # result = RubyProf.profile do
-        # StackProf.run(mode: :object, out: 'tmp/stackprof.dump', raw: true) do
-          users.each do |user|
-            user_sessions = sessions[user['id']]
-            # byebug
-            user_object = User.new(attributes: user, sessions: user_sessions)
-            users_objects << user_object
-          end
-        # end
-
-       
-        
-        # StackProf::Report.new(profile_data).print_text
-        # StackProf::Report.new(profile_data).print_method(/work/)
-        # StackProf::Report.new(profile_data).print_graphviz
-        # end
-
-        # printer = RubyProf::FlatPrinter.new(result)
-        # printer.print(File.open("ruby_prof_flat_allocations_profile.txt", "w+"))
-
-        # printer = RubyProf::DotPrinter.new(result)
-        # printer.print(File.open("ruby_prof_allocations_profile_1.dot", "w+"))
-
-        # printer = RubyProf::GraphHtmlPrinter.new(result)
-        # printer.print(File.open("ruby_prof_graph_allocations_profile_1.html", "w+"))
-
-       
-        # end
-        # GC::Profiler.report
-        # GC::Profiler.disable
-       
-        # new_stat = GC.stat
-        # puts "new_stat: #{new_stat}"
-      
-
-      report['usersStats'] = {}
-
-      # Собираем количество сессий по пользователям
-      collect_stats_from_users(report, users_objects) do |user|
-        { 'sessionsCount' => user.sessions.count }
-      end
-
-      # Собираем количество времени по пользователям
-      collect_stats_from_users(report, users_objects) do |user|
-        { 'totalTime' => user.sessions.map {|s| s['time']}.map {|t| t.to_i}.sum.to_s + ' min.' }
-      end
-
-      # Выбираем самую длинную сессию пользователя
-      collect_stats_from_users(report, users_objects) do |user|
-        { 'longestSession' => user.sessions.map {|s| s['time']}.map {|t| t.to_i}.max.to_s + ' min.' }
-      end
-
-      # Браузеры пользователя через запятую
-      collect_stats_from_users(report, users_objects) do |user|
-        { 'browsers' => user.sessions.map {|s| s['browser']}.map {|b| b.upcase}.sort.join(', ') }
-      end
-
-      # Хоть раз использовал IE?
-      collect_stats_from_users(report, users_objects) do |user|
-        { 'usedIE' => user.sessions.map{|s| s['browser']}.any? { |b| b.upcase =~ /INTERNET EXPLORER/ } }
-      end
-
-      # Всегда использовал только Chrome?
-      collect_stats_from_users(report, users_objects) do |user|
-        { 'alwaysUsedChrome' => user.sessions.map{|s| s['browser']}.all? { |b| b.upcase =~ /CHROME/ } }
-      end
-
-      # Даты сессий через запятую в обратном порядке в формате iso8601
-      collect_stats_from_users(report, users_objects) do |user|
+      users.each do |user|
+        user_sessions = sessions[user[:id]]
         # byebug
-        { 'dates' => user.sessions.sort_by!{ |s| s['date'] }.reverse!.map{ |s| Date.iso8601(s['date']) } }
+        users_objects << User.new(attributes: user, sessions: user_sessions)
       end
+        
+
+      collect_stats_from_users(report, users_objects)
+      # byebug
+
 
       File.write('result.json', "#{report.to_json}\n")
-      mem = GetProcessMem.new
-      puts mem.inspect
+      # mem = GetProcessMem.new
+      # puts mem.inspect
 
     end
 
@@ -229,6 +179,31 @@ class Parser
     # end
     # report_mem_prof.pretty_print(scale_bytes: true)
     #  puts  "rss after iteration: #{print_memory_usage}"
+
+    # end
+  
+    # StackProf::Report.new(profile_data).print_text
+    # StackProf::Report.new(profile_data).print_method(/work/)
+    # StackProf::Report.new(profile_data).print_graphviz
+    # end
+
+    # printer = RubyProf::FlatPrinter.new(result)
+    # printer.print(File.open("ruby_prof_flat_allocations_profile.txt", "w+"))
+
+    # printer = RubyProf::DotPrinter.new(result)
+    # printer.print(File.open("ruby_prof_allocations_profile_4.dot", "w+"))
+
+    # printer = RubyProf::GraphHtmlPrinter.new(result)
+    # printer.print(File.open("ruby_prof_graph_allocations_profile_4.html", "w+"))
+
+    
+    # end
+    # GC::Profiler.report
+    # GC::Profiler.disable
+    
+    # new_stat = GC.stat
+    # puts "new_stat: #{new_stat}"
+  
   end
 
   private
