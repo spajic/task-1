@@ -34,10 +34,16 @@ class User
 end
 
 class Parser
+
+  IE_REGEX = /INTERNET EXPLORER/.freeze
+  CHROME_REGEX = /CHROME/.freeze
+
   attr_accessor :user
+
   def initialize
     @user = nil
   end
+
   def parse_user(fields)
     # byebug
     parsed_result = {
@@ -70,32 +76,26 @@ class Parser
       ]
 
     }
+    
     users_objects.each do |user|
+      session_time = user.sessions.map{ |s| s[:time].to_i }
+      user_session_browsers = user.sessions.map {|s| s[:browser]}
       
       report[:usersStats][user.user_key] ||= {}
       report_result_per_user[:sessionsCount] = user.sessions.count 
-      report_result_per_user[:totalTime] = user.sessions.map{|s| s[:time].to_i}.sum.to_s << ' min.'
-      report_result_per_user[:longestSession] = user.sessions.map {|s| s[:time]}.map {|t| t.to_i}.max.to_s + ' min.'
-      report_result_per_user[:browsers] = user.sessions.map {|s| s[:browser]}.map {|b| b.upcase}.sort.join(', ')
-      report_result_per_user[:usedIE] = user.sessions.map{|s| s[:browser]}.any? { |b| b.upcase =~ /INTERNET EXPLORER/ }
-      report_result_per_user[:alwaysUsedChrome] = user.sessions.map{|s| s[:browser]}.all? { |b| b.upcase =~ /CHROME/ }
+      report_result_per_user[:totalTime] = "#{session_time.sum} min."
+      report_result_per_user[:longestSession] ="#{session_time.max} min."
+      report_result_per_user[:browsers] = user_session_browsers.sort.join(', ')
+      report_result_per_user[:usedIE] = user_session_browsers.any? { |b| b =~ IE_REGEX }
+      report_result_per_user[:alwaysUsedChrome] = user_session_browsers.all? { |b| b =~ CHROME_REGEX }
       report_result_per_user[:dates] = user.sessions.sort_by!{ |s| s[:date] }.reverse!.map{ |s| Date.iso8601(s[:date]) } 
-      report[:usersStats][user.user_key] = report[:usersStats][user.user_key].merge!(report_result_per_user)
+      report[:usersStats][user.user_key].merge!(report_result_per_user)
       # byebug
     end
   end
 
   def work(file)
-    # puts  "rss before iteration: #{print_memory_usage}"
-    # report_mem_prof = MemoryProfiler.report do
-    # old_stat = GC.stat
-    # puts "old_stat: #{old_stat}"
-  
-    # GC::Profiler.enable
-    # GC::Tracer.start_logging('gc_tracer.csv') do
-    # result = RubyProf.profile do
-    # StackProf.run(mode: :object, out: 'tmp/stackprof.dump', raw: true) do
-    time = Benchmark.realtime do
+   
       users = []
       user_sessions = []
       total_sessions = 0
@@ -103,14 +103,14 @@ class Parser
       unique_browsers = []
       File.open(file, 'r').each do |f|
         f.each_line do |line|
-          cols = line.split(',')
+          
       
-          if cols[0] == 'user'
+          if line.start_with?('user')
+            cols = line.split(',')
             self.user = parse_user(cols)
             users << user
-          end
-          # byebug
-          if cols[0] == 'session'
+          elsif line.start_with?('session')
+            cols = line.split(',')
             session = parse_session(cols)
             sessions[user[:id]] ||= []
             sessions[user[:id]] << session if session[:user_id] == user[:id]
@@ -155,12 +155,10 @@ class Parser
 
       report[:usersStats] = {}
 
-      # Статистика по пользователям
       users_objects = []
       
       users.each do |user|
         user_sessions = sessions[user[:id]]
-        # byebug
         users_objects << User.new(attributes: user, sessions: user_sessions)
       end
         
@@ -172,44 +170,56 @@ class Parser
       File.write('result.json', "#{report.to_json}\n")
       # mem = GetProcessMem.new
       # puts mem.inspect
-
-    end
-
-    puts "Finish in #{time.round(2)}"
-    # end
-    # report_mem_prof.pretty_print(scale_bytes: true)
-    #  puts  "rss after iteration: #{print_memory_usage}"
-
-    # end
-  
-    # StackProf::Report.new(profile_data).print_text
-    # StackProf::Report.new(profile_data).print_method(/work/)
-    # StackProf::Report.new(profile_data).print_graphviz
-    # end
-
-    # printer = RubyProf::FlatPrinter.new(result)
-    # printer.print(File.open("ruby_prof_flat_allocations_profile.txt", "w+"))
-
-    # printer = RubyProf::DotPrinter.new(result)
-    # printer.print(File.open("ruby_prof_allocations_profile_4.dot", "w+"))
-
-    # printer = RubyProf::GraphHtmlPrinter.new(result)
-    # printer.print(File.open("ruby_prof_graph_allocations_profile_4.html", "w+"))
-
-    
-    # end
-    # GC::Profiler.report
-    # GC::Profiler.disable
-    
-    # new_stat = GC.stat
-    # puts "new_stat: #{new_stat}"
-  
-  end
-
-  private
-
-  #amount of RAM, allocated for the process currently
-  def print_memory_usage
-    "%d MB" % (`ps -o rss= -p #{Process.pid}`.to_i / 1024)
-  end
+  end 
 end
+
+parser = Parser.new()
+# print_memory_usage = "%d MB" % (`ps -o rss= -p #{Process.pid}`.to_i / 1024)
+#  puts  "rss before iteration: #{print_memory_usage}"
+#  report_mem_prof = MemoryProfiler.report do
+# old_stat = GC.stat
+# puts "old_stat: #{old_stat}"
+
+# GC::Profiler.enable
+# GC::Tracer.start_logging('gc_tracer.csv') do
+# result = RubyProf.profile do
+# StackProf.run(mode: :object, out: 'tmp/stackprof.dump', raw: true) do
+time = Benchmark.realtime do
+  parser.work('data_small.txt')
+end
+
+puts "Finish in #{time.round(2)}"
+# end
+
+
+
+
+# report_mem_prof.pretty_print(scale_bytes: true)
+# puts  "rss after iteration: #{print_memory_usage}"
+
+# end
+
+# StackProf::Report.new(profile_data).print_text
+# StackProf::Report.new(profile_data).print_method(/work/)
+# StackProf::Report.new(profile_data).print_graphviz
+# end
+
+# printer = RubyProf::FlatPrinter.new(result)
+# printer.print(File.open("ruby_prof_flat_allocations_profile_5.txt", "w+"))
+
+# printer = RubyProf::DotPrinter.new(result)
+# printer.print(File.open("ruby_prof_allocations_profile_4.dot", "w+"))
+
+# printer = RubyProf::GraphHtmlPrinter.new(result)
+# printer.print(File.open("ruby_prof_graph_allocations_profile_5.html", "w+"))
+
+
+# end
+# GC::Profiler.report
+# GC::Profiler.disable
+
+# new_stat = GC.stat
+# puts "new_stat: #{new_stat}"
+
+ #amount of RAM, allocated for the process currently
+ 
