@@ -1,0 +1,61 @@
+Original:
+  Calculating -------------------------------------
+    5k      1.996  (± 0.0%) i/s -     10.000  in   5.039163s
+   10k      0.417  (± 0.0%) i/s -      3.000  in   7.203067s
+   20k      0.103  (± 0.0%) i/s -      1.000  in   9.695104s
+   30k      0.041  (± 0.0%) i/s -      1.000  in  24.452029s
+   40k      0.023  (± 0.0%) i/s -      1.000  in  42.555962s
+
+  Comparison:
+    5k:        2.0 i/s
+   10k:        0.4 i/s - 4.78x  slower
+   20k:        0.1 i/s - 19.35x  slower
+   30k:        0.0 i/s - 48.80x  slower
+   40k:        0.0 i/s - 84.93x  slower
+
+Test set 10k of lines
+Confidense 95%
+
+Initial value:
+  0.482 ips
+
+Select block optimization:
+  6.851 ips
+
+Optimize browsers calculation:
+  12.817 ips
+
+Replace regex matching to include?:
+  13.182 ips
+
+Replace merge! with key inserting in collect_stats_from_users block:
+  14.591 ips
+
+Replace cols[0] == 'user' with start_with?('u'):
+  14.920 ips
+
+Use oj for JSON generation
+  16.136 ips
+
+Remove user object:
+  17.292 ips
+
+Group session aggregation loops into one:
+  19.490 ips
+
+# Increase confidence to 99%
+
+Use variable usersStats = report[:usersStats] in collect_stats_from_users
+  19.415 ips
+
+Merge session counting with another aggs:
+  20.184 ips
+
+Remove user_id and session_id from session hash:
+  20.771 ips
+
+Replace session hash with 3-fields object:
+  21.182 ips
+
+Replace user hash with 3-fields object:
+  21.335 ips

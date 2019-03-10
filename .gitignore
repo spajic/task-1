@@ -1,4 +1,6 @@
 .DS_Store
 *.json
+*.html
 massif.out.*
+data/data_large.txt
 tmp/*
