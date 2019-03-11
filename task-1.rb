@@ -153,53 +153,17 @@ class Parser
   end 
 end
 
-parser = Parser.new()
-# print_memory_usage = "%d MB" % (`ps -o rss= -p #{Process.pid}`.to_i / 1024)
-#  puts  "rss before iteration: #{print_memory_usage}"
-#  report_mem_prof = MemoryProfiler.report do
-# old_stat = GC.stat
-# puts "old_stat: #{old_stat}"
+######## To use program:
+# irb
+# load 'task-1.rb'
+# parser = Parser.new()
 
-# GC::Profiler.enable
-# GC::Tracer.start_logging('gc_tracer.csv') do
-# result = RubyProf.profile do
-# StackProf.run(mode: :object, out: 'tmp/stackprof.dump', raw: true) do
-time = Benchmark.realtime do
-  parser.work('data_large.txt')
-end
-
-puts "Finish in #{time.round(2)}"
+# time = Benchmark.realtime do
+#   parser.work('data_large.txt')
 # end
 
+# puts "Finish in #{time.round(2)}"
 
 
 
-# report_mem_prof.pretty_print(scale_bytes: true)
-# puts  "rss after iteration: #{print_memory_usage}"
-
-# end
-
-# StackProf::Report.new(profile_data).print_text
-# StackProf::Report.new(profile_data).print_method(/work/)
-# StackProf::Report.new(profile_data).print_graphviz
-# end
-
-# printer = RubyProf::FlatPrinter.new(result)
-# printer.print(File.open("ruby_prof_flat_allocations_profile_5.txt", "w+"))
-
-# printer = RubyProf::DotPrinter.new(result)
-# printer.print(File.open("ruby_prof_allocations_profile_4.dot", "w+"))
-
-# printer = RubyProf::GraphHtmlPrinter.new(result)
-# printer.print(File.open("ruby_prof_graph_allocations_profile_5.html", "w+"))
-
-
-# end
-# GC::Profiler.report
-# GC::Profiler.disable
-
-# new_stat = GC.stat
-# puts "new_stat: #{new_stat}"
-
- #amount of RAM, allocated for the process currently
  
