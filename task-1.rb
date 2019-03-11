@@ -116,7 +116,8 @@ def work
 
   # Выбираем самую длинную сессию пользователя
   collect_stats_from_users(report, users_objects) do |user|
-    { 'longestSession' => "#{user.sessions.max { |s| s['time'].to_i }} min." }
+    longest_session = user.sessions.max { |a,b| a['time'].to_i <=> b['time'].to_i }
+    { 'longestSession' => "#{longest_session['time']} min." }
   end
 
   # Браузеры пользователя через запятую
