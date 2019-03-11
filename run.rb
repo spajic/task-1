@@ -13,16 +13,16 @@ if ARGV[0] == 'profile'
   # end
   # report.pretty_print(color_output: true, scale_bytes: true)
 
-  require 'stackprof'
-  StackProf.run(mode: :wall, out: 'tmp/stackprof.dump', raw: true) do
-    work(data_file)
-  end
-
-  # require 'ruby-prof'
-  # RubyProf.measure_mode = RubyProf::WALL_TIME
-  # result = RubyProf.profile do
+  # require 'stackprof'
+  # StackProf.run(mode: :wall, out: 'tmp/stackprof.dump', raw: true) do
   #   work(data_file)
   # end
+
+  require 'ruby-prof'
+  RubyProf.measure_mode = RubyProf::MEMORY
+  result = RubyProf.profile do
+    work(data_file)
+  end
   # printer = RubyProf::FlatPrinter.new(result)
   # printer.print(STDOUT)
 
@@ -34,8 +34,8 @@ if ARGV[0] == 'profile'
   #   printer.print(f, threshold: 0, min_percent: 0, title: "ruby_prof WALL_TIME")
   # end
 
-  # printer = RubyProf::CallTreePrinter.new(result)
-  # printer.print()
+  printer = RubyProf::CallTreePrinter.new(result)
+  printer.print()
 elsif ARGV[0] == 'benchmark'
   puts 'Benchmarking...'
 

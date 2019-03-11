@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'pry', '~> 0.12'
 gem 'minitest', '~> 5.11'
 gem 'oj', '~> 3.7'
+gem 'progress_bar', '~> 1.3'
 
 # Profiling
 gem 'benchmark-ips'

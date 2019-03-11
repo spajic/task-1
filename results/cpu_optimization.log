@@ -59,3 +59,18 @@ Replace session hash with 3-fields object:
 
 Replace user hash with 3-fields object:
   21.335 ips
+
+# Memory optimization
+New metrics initial values:
+  29066 allocations per 40k file
+  28.522816 sec per large file
+
+Stream processing:
+  26344 allocations
+  20.479 ips
+  21.892883 sec
+
+Do not recreating user and session objects
+  26079 allocations
+  21.580 ips
+  20.584606 sec
