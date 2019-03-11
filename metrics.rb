@@ -5,6 +5,10 @@ def allocated_memory
   `ps -o rss= -p #{Process.pid}`.to_i / 1024
 end
 
+def mac_os?
+  RUBY_PLATFORM.match?(/darwin/)
+end
+
 from = 50_000
 to   = 55_000
 step = 1000
@@ -13,7 +17,12 @@ times = []
 allocations = []
 
 (from..to).step(step) do |lines_num|
-  system "zcat data_large.txt.gz | head -n #{lines_num} > data.txt"
+
+  if mac_os?
+    system "zcat < data_large.txt.gz | head -n #{lines_num} > data.txt"
+  else
+    system "zcat data_large.txt.gz | head -n #{lines_num} > data.txt"
+  end
 
   time = Benchmark.realtime do
     memory = allocated_memory
