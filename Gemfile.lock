@@ -26,7 +26,7 @@ DEPENDENCIES
   kalibera
   memory_profiler
   minitest (~> 5.11)
-  oj
+  oj (~> 3.7)
   pry (~> 0.12)
   ruby-prof
   stackprof
