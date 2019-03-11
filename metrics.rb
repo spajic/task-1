@@ -9,8 +9,8 @@ def mac_os?
   RUBY_PLATFORM.match?(/darwin/)
 end
 
-from = 550_000
-to   = 551_000
+from = 50_000
+to   = 55_000
 step = 1000
 
 times = []
