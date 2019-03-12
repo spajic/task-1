@@ -74,3 +74,13 @@ Do not recreating user and session objects
   26079 allocations
   21.580 ips
   20.584606 sec
+
+Stream JSON generation:
+  21778 allocations
+  19.940 ips
+  15.282201 sec
+
+Remove duplication of splitting!!!
+  15510 allocations
+  25.237 ips
+  12.547515 sec

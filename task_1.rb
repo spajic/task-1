@@ -2,9 +2,8 @@ require 'set'
 require 'oj'
 require 'progress_bar'
 
-SHOW_PROGRESS = ARGV[0] == nil
-COLUMN = ','.freeze
-COLUMN_SPACE = ', '.freeze
+COMMA = ','.freeze
+COMMA_SPACE = ', '.freeze
 SPACE = ' '.freeze
 USER = 'u'.freeze
 SESSION = 's'.freeze
@@ -33,7 +32,7 @@ class Session
 end
 
 def parse_user(str, user)
-  fields = str.split(COLUMN)
+  fields = str.split(COMMA)
 
   user.id = fields[1]
   user.key = fields[2] + SPACE + fields[3]
@@ -46,7 +45,7 @@ def parse_user(str, user)
 end
 
 def parse_session(str, session)
-  fields = str.split(COLUMN)
+  fields = str.split(COMMA)
 
   session.browser = fields[3].upcase!
   session.time = fields[4].to_i
@@ -101,16 +100,24 @@ class UserReport
     @dates << session.date
   end
 
-  def add_user_to_report(users_stats, user)
-    user_report = {}
-    user_report[:sessionsCount] = user_sessions_count
-    user_report[:totalTime] = total.to_s << MIN
-    user_report[:longestSession] = max.to_s << MIN
-    user_report[:browsers] = browsers.sort!.join(COLUMN_SPACE)
-    user_report[:usedIE] = use_ie
-    user_report[:alwaysUsedChrome] = always_chrome
-    user_report[:dates] = dates.sort!.reverse!
-    users_stats[user.key] = user_report
+  def add_user_to_report(user, report_file, last_item)
+    report_file.write("\"#{user.key}\":")
+
+    user_report = {
+      sessionsCount: user_sessions_count,
+      totalTime: total.to_s << MIN,
+      longestSession: max.to_s << MIN,
+      browsers: browsers.sort!.join(COMMA_SPACE),
+      usedIE: use_ie,
+      alwaysUsedChrome: always_chrome,
+      dates: dates.sort!.reverse!,
+    }
+
+    report_file.write(Oj.dump(user_report, mode: :compat))
+
+    if !last_item
+      report_file.write(COMMA)
+    end
 
     reset
   end
@@ -128,77 +135,85 @@ class UserReport
   end
 end
 
-def work(file_name = 'data.txt')
+def work(file_name = 'data.txt', show_progress = false)
   user = nil
   session = nil
   users_count = 0
 
   unique_browsers = Set.new
   total_sessions = 0
-  users_stats = {}
   user_report = UserReport.new
   bytes_read = 0
 
-  bar = SHOW_PROGRESS ? ProgressBar.new(File.size(file_name) / 1024.0) : nil
+  bar = show_progress ? ProgressBar.new(File.size(file_name) / 1024.0) : nil
 
-  File.readlines(file_name).each do |line|
-    cols = line.split(COLUMN)
+  File.open('result.json', 'w') do |report_file|
+    report_file.write('{"usersStats":{')
 
-    if cols[0].start_with?(USER)
-      if user != nil
-        user_report.add_user_to_report(users_stats, user)
+    File.readlines(file_name).each do |line|
+      if line.start_with?(USER)
+        if user != nil
+          user_report.add_user_to_report(user, report_file, false)
+        else
+          user = User.new(nil, nil)
+          session = Session.new(nil, nil, nil)
+        end
+
+        user = parse_user(line, user)
+        users_count += 1
+
+        if show_progress
+          bar.increment!(bytes_read / 1024.0)
+          bytes_read = 0
+        end
+
+        # if users_count % 1000 == 0
+        #   puts "%d MB" % (`ps -o rss= -p #{Process.pid}`.to_i / 1024.0)
+        # end
       else
-        user = User.new(nil, nil)
-        session = Session.new(nil, nil, nil)
+        session = parse_session(line, session)
+        unique_browsers << session.browser
+        total_sessions += 1
+        user_report.handle_session(session)
       end
 
-      user = parse_user(line, user)
-      users_count += 1
-
-      if SHOW_PROGRESS
-        bar.increment!(bytes_read / 1024.0)
-        bytes_read = 0
-      end
-
-      # puts "%d MB" % (`ps -o rss= -p #{Process.pid}`.to_i / 1024.0)
-    else
-      session = parse_session(line, session)
-      unique_browsers << session.browser
-      total_sessions += 1
-      user_report.handle_session(session)
+      bytes_read += line.size
     end
 
-    bytes_read += line.size
+    # add lastest user
+    user_report.add_user_to_report(user, report_file, true)
+
+    if show_progress
+      bar.increment!(bytes_read)
+    end
+
+    report_file.write('},')
+
+    # Отчёт в json
+    #   - Сколько всего юзеров +
+    #   - Сколько всего уникальных браузеров +
+    #   - Сколько всего сессий +
+    #   - Перечислить уникальные браузеры в алфавитном порядке через запятую и капсом +
+    #
+    #   - По каждому пользователю
+    #     - сколько всего сессий +
+    #     - сколько всего времени +
+    #     - самая длинная сессия +
+    #     - браузеры через запятую +
+    #     - Хоть раз использовал IE? +
+    #     - Всегда использовал только Хром? +
+    #     - даты сессий в порядке убывания через запятую +
+
+    report = {
+      totalUsers: users_count,
+      uniqueBrowsersCount: unique_browsers.count,
+      totalSessions: total_sessions,
+      allBrowsers: unique_browsers.to_a.sort.join(COMMA),
+    }
+
+    stats_line = Oj.dump(report, mode: :compat)[1..-2]
+
+    report_file.write(stats_line)
+    report_file.write('}')
   end
-
-  # add lastest user
-  user_report.add_user_to_report(users_stats, user)
-
-  if SHOW_PROGRESS
-    bar.increment!(bytes_read)
-  end
-
-  # Отчёт в json
-  #   - Сколько всего юзеров +
-  #   - Сколько всего уникальных браузеров +
-  #   - Сколько всего сессий +
-  #   - Перечислить уникальные браузеры в алфавитном порядке через запятую и капсом +
-  #
-  #   - По каждому пользователю
-  #     - сколько всего сессий +
-  #     - сколько всего времени +
-  #     - самая длинная сессия +
-  #     - браузеры через запятую +
-  #     - Хоть раз использовал IE? +
-  #     - Всегда использовал только Хром? +
-  #     - даты сессий в порядке убывания через запятую +
-
-  report = {}
-  report[:totalUsers] = users_count
-  report[:uniqueBrowsersCount] = unique_browsers.count
-  report[:totalSessions] = total_sessions
-  report[:allBrowsers] = unique_browsers.to_a.sort.join(COLUMN)
-  report[:usersStats] = users_stats
-
-  File.write('result.json', "#{Oj.dump(report, mode: :compat)}\n")
 end

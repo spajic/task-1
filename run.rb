@@ -5,7 +5,7 @@ data_file = ENV.fetch('DATA', 'data/data_40k.txt')
 
 if ARGV[0] == 'profile'
   puts 'Profiling...'
-  GC.disable
+  # GC.disable
 
   # require 'memory_profiler'
   # report = MemoryProfiler.report do
@@ -14,7 +14,7 @@ if ARGV[0] == 'profile'
   # report.pretty_print(color_output: true, scale_bytes: true)
 
   # require 'stackprof'
-  # StackProf.run(mode: :wall, out: 'tmp/stackprof.dump', raw: true) do
+  # StackProf.run(mode: :object, out: 'tmp/stackprof.dump', raw: true) do
   #   work(data_file)
   # end
 
@@ -23,6 +23,7 @@ if ARGV[0] == 'profile'
   result = RubyProf.profile do
     work(data_file)
   end
+
   # printer = RubyProf::FlatPrinter.new(result)
   # printer.print(STDOUT)
 
@@ -43,7 +44,7 @@ elsif ARGV[0] == 'benchmark'
     x.report { work(data_file) }
   end
 else
-  work(data_file)
+  work(data_file, true)
 end
 
  # bundle exec stackprof tmp/stackprof.dump --text --limit 20
