@@ -36,11 +36,6 @@ def parse_user(str, user)
 
   user.id = fields[1]
   user.key = fields[2] + SPACE + fields[3]
-
-  # User.new(
-  #   fields[1], # id
-  #   fields[2] + SPACE + fields[3], # key = first_name + last_name
-  # )
   user
 end
 
@@ -50,15 +45,6 @@ def parse_session(str, session)
   session.browser = fields[3].upcase!
   session.time = fields[4].to_i
   session.date = fields[5].strip
-
-  # Session.new(
-  #   # fields[1] # user_id
-  #   # fields[2] # session_id
-  #   fields[3].upcase!, # browser
-  #   fields[4].to_i, # time
-  #   fields[5].strip, # date
-  # )
-
   session
 end
 

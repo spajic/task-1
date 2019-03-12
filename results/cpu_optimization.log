@@ -60,6 +60,8 @@ Replace session hash with 3-fields object:
 Replace user hash with 3-fields object:
   21.335 ips
 
+# Here I changed ruby version from 2.6.1 to 2.5.1-railsexpress
+
 # Memory optimization
 New metrics initial values:
   29066 allocations per 40k file
@@ -84,3 +86,24 @@ Remove duplication of splitting!!!
   15510 allocations
   25.237 ips
   12.547515 sec
+
+-- Optimize join of user browsers
+
+Ruby 2.6.1 final results:
+  Calculating -------------------------------------
+    5k     51.904  (±17.3%) i/s -    250.000  in   5.007745s
+    10k     24.256  (±12.4%) i/s -    119.000  in   5.027979s
+    20k     14.260  (± 7.0%) i/s -     72.000  in   5.062890s
+    30k      8.745  (±11.4%) i/s -     44.000  in   5.064456s
+    40k      6.990  (± 0.0%) i/s -     35.000  in   5.009650s
+
+  Comparison:
+    5k:       51.9 i/s
+    10k:       24.3 i/s - 2.14x  slower
+    20k:       14.3 i/s - 3.64x  slower
+    30k:        8.7 i/s - 5.94x  slower
+    40k:        7.0 i/s - 7.43x  slower
+
+
+  25.605 ips
+  10.896784 sec
