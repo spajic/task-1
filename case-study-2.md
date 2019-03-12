@@ -62,8 +62,47 @@ C
 * valgrind (tool - massif)
 
 Вот какие проблемы удалось найти и решить
-
+Согласно результатам ruby-prof в режиме cpu:
+```
+ %self      total      self      wait     child     calls  name
+ 23.99      9.674     2.918     0.000     6.756        1   IO#each_line
+  6.89      1.007     0.838     0.000     0.169    48639   Array#map
+  6.74      1.413     0.819     0.000     0.594    89009   <Class::Date>#iso8601
+  6.71      2.488     0.816     0.000     1.672        1   JSON::Ext::Generator::GeneratorMethods::Hash#to_json
+  5.94      2.302     0.722     0.000     1.581    89009   Object#parse_session
+  5.64      3.431     0.685     0.000     2.746    16214   Object#aggregate_user_stats
+```
 ### Находка №1
+Проанализировав исходные данные выяснилось, что даты изначально приходят в нужном формате, поэтому нет нужды создавать Date объект
+Comparison:
+         File: 512Kb:       10.9 i/s
+           File: 1Mb:        5.9 i/s - 1.85x  (± 0.14) slower
+           File: 2Mb:        2.8 i/s - 3.94x  (± 0.57) slower
+           File: 4Mb:        1.4 i/s - 7.90x  (± 1.57) slower
+           File: 8Mb:        0.6 i/s - 16.93x  (± 5.53) slower
+                   with 99.0% confidence
+Фактически мы видим двукратный прирост производительности
+
+### Находка №2
+Также стандартная json библиотека не самая производительная заменив ее на gem oj, мы получили еще небольшой прирост:
+Comparison:
+         File: 512Kb:       12.5 i/s
+           File: 1Mb:        7.0 i/s - 1.78x  (± 0.12) slower
+           File: 2Mb:        3.4 i/s - 3.68x  (± 0.42) slower
+           File: 4Mb:        1.6 i/s - 7.71x  (± 1.27) slower
+           File: 8Mb:        0.8 i/s - 15.36x  (± 3.33) slower
+                   with 99.0% confidence
+
+
+Повторные результаты ruby-prof в режиме cpu:
+```
+ %self      total      self      wait     child     calls  name
+ 37.30      7.743     2.915     0.000     4.828        1   IO#each_line
+ 10.59      1.000     0.828     0.000     0.172    48639   Array#map
+  9.37      1.076     0.732     0.000     0.344    89009   Object#parse_session
+  8.68      2.742     0.678     0.000     2.064    16214   Object#aggregate_user_stats
+  6.25      0.488     0.488     0.000     0.000   105222   String#split
+```
 
 ## Результаты
 В результате проделанной оптимизации наконец удалось обработать файл с данными.

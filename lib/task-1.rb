@@ -2,7 +2,7 @@
 
 require 'json'
 require 'pry'
-require 'date'
+require 'oj'
 #require 'ruby-progressbar'
 
 def parse_user(fields)
@@ -20,7 +20,7 @@ def parse_session(fields)
     session_id: fields[2],
     browser: fields[3].upcase!,
     time: fields[4],
-    date: fields[5],
+    date: fields[5].chomp!,
   }
 end
 
@@ -40,7 +40,7 @@ def aggregate_user_stats(data)
       browsers: browsers.sort!.join(', '),
       usedIE: browsers.any? { |b| b.include?('INTERNET EXPLORER') },
       alwaysUsedChrome: browsers.all? { |b| b.include?('CHROME')},
-      dates: sessions.map{|s| Date.strptime(s[:date], "%Y-%m-%d")}.sort!.reverse.map! { |d| d.iso8601 }
+      dates: sessions.map{|s| s[:date]}.sort!.reverse!
     }
   }
 end
@@ -104,5 +104,5 @@ def work(input: "data.txt", output: "result.json")
   #  bar.finish
   end
 
-  File.open(output, 'w+') { |f| f.puts report.to_json }
+  File.open(output, 'w+') { |f| f.puts Oj.dump(report, mode: :compat) }
 end

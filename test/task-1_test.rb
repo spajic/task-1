@@ -44,6 +44,6 @@ session,2,3,Chrome 20,84,2016-11-25
   def test_memory
     work(input: '../samples/data_2Mb', output: '/dev/null')
     mem_after = GetProcessMem.new
-    assert(mem_after.mb.round(2) < 50)
+    assert(mem_after.mb.round(2) < 55)
   end
 end
