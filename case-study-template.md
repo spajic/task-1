@@ -68,6 +68,25 @@ end
 Время выполнения теста 20_000 ~ 0,5c
 Расход памяти уменьшился в 100 раз.
 
+### Ваша находка №3
+Время выполнения теста при 500_000 ~ 34.57с
+
+users_objects.each do |user|
+    array_time = user.sessions.map { |s| s['time'].to_i }
+    array_browser = user.sessions.map { |s| s['browser'] }
+    user_key = "#{user.attributes['first_name']}" + ' ' + "#{user.attributes['last_name']}"
+    report['usersStats'][user_key] ||= {}
+    report['usersStats'][user_key]['sessionsCount'] = user.sessions.count
+    report['usersStats'][user_key]['totalTime'] = array_time.sum.to_s + ' min.'
+    report['usersStats'][user_key]['longestSession'] = array_time.max.to_s + ' min.'
+    report['usersStats'][user_key]['browsers'] = array_browser.map { |b| b.upcase}.sort.join(', ')
+    report['usersStats'][user_key]['usedIE'] = array_browser.map { |b| b.upcase =~ /INTERNET EXPLORER/ }.include? 0
+    report['usersStats'][user_key]['alwaysUsedChrome'] = user.sessions.map{|s| s['browser']}.all? { |b| b.upcase =~ /CHROME/ }
+    report['usersStats'][user_key]['dates'] = user.sessions.map{|s| s['date'] }.sort.reverse
+end
+
+Время выполнения теста при 500_000 ~ 17с
+Расход памяти уменьшился в 3 раза.
 
 
 ### Ваша находка №X
