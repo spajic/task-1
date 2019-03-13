@@ -4,6 +4,8 @@ require 'json'
 require 'pry'
 require 'date'
 require 'minitest/autorun'
+require 'ruby-prof'
+require 'benchmark'
 
 class User
   attr_reader :attributes, :sessions
@@ -14,24 +16,25 @@ class User
   end
 end
 
+GC.enable_stats
+RubyProf.measure_mode = RubyProf::MEMORY
+
 def parse_user(user)
-  fields = user.split(',')
-  parsed_result = {
-    'id' => fields[1],
-    'first_name' => fields[2],
-    'last_name' => fields[3],
-    'age' => fields[4],
+  {
+    'id' => user[1],
+    'first_name' => user[2],
+    'last_name' => user[3],
+    'age' => user[4],
   }
 end
 
 def parse_session(session)
-  fields = session.split(',')
-  parsed_result = {
-    'user_id' => fields[1],
-    'session_id' => fields[2],
-    'browser' => fields[3],
-    'time' => fields[4],
-    'date' => fields[5],
+  {
+    'user_id' => session[1],
+    'session_id' => session[2],
+    'browser' => session[3],
+    'time' => session[4],
+    'date' => session[5],
   }
 end
 
@@ -44,15 +47,22 @@ def collect_stats_from_users(report, users_objects, &block)
 end
 
 def work
-  file_lines = File.read('data.txt').split("\n")
+  file_lines = File.read('data_large.txt').split("\n")
 
   users = []
   sessions = []
+  sessions_by_id = {}
+  sessions_browsers = []
 
   file_lines.each do |line|
     cols = line.split(',')
-    users = users + [parse_user(line)] if cols[0] == 'user'
-    sessions = sessions + [parse_session(line)] if cols[0] == 'session'
+    users << parse_user(cols) if cols[0] == 'user'
+    if cols[0] == 'session'
+      sessions_browsers << cols[3]
+      sessions_by_id[cols[1]] ||= {}
+      sessions_by_id[cols[1]]['sessions'] ||= []
+      sessions_by_id[cols[1]]['sessions'] << parse_session(cols)
+    end
   end
 
   # Отчёт в json
@@ -75,19 +85,12 @@ def work
   report[:totalUsers] = users.count
 
   # Подсчёт количества уникальных браузеров
-  uniqueBrowsers = []
-  sessions.each do |session|
-    browser = session['browser']
-    uniqueBrowsers += [browser] if uniqueBrowsers.all? { |b| b != browser }
-  end
+  report['uniqueBrowsersCount'] = sessions_browsers.uniq.count
 
-  report['uniqueBrowsersCount'] = uniqueBrowsers.count
-
-  report['totalSessions'] = sessions.count
+  report['totalSessions'] = sessions_browsers.count
 
   report['allBrowsers'] =
-    sessions
-      .map { |s| s['browser'] }
+    sessions_browsers
       .map { |b| b.upcase }
       .sort
       .uniq
@@ -98,9 +101,9 @@ def work
 
   users.each do |user|
     attributes = user
-    user_sessions = sessions.select { |session| session['user_id'] == user['id'] }
+    user_sessions = sessions_by_id[user['id']]['sessions']
     user_object = User.new(attributes: attributes, sessions: user_sessions)
-    users_objects = users_objects + [user_object]
+    users_objects << user_object
   end
 
   report['usersStats'] = {}
@@ -174,3 +177,4 @@ session,2,3,Chrome 20,84,2016-11-25
     assert_equal expected_result, File.read('result.json')
   end
 end
+
