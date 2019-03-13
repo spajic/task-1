@@ -12,7 +12,7 @@
 Я решил исправить эту проблему, оптимизировав эту программу.
 
 ## Формирование метрики
-Для того, чтобы понимать, дают ли мои изменения положительный эффект на быстродействие программы я придумал использовать такую метрику: *тут ваша метрика*
+Для того, чтобы понимать, дают ли мои изменения положительный эффект на быстродействие программы я придумал использовать такую метрику: Время выполнения программы + Расход памяти
 
 ## Гарантия корректности работы оптимизированной программы
 Программа поставлялась с тестом. Выполнение этого теста позволяет не допустить изменения логики программы при оптимизации.
@@ -44,7 +44,8 @@ end
 Расход памяти уменьшился в 4 раза.
 
 ### Ваша находка №2
-Время выполнения теста при 10_000 ~ 10c, при 20_000 ~ 40c
+Время выполнения программы 10_000 ~ 10c, при 20_000 ~ 40c
+Убираем перебор огромного массива sessions для создания User.new
 
 file_lines.each do |line|
   ***
@@ -65,38 +66,36 @@ end
 
 + модифицируем код под данную логику
 
-Время выполнения теста 20_000 ~ 0,5c
+Время выполнения программы 20_000 ~ 0,5c
 Расход памяти уменьшился в 100 раз.
 
 ### Ваша находка №3
-Время выполнения теста при 500_000 ~ 34.57с
+Время выполнения программы при 500_000 ~ 34.57с
+
+Метод collect_stats_from_users вызывается 7 раз и внутри себя прогоняет список Users каждый раз.
++ Некоторые методы формирования хеша съедали память
+Меняем на:
 
 users_objects.each do |user|
-    array_time = user.sessions.map { |s| s['time'].to_i }
-    array_browser = user.sessions.map { |s| s['browser'] }
-    user_key = "#{user.attributes['first_name']}" + ' ' + "#{user.attributes['last_name']}"
-    report['usersStats'][user_key] ||= {}
-    report['usersStats'][user_key]['sessionsCount'] = user.sessions.count
-    report['usersStats'][user_key]['totalTime'] = array_time.sum.to_s + ' min.'
-    report['usersStats'][user_key]['longestSession'] = array_time.max.to_s + ' min.'
-    report['usersStats'][user_key]['browsers'] = array_browser.map { |b| b.upcase}.sort.join(', ')
-    report['usersStats'][user_key]['usedIE'] = array_browser.map { |b| b.upcase =~ /INTERNET EXPLORER/ }.include? 0
-    report['usersStats'][user_key]['alwaysUsedChrome'] = user.sessions.map{|s| s['browser']}.all? { |b| b.upcase =~ /CHROME/ }
-    report['usersStats'][user_key]['dates'] = user.sessions.map{|s| s['date'] }.sort.reverse
+  array_time = user.sessions.map { |s| s['time'].to_i }
+  array_browser = user.sessions.map { |s| s['browser'] }
+  user_key = "#{user.attributes['first_name']}" + ' ' + "#{user.attributes['last_name']}"
+  report['usersStats'][user_key] ||= {}
+  report['usersStats'][user_key]['sessionsCount'] = user.sessions.count
+  report['usersStats'][user_key]['totalTime'] = array_time.sum.to_s + ' min.'
+  report['usersStats'][user_key]['longestSession'] = array_time.max.to_s + ' min.'
+  report['usersStats'][user_key]['browsers'] = array_browser.map { |b| b.upcase}.sort.join(', ')
+  report['usersStats'][user_key]['usedIE'] = array_browser.map { |b| b.upcase =~ /INTERNET EXPLORER/ }.include? 0
+  report['usersStats'][user_key]['alwaysUsedChrome'] = user.sessions.map{|s| s['browser']}.all? { |b| b.upcase =~ /CHROME/ }
+  report['usersStats'][user_key]['dates'] = user.sessions.map{|s| s['date'] }.sort.reverse
 end
 
-Время выполнения теста при 500_000 ~ 17с
+Время выполнения программы при 500_000 ~ 17с
 Расход памяти уменьшился в 3 раза.
-
-
-### Ваша находка №X
-О вашей находке №X
 
 ## Результаты
 В результате проделанной оптимизации наконец удалось обработать файл с данными.
-Удалось улучшить метрику системы с *того, что у вас было в начале, до того, что получилось в конце*
-
-*Какими ещё результами можете поделиться*
+Удалось улучшить метрику системы с не работающей программы, до программы, которая выполняется за 145с и расходует ~ 2,5 гб памяти
 
 ## Защита от регресса производительности
-Для защиты от потери достигнутого прогресса при дальнейших изменениях программы сделано *то, что вы для этого сделали*
+Для защиты от потери достигнутого прогресса при дальнейших изменениях программы все методы перебора разбил на маленькие части используя "each_slice"

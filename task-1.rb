@@ -42,18 +42,19 @@ def work
   file_lines = File.read('data_large.txt').split("\n")
 
   users = []
-  sessions = []
   sessions_by_id = {}
   sessions_browsers = []
 
-  file_lines.each do |line|
-    cols = line.split(',')
-    users << parse_user(cols) if cols[0] == 'user'
-    if cols[0] == 'session'
-      sessions_browsers << cols[3]
-      sessions_by_id[cols[1]] ||= {}
-      sessions_by_id[cols[1]]['sessions'] ||= []
-      sessions_by_id[cols[1]]['sessions'] << parse_session(cols)
+  file_lines.each_slice(10000) do |line_slice|
+    line_slice.each do |line|
+      cols = line.split(',')
+      users << parse_user(cols) if cols[0] == 'user'
+      if cols[0] == 'session'
+        sessions_browsers << cols[3]
+        sessions_by_id[cols[1]] ||= {}
+        sessions_by_id[cols[1]]['sessions'] ||= []
+        sessions_by_id[cols[1]]['sessions'] << parse_session(cols)
+      end
     end
   end
 
@@ -91,27 +92,31 @@ def work
   # Статистика по пользователям
   users_objects = []
 
-  users.each do |user|
-    attributes = user
-    user_sessions = sessions_by_id[user['id']]['sessions']
-    user_object = User.new(attributes: attributes, sessions: user_sessions)
-    users_objects << user_object
+  users.each_slice(500) do |user_slice|
+    user_slice.each do |user|
+      attributes = user
+      user_sessions = sessions_by_id[user['id']]['sessions']
+      user_object = User.new(attributes: attributes, sessions: user_sessions)
+      users_objects << user_object
+    end
   end
 
   report['usersStats'] = {}
 
-  users_objects.each do |user|
-    array_time = user.sessions.map { |s| s['time'].to_i }
-    array_browser = user.sessions.map { |s| s['browser'] }
-    user_key = "#{user.attributes['first_name']}" + ' ' + "#{user.attributes['last_name']}"
-    report['usersStats'][user_key] ||= {}
-    report['usersStats'][user_key]['sessionsCount'] = user.sessions.count
-    report['usersStats'][user_key]['totalTime'] = array_time.sum.to_s + ' min.'
-    report['usersStats'][user_key]['longestSession'] = array_time.max.to_s + ' min.'
-    report['usersStats'][user_key]['browsers'] = array_browser.map { |b| b.upcase}.sort.join(', ')
-    report['usersStats'][user_key]['usedIE'] = array_browser.map { |b| b.upcase =~ /INTERNET EXPLORER/ }.include? 0
-    report['usersStats'][user_key]['alwaysUsedChrome'] = user.sessions.map{|s| s['browser']}.all? { |b| b.upcase =~ /CHROME/ }
-    report['usersStats'][user_key]['dates'] = user.sessions.map{|s| s['date'] }.sort.reverse
+  users_objects.each_slice(500) do |user_slice|
+    user_slice.each do |user|
+      array_time = user.sessions.map { |s| s['time'].to_i }
+      array_browser = user.sessions.map { |s| s['browser'] }
+      user_key = "#{user.attributes['first_name']}" + ' ' + "#{user.attributes['last_name']}"
+      report['usersStats'][user_key] ||= {}
+      report['usersStats'][user_key]['sessionsCount'] = user.sessions.count
+      report['usersStats'][user_key]['totalTime'] = array_time.sum.to_s + ' min.'
+      report['usersStats'][user_key]['longestSession'] = array_time.max.to_s + ' min.'
+      report['usersStats'][user_key]['browsers'] = array_browser.map { |b| b.upcase}.sort.join(', ')
+      report['usersStats'][user_key]['usedIE'] = array_browser.map { |b| b.upcase =~ /INTERNET EXPLORER/ }.include? 0
+      report['usersStats'][user_key]['alwaysUsedChrome'] = user.sessions.map{|s| s['browser']}.all? { |b| b.upcase =~ /CHROME/ }
+      report['usersStats'][user_key]['dates'] = user.sessions.map{|s| s['date'] }.sort.reverse
+    end
   end
   File.write('result.json', "#{report.to_json}\n")
 end
@@ -147,5 +152,3 @@ session,2,3,Chrome 20,84,2016-11-25
     assert_equal expected_result, File.read('result.json')
   end
 end
-
-
