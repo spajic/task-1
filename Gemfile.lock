@@ -42,7 +42,9 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.4.0)
+    ruby-prof (0.17.0)
     ruby-progressbar (1.10.0)
+    stackprof (0.2.12)
     unicode-display_width (1.4.1)
 
 PLATFORMS
@@ -53,6 +55,8 @@ DEPENDENCIES
   pry-byebug
   rspec
   rubocop
+  ruby-prof
+  stackprof
 
 BUNDLED WITH
    1.16.6

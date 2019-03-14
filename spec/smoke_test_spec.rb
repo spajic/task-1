@@ -24,10 +24,10 @@ RSpec.describe 'Dummy' do
     let!(:time) do
       Benchmark.realtime do
         subject
-      end.round(2)
+      end.round(4)
     end
 
-    let(:not_slowly) { time < 3.5 }
+    let(:not_slowly) { time < 0.4 }
 
     it { expect(not_slowly).to be true }
   end
