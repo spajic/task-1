@@ -92,15 +92,12 @@ def always_used_chrome(browsers)
 end
 
 def dates(user)
-  # binding.pry
-  # user.sessions.map{|s| Date.parse(s['date']).iso8601 }.sort.reverse
   user.sessions.map{|s| s['date'].tr("\n", '') }.sort.reverse
 end
 
 def parse_file(file)
   users = []
   sessions = []
-  # file.each do |line|
   File.readlines(file).each do |line|
     cols = line.split(',')
     users << parse_user(line) if cols[0] == 'user'
@@ -140,7 +137,6 @@ def find_all_browsers(sessions)
 end
 
 def work(file='data.txt')
-  # file_lines = File.read(file).split("\n")
 
   users, sessions = parse_file(file)
 
