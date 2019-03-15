@@ -6,11 +6,13 @@ require 'pry'
 require 'date'
 
 class User
-  attr_reader :attributes, :sessions
+  attr_reader :attributes, :sessions, :id, :full_name
 
-  def initialize(attributes:, sessions:)
+  def initialize(attributes:, sessions:, id:, full_name:)
     @attributes = attributes
     @sessions = sessions
+    @id = id
+    @full_name = full_name
   end
 end
 
@@ -18,9 +20,7 @@ def parse_user(user)
   fields = user.split(',')
   parsed_result = {
     'id' => fields[1],
-    'first_name' => fields[2],
-    'last_name' => fields[3],
-    'age' => fields[4],
+    'full_name' => fields[2] + ' ' + fields[3],
   }
 end
 
@@ -35,11 +35,11 @@ def parse_session(session)
   }
 end
 
-def collect_stats_from_users(report, users_objects) #, &block)
+def collect_stats_from_users(report, users_objects)
   users_objects.each do |user|
-    user_key = "#{user.attributes['first_name']}" + ' ' + "#{user.attributes['last_name']}"
-    report['usersStats'][user_key] ||= {}
-    report['usersStats'][user_key] = report['usersStats'][user_key].merge(calc_stat(user))
+    user_key = user.full_name
+    report['usersStats'][user_key] = {}
+    report['usersStats'][user_key] = calc_stat(user)
   end
 end
 
@@ -63,7 +63,7 @@ def sessions_count(user)
 end
 
 def time_from_sesions(user)
-  user.sessions.map {|s| s['time']}.map {|t| t.to_i}
+  user.sessions.map {|s| s['time'].to_i }
 end
 
 def total_time(time)
@@ -75,7 +75,7 @@ def longest_session(time)
 end
 
 def browsers_list(user)
-  user.sessions.map {|s| s['browser']}.map {|b| b.upcase}.sort
+  user.sessions.map {|s| s['browser'].upcase }.sort
 end
 
 def browsers(browsers)
@@ -87,25 +87,58 @@ def used_ie(browsers)
 end
 
 def always_used_chrome(browsers)
-  # browsers.uniq.count == 1 && browsers.first =~ /CHROME/
   browsers.all? { |b| b.upcase =~ /CHROME/ }
 end
 
 def dates(user)
-  user.sessions.map{|s| s['date']}.map {|d| Date.parse(d)}.sort.reverse.map { |d| d.iso8601 }
+  user.sessions.map{|s| Date.parse(s['date']).iso8601 }.sort.reverse
+end
+
+def parse_file(file)
+  users = []
+  sessions = []
+  file.each do |line|
+    cols = line.split(',')
+    users << parse_user(line) if cols[0] == 'user'
+    sessions << parse_session(line) if cols[0] == 'session'
+  end
+  [users, sessions]
+end
+
+def count_browsers(sessions)
+  browsers = []
+  sessions.each do |session|
+    browsers << session['browser']
+  end
+  browsers.uniq
+end
+
+def create_users_objects(users, sessions_by_user)
+  users_objects = []
+  users.each do |user|
+    attributes = user
+    id = user['id']
+    full_name = user['full_name']
+    user_sessions = sessions_by_user[id]
+    user_object = User.new(attributes: attributes, sessions: user_sessions, id: id, full_name: full_name)
+    users_objects << user_object
+  end
+  users_objects
+end
+
+def find_all_browsers(sessions)
+  sessions
+    .map { |s| s['browser'] }
+    .map { |b| b.upcase }
+    .sort
+    .uniq
+    .join(',')
 end
 
 def work(file='data.txt')
   file_lines = File.read(file).split("\n")
 
-  users = []
-  sessions = []
-
-  file_lines.each do |line|
-    cols = line.split(',')
-    users = users + [parse_user(line)] if cols[0] == 'user'
-    sessions = sessions + [parse_session(line)] if cols[0] == 'session'
-  end
+  users, sessions = parse_file(file_lines)
 
   # Отчёт в json
   #   - Сколько всего юзеров +
@@ -127,36 +160,18 @@ def work(file='data.txt')
   report[:totalUsers] = users.count
 
   # Подсчёт количества уникальных браузеров
-  uniqueBrowsers = []
-  sessions.each do |session|
-    browser = session['browser']
-    uniqueBrowsers += [browser] if uniqueBrowsers.all? { |b| b != browser }
-  end
+  uniqueBrowsers = count_browsers(sessions)
 
   report['uniqueBrowsersCount'] = uniqueBrowsers.count
 
   report['totalSessions'] = sessions.count
 
-  report['allBrowsers'] =
-    sessions
-      .map { |s| s['browser'] }
-      .map { |b| b.upcase }
-      .sort
-      .uniq
-      .join(',')
-
-  # Статистика по пользователям
-  users_objects = []
+  report['allBrowsers'] = find_all_browsers(sessions)
 
   sessions_by_user = sessions.group_by{|h| h["user_id"]}
   sessions_by_user.default = []
 
-  users.each do |user|
-    attributes = user
-    user_sessions = sessions_by_user[user['id']]
-    user_object = User.new(attributes: attributes, sessions: user_sessions)
-    users_objects = users_objects + [user_object]
-  end
+  users_objects = create_users_objects(users, sessions_by_user)
 
   report['usersStats'] = {}
 
