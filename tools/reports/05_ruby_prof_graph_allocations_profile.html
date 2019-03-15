@@ -1,0 +1,2740 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <style media="all" type="text/css">
+    table {
+      border-collapse: collapse;
+      border: 1px solid #CCC;
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      font-size: 9pt;
+      line-height: normal;
+      width: 100%;
+    }
+
+    th {
+      text-align: center;
+      border-top: 1px solid #FB7A31;
+      border-bottom: 1px solid #FB7A31;
+      background: #FFC;
+      padding: 0.3em;
+      border-left: 1px solid silver;
+    }
+
+    tr.break td {
+      border: 0;
+      border-top: 1px solid #FB7A31;
+      padding: 0;
+      margin: 0;
+    }
+
+    tr.method td {
+      font-weight: bold;
+    }
+
+    td {
+      padding: 0.3em;
+    }
+
+    td:first-child {
+      width: 190px;
+      }
+
+    td {
+      border-left: 1px solid #CCC;
+      text-align: center;
+    }
+
+    .method_name {
+      text-align: left;
+    }
+
+    tfoot td {
+      text-align: left;
+    }
+  </style>
+  </head>
+  <body>
+    <h1>Profile Report: allocations</h1>
+    <!-- Threads Table -->
+    <table>
+      <tr>
+        <th>Thread ID</th>
+        <th>Fiber ID</th>
+        <th>Total Time</th>
+      </tr>
+
+      <tr>
+        <td>70243385093740</td>
+        <td><a href="#70243394107360">70243394107360</a></td>
+        <td>317591.0</td>
+      </tr>
+
+    </table>
+    <!-- Methods Tables -->
+
+      <h2><a name="70243394107360">Thread 70243385093740, Fiber: 70243394107360</a></h2>
+      <table>
+        <thead>
+          <tr>
+            <th>%Total</th>
+            <th>%Self</th>
+            <th>Total</th>
+            <th>Self</th>
+            <th>Wait</th>
+            <th>Child</th>
+            <th>Calls</th>
+            <th class="method_name">Name</th>
+            <th>Line</th>
+          </tr>
+        </thead>
+        <tbody>
+
+               <!-- Parents -->
+
+               <tr class="method">
+                 <td>100.00%</td>
+                 <td>0.00%</td>
+                 <td>317591.00</td>
+                 <td>2.00</td>
+                 <td>0.00</td>
+                 <td>317589.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="[global]_[no method]_70243394107360">
+                      [global]#[no method]
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/start.rb&line=10"title="/Users/vikont/RoR_Project/thinknetica/task-1/start.rb:10">10</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>317589.00</td>
+                   <td>7.00</td>
+                   <td>0.00</td>
+                   <td>317582.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_70243394107360">Object#work</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/start.rb&line=10"title="/Users/vikont/RoR_Project/thinknetica/task-1/start.rb:10">10</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>317589.00</td>
+                   <td>7.00</td>
+                   <td>0.00</td>
+                   <td>317582.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#[global]_[no method]_70243394107360">[global]#[no method]</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/start.rb&line=10"title="/Users/vikont/RoR_Project/thinknetica/task-1/start.rb:10">10</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>100.00%</td>
+                 <td>0.00%</td>
+                 <td>317589.00</td>
+                 <td>7.00</td>
+                 <td>0.00</td>
+                 <td>317582.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Object_work_70243394107360">
+                      Object#work
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=145"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:145">145</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>201541.00</td>
+                   <td>3.00</td>
+                   <td>0.00</td>
+                   <td>201538.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_parse_file_70243394107360">Object#parse_file</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=145"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:145">145</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>69898.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>69898.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_collect_stats_from_users_70243394107360">Object#collect_stats_from_users</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=182"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:182">182</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>29980.00</td>
+                   <td>1.00</td>
+                   <td>0.00</td>
+                   <td>29979.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#JSON__Ext__Generator__GeneratorMethods__Hash_to_json_70243394107360">JSON::Ext::Generator::GeneratorMethods::Hash#to_json</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=184"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:184">184</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>8472.00</td>
+                   <td>1.00</td>
+                   <td>0.00</td>
+                   <td>8471.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_find_all_browsers_70243394107360">Object#find_all_browsers</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=173"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:173">173</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>4609.00</td>
+                   <td>1.00</td>
+                   <td>0.00</td>
+                   <td>4608.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_create_users_objects_70243394107360">Object#create_users_objects</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=178"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:178">178</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>3074.00</td>
+                   <td>2.00</td>
+                   <td>0.00</td>
+                   <td>3072.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Enumerable_group_by_70243394107360">Enumerable#group_by</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=175"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:175">175</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>5.00</td>
+                   <td>5.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#_Class__IO__write_70243394107360">&lt;Class::IO&gt;#write</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=184"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:184">184</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>3.00</td>
+                   <td>1.00</td>
+                   <td>0.00</td>
+                   <td>2.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_count_browsers_70243394107360">Object#count_browsers</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=167"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:167">167</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>3/1539</td>
+                   <td class="method_name"><a href="#Array_count_70243394107360">Array#count</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=171"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:171">171</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Hash_default__70243394107360">Hash#default=</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=176"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:176">176</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/465</td>
+                   <td class="method_name"><a href="#Object_count_browsers_70243394107360">Object#count_browsers</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=114"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:114">114</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>2589.00</td>
+                   <td>1671.00</td>
+                   <td>0.00</td>
+                   <td>918.00</td>
+                   <td>460/465</td>
+                   <td class="method_name"><a href="#Enumerable_all__70243394107360">Enumerable#all?</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>3072.00</td>
+                   <td>3072.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/465</td>
+                   <td class="method_name"><a href="#Enumerable_group_by_70243394107360">Enumerable#group_by</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>4608.00</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>3072.00</td>
+                   <td>1/465</td>
+                   <td class="method_name"><a href="#Object_create_users_objects_70243394107360">Object#create_users_objects</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=122"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:122">122</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>69898.00</td>
+                   <td>3072.00</td>
+                   <td>0.00</td>
+                   <td>66826.00</td>
+                   <td>1/465</td>
+                   <td class="method_name"><a href="#Object_collect_stats_from_users_70243394107360">Object#collect_stats_from_users</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=39"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:39">39</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>191536.00</td>
+                   <td>30000.00</td>
+                   <td>0.00</td>
+                   <td>161536.00</td>
+                   <td>1/465</td>
+                   <td class="method_name"><a href="#Object_parse_file_70243394107360">Object#parse_file</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=104"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:104">104</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>84.74%</td>
+                 <td>11.86%</td>
+                 <td>269114.00</td>
+                 <td>37680.00</td>
+                 <td>0.00</td>
+                 <td>231434.00</td>
+                 <td>465</td>
+                 <td class="method_name">
+                   <a name="Array_each_70243394107360">
+                     *Array#each
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>76176.00</td>
+                   <td>16928.00</td>
+                   <td>0.00</td>
+                   <td>59248.00</td>
+                   <td>8464/8464</td>
+                   <td class="method_name"><a href="#Object_parse_session_70243394107360">Object#parse_session</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>68464.00</td>
+                   <td>68464.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>10000/20000</td>
+                   <td class="method_name"><a href="#String_split_70243394107360">String#split</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>66826.00</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>65290.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_calc_stat_70243394107360">Object#calc_stat</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>16896.00</td>
+                   <td>7680.00</td>
+                   <td>0.00</td>
+                   <td>9216.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_parse_user_70243394107360">Object#parse_user</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>3072.00</td>
+                   <td>3072.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Class_new_70243394107360">Class#new</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>918.00</td>
+                   <td>918.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>918/17846</td>
+                   <td class="method_name"><a href="#String_upcase_70243394107360">String#upcase</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>201541.00</td>
+                   <td>3.00</td>
+                   <td>0.00</td>
+                   <td>201538.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_70243394107360">Object#work</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=145"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:145">145</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>63.46%</td>
+                 <td>0.00%</td>
+                 <td>201541.00</td>
+                 <td>3.00</td>
+                 <td>0.00</td>
+                 <td>201538.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Object_parse_file_70243394107360">
+                      Object#parse_file
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=101"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:101">101</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>191536.00</td>
+                   <td>30000.00</td>
+                   <td>0.00</td>
+                   <td>161536.00</td>
+                   <td>1/465</td>
+                   <td class="method_name"><a href="#Array_each_70243394107360">Array#each</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=104"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:104">104</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>10002.00</td>
+                   <td>10002.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#_Class__IO__readlines_70243394107360">&lt;Class::IO&gt;#readlines</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=104"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:104">104</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>9216.00</td>
+                   <td>9216.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/20000</td>
+                   <td class="method_name"><a href="#Object_parse_user_70243394107360">Object#parse_user</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=20"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:20">20</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>59248.00</td>
+                   <td>59248.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>8464/20000</td>
+                   <td class="method_name"><a href="#Object_parse_session_70243394107360">Object#parse_session</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=28"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:28">28</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>68464.00</td>
+                   <td>68464.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>10000/20000</td>
+                   <td class="method_name"><a href="#Array_each_70243394107360">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>43.11%</td>
+                 <td>43.11%</td>
+                 <td>136928.00</td>
+                 <td>136928.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>20000</td>
+                 <td class="method_name">
+                   <a name="String_split_70243394107360">
+                      String#split
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>76176.00</td>
+                   <td>16928.00</td>
+                   <td>0.00</td>
+                   <td>59248.00</td>
+                   <td>8464/8464</td>
+                   <td class="method_name"><a href="#Array_each_70243394107360">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>23.99%</td>
+                 <td>5.33%</td>
+                 <td>76176.00</td>
+                 <td>16928.00</td>
+                 <td>0.00</td>
+                 <td>59248.00</td>
+                 <td>8464</td>
+                 <td class="method_name">
+                   <a name="Object_parse_session_70243394107360">
+                      Object#parse_session
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=28"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:28">28</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>59248.00</td>
+                   <td>59248.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>8464/20000</td>
+                   <td class="method_name"><a href="#String_split_70243394107360">String#split</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=28"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:28">28</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>69898.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>69898.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_70243394107360">Object#work</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=182"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:182">182</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>22.01%</td>
+                 <td>0.00%</td>
+                 <td>69898.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>69898.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Object_collect_stats_from_users_70243394107360">
+                      Object#collect_stats_from_users
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=39"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:39">39</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>69898.00</td>
+                   <td>3072.00</td>
+                   <td>0.00</td>
+                   <td>66826.00</td>
+                   <td>1/465</td>
+                   <td class="method_name"><a href="#Array_each_70243394107360">Array#each</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=39"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:39">39</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>66826.00</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>65290.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Array_each_70243394107360">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>21.04%</td>
+                 <td>0.48%</td>
+                 <td>66826.00</td>
+                 <td>1536.00</td>
+                 <td>0.00</td>
+                 <td>65290.00</td>
+                 <td>1536</td>
+                 <td class="method_name">
+                   <a name="Object_calc_stat_70243394107360">
+                      Object#calc_stat
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=47"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:47">47</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>31366.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>31366.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_dates_70243394107360">Object#dates</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=56"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:56">56</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>12902.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>12902.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_browsers_list_70243394107360">Object#browsers_list</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=48"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:48">48</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>4608.00</td>
+                   <td>3072.00</td>
+                   <td>0.00</td>
+                   <td>1536.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_longest_session_70243394107360">Object#longest_session</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=51"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:51">51</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>4608.00</td>
+                   <td>3072.00</td>
+                   <td>0.00</td>
+                   <td>1536.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_total_time_70243394107360">Object#total_time</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=51"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:51">51</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>3688.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>3688.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_used_ie_70243394107360">Object#used_ie</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=49"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:49">49</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>3510.00</td>
+                   <td>1.00</td>
+                   <td>0.00</td>
+                   <td>3509.00</td>
+                   <td>460/460</td>
+                   <td class="method_name"><a href="#Object_always_used_chrome_70243394107360">Object#always_used_chrome</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=56"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:56">56</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>3072.00</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>1536.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_browsers_70243394107360">Object#browsers</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=51"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:51">51</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_time_from_sesions_70243394107360">Object#time_from_sesions</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=47"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:47">47</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_sessions_count_70243394107360">Object#sessions_count</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=51"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:51">51</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1536.00</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/4610</td>
+                   <td class="method_name"><a href="#Object_time_from_sesions_70243394107360">Object#time_from_sesions</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=67"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:67">67</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>8466.00</td>
+                   <td>2.00</td>
+                   <td>0.00</td>
+                   <td>8464.00</td>
+                   <td>2/4610</td>
+                   <td class="method_name"><a href="#Object_find_all_browsers_70243394107360">Object#find_all_browsers</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=134"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:134">134</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>10000.00</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>8464.00</td>
+                   <td>1536/4610</td>
+                   <td class="method_name"><a href="#Object_browsers_list_70243394107360">Object#browsers_list</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=79"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:79">79</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>26928.00</td>
+                   <td>18464.00</td>
+                   <td>0.00</td>
+                   <td>8464.00</td>
+                   <td>1536/4610</td>
+                   <td class="method_name"><a href="#Object_dates_70243394107360">Object#dates</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=97"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:97">97</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>14.78%</td>
+                 <td>6.78%</td>
+                 <td>46930.00</td>
+                 <td>21538.00</td>
+                 <td>0.00</td>
+                 <td>25392.00</td>
+                 <td>4610</td>
+                 <td class="method_name">
+                   <a name="Array_map_70243394107360">
+                      Array#map
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>16928.00</td>
+                   <td>16928.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>16928/17846</td>
+                   <td class="method_name"><a href="#String_upcase_70243394107360">String#upcase</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>8464.00</td>
+                   <td>8464.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>8464/8464</td>
+                   <td class="method_name"><a href="#String_tr_70243394107360">String#tr</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>8464/8464</td>
+                   <td class="method_name"><a href="#String_to_i_70243394107360">String#to_i</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>31366.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>31366.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_calc_stat_70243394107360">Object#calc_stat</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=56"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:56">56</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>9.88%</td>
+                 <td>0.00%</td>
+                 <td>31366.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>31366.00</td>
+                 <td>1536</td>
+                 <td class="method_name">
+                   <a name="Object_dates_70243394107360">
+                      Object#dates
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=97"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:97">97</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>26928.00</td>
+                   <td>18464.00</td>
+                   <td>0.00</td>
+                   <td>8464.00</td>
+                   <td>1536/4610</td>
+                   <td class="method_name"><a href="#Array_map_70243394107360">Array#map</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=97"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:97">97</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>2902.00</td>
+                   <td>2902.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/3073</td>
+                   <td class="method_name"><a href="#Array_sort_70243394107360">Array#sort</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=97"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:97">97</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1536.00</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Array_reverse_70243394107360">Array#reverse</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=97"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:97">97</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>29980.00</td>
+                   <td>1.00</td>
+                   <td>0.00</td>
+                   <td>29979.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_70243394107360">Object#work</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=184"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:184">184</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>9.44%</td>
+                 <td>0.00%</td>
+                 <td>29980.00</td>
+                 <td>1.00</td>
+                 <td>0.00</td>
+                 <td>29979.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="JSON__Ext__Generator__GeneratorMethods__Hash_to_json_70243394107360">
+                      JSON::Ext::Generator::GeneratorMethods::Hash#to_json
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>26903.00</td>
+                   <td>26903.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>25366/25366</td>
+                   <td class="method_name"><a href="#String_encode_70243394107360">String#encode</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1538.00</td>
+                   <td>1538.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1538/1538</td>
+                   <td class="method_name"><a href="#Hash_keys_70243394107360">Hash#keys</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1537.00</td>
+                   <td>1537.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1537/1537</td>
+                   <td class="method_name"><a href="#Symbol_to_s_70243394107360">Symbol#to_s</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1.00</td>
+                   <td>1.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Kernel_dup_70243394107360">Kernel#dup</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>10756/10756</td>
+                   <td class="method_name"><a href="#String_to_s_70243394107360">String#to_s</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>26903.00</td>
+                   <td>26903.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>25366/25366</td>
+                   <td class="method_name"><a href="#JSON__Ext__Generator__GeneratorMethods__Hash_to_json_70243394107360">JSON::Ext::Generator::GeneratorMethods::Hash#to_json</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>8.47%</td>
+                 <td>8.47%</td>
+                 <td>26903.00</td>
+                 <td>26903.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>25366</td>
+                 <td class="method_name">
+                   <a name="String_encode_70243394107360">
+                      String#encode
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>918.00</td>
+                   <td>918.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>918/17846</td>
+                   <td class="method_name"><a href="#Array_each_70243394107360">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>16928.00</td>
+                   <td>16928.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>16928/17846</td>
+                   <td class="method_name"><a href="#Array_map_70243394107360">Array#map</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>5.62%</td>
+                 <td>5.62%</td>
+                 <td>17846.00</td>
+                 <td>17846.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>17846</td>
+                 <td class="method_name">
+                   <a name="String_upcase_70243394107360">
+                      String#upcase
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>16896.00</td>
+                   <td>7680.00</td>
+                   <td>0.00</td>
+                   <td>9216.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Array_each_70243394107360">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>5.32%</td>
+                 <td>2.42%</td>
+                 <td>16896.00</td>
+                 <td>7680.00</td>
+                 <td>0.00</td>
+                 <td>9216.00</td>
+                 <td>1536</td>
+                 <td class="method_name">
+                   <a name="Object_parse_user_70243394107360">
+                      Object#parse_user
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=20"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:20">20</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>9216.00</td>
+                   <td>9216.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/20000</td>
+                   <td class="method_name"><a href="#String_split_70243394107360">String#split</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=20"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:20">20</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>12902.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>12902.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_calc_stat_70243394107360">Object#calc_stat</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=48"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:48">48</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>4.06%</td>
+                 <td>0.00%</td>
+                 <td>12902.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>12902.00</td>
+                 <td>1536</td>
+                 <td class="method_name">
+                   <a name="Object_browsers_list_70243394107360">
+                      Object#browsers_list
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=79"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:79">79</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>10000.00</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>8464.00</td>
+                   <td>1536/4610</td>
+                   <td class="method_name"><a href="#Array_map_70243394107360">Array#map</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=79"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:79">79</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>2902.00</td>
+                   <td>2902.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/3073</td>
+                   <td class="method_name"><a href="#Array_sort_70243394107360">Array#sort</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=79"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:79">79</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>10002.00</td>
+                   <td>10002.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_parse_file_70243394107360">Object#parse_file</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=104"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:104">104</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>3.15%</td>
+                 <td>3.15%</td>
+                 <td>10002.00</td>
+                 <td>10002.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="_Class__IO__readlines_70243394107360">
+                      &lt;Class::IO&gt;#readlines
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>8472.00</td>
+                   <td>1.00</td>
+                   <td>0.00</td>
+                   <td>8471.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_70243394107360">Object#work</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=173"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:173">173</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>2.67%</td>
+                 <td>0.00%</td>
+                 <td>8472.00</td>
+                 <td>1.00</td>
+                 <td>0.00</td>
+                 <td>8471.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Object_find_all_browsers_70243394107360">
+                      Object#find_all_browsers
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=134"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:134">134</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>8466.00</td>
+                   <td>2.00</td>
+                   <td>0.00</td>
+                   <td>8464.00</td>
+                   <td>2/4610</td>
+                   <td class="method_name"><a href="#Array_map_70243394107360">Array#map</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=134"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:134">134</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>2.00</td>
+                   <td>2.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/2</td>
+                   <td class="method_name"><a href="#Array_uniq_70243394107360">Array#uniq</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=134"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:134">134</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>2.00</td>
+                   <td>2.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/3073</td>
+                   <td class="method_name"><a href="#Array_sort_70243394107360">Array#sort</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=134"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:134">134</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1.00</td>
+                   <td>1.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1537</td>
+                   <td class="method_name"><a href="#Array_join_70243394107360">Array#join</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=134"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:134">134</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>8464.00</td>
+                   <td>8464.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>8464/8464</td>
+                   <td class="method_name"><a href="#Array_map_70243394107360">Array#map</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>2.67%</td>
+                 <td>2.67%</td>
+                 <td>8464.00</td>
+                 <td>8464.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>8464</td>
+                 <td class="method_name">
+                   <a name="String_tr_70243394107360">
+                      String#tr
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>2.00</td>
+                   <td>2.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/3073</td>
+                   <td class="method_name"><a href="#Object_find_all_browsers_70243394107360">Object#find_all_browsers</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=134"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:134">134</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>2902.00</td>
+                   <td>2902.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/3073</td>
+                   <td class="method_name"><a href="#Object_browsers_list_70243394107360">Object#browsers_list</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=79"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:79">79</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>2902.00</td>
+                   <td>2902.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/3073</td>
+                   <td class="method_name"><a href="#Object_dates_70243394107360">Object#dates</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=97"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:97">97</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>1.83%</td>
+                 <td>1.83%</td>
+                 <td>5806.00</td>
+                 <td>5806.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>3073</td>
+                 <td class="method_name">
+                   <a name="Array_sort_70243394107360">
+                      Array#sort
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>4609.00</td>
+                   <td>1.00</td>
+                   <td>0.00</td>
+                   <td>4608.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_70243394107360">Object#work</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=178"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:178">178</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>1.45%</td>
+                 <td>0.00%</td>
+                 <td>4609.00</td>
+                 <td>1.00</td>
+                 <td>0.00</td>
+                 <td>4608.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Object_create_users_objects_70243394107360">
+                      Object#create_users_objects
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=121"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:121">121</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>4608.00</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>3072.00</td>
+                   <td>1/465</td>
+                   <td class="method_name"><a href="#Array_each_70243394107360">Array#each</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=122"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:122">122</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>4608.00</td>
+                   <td>3072.00</td>
+                   <td>0.00</td>
+                   <td>1536.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_calc_stat_70243394107360">Object#calc_stat</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=51"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:51">51</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>1.45%</td>
+                 <td>0.97%</td>
+                 <td>4608.00</td>
+                 <td>3072.00</td>
+                 <td>0.00</td>
+                 <td>1536.00</td>
+                 <td>1536</td>
+                 <td class="method_name">
+                   <a name="Object_total_time_70243394107360">
+                      Object#total_time
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=71"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:71">71</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1536.00</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/3072</td>
+                   <td class="method_name"><a href="#Integer_to_s_70243394107360">Integer#to_s</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=71"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:71">71</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Array_sum_70243394107360">Array#sum</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=71"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:71">71</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>4608.00</td>
+                   <td>3072.00</td>
+                   <td>0.00</td>
+                   <td>1536.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_calc_stat_70243394107360">Object#calc_stat</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=51"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:51">51</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>1.45%</td>
+                 <td>0.97%</td>
+                 <td>4608.00</td>
+                 <td>3072.00</td>
+                 <td>0.00</td>
+                 <td>1536.00</td>
+                 <td>1536</td>
+                 <td class="method_name">
+                   <a name="Object_longest_session_70243394107360">
+                      Object#longest_session
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=75"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:75">75</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1536.00</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/3072</td>
+                   <td class="method_name"><a href="#Integer_to_s_70243394107360">Integer#to_s</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=75"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:75">75</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Array_max_70243394107360">Array#max</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=75"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:75">75</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>3688.00</td>
+                   <td>3688.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_used_ie_70243394107360">Object#used_ie</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=87"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:87">87</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>1.16%</td>
+                 <td>1.16%</td>
+                 <td>3688.00</td>
+                 <td>3688.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1536</td>
+                 <td class="method_name">
+                   <a name="Array_any__70243394107360">
+                      Array#any?
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>3688.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>3688.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_calc_stat_70243394107360">Object#calc_stat</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=49"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:49">49</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>1.16%</td>
+                 <td>0.00%</td>
+                 <td>3688.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>3688.00</td>
+                 <td>1536</td>
+                 <td class="method_name">
+                   <a name="Object_used_ie_70243394107360">
+                      Object#used_ie
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=87"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:87">87</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>3688.00</td>
+                   <td>3688.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Array_any__70243394107360">Array#any?</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=87"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:87">87</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>3510.00</td>
+                   <td>1.00</td>
+                   <td>0.00</td>
+                   <td>3509.00</td>
+                   <td>460/460</td>
+                   <td class="method_name"><a href="#Object_calc_stat_70243394107360">Object#calc_stat</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=56"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:56">56</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>1.11%</td>
+                 <td>0.00%</td>
+                 <td>3510.00</td>
+                 <td>1.00</td>
+                 <td>0.00</td>
+                 <td>3509.00</td>
+                 <td>460</td>
+                 <td class="method_name">
+                   <a name="Object_always_used_chrome_70243394107360">
+                      Object#always_used_chrome
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=91"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:91">91</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>3509.00</td>
+                   <td>920.00</td>
+                   <td>0.00</td>
+                   <td>2589.00</td>
+                   <td>460/460</td>
+                   <td class="method_name"><a href="#Enumerable_all__70243394107360">Enumerable#all?</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=91"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:91">91</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>3509.00</td>
+                   <td>920.00</td>
+                   <td>0.00</td>
+                   <td>2589.00</td>
+                   <td>460/460</td>
+                   <td class="method_name"><a href="#Object_always_used_chrome_70243394107360">Object#always_used_chrome</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=91"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:91">91</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>1.10%</td>
+                 <td>0.29%</td>
+                 <td>3509.00</td>
+                 <td>920.00</td>
+                 <td>0.00</td>
+                 <td>2589.00</td>
+                 <td>460</td>
+                 <td class="method_name">
+                   <a name="Enumerable_all__70243394107360">
+                      Enumerable#all?
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>2589.00</td>
+                   <td>1671.00</td>
+                   <td>0.00</td>
+                   <td>918.00</td>
+                   <td>460/465</td>
+                   <td class="method_name"><a href="#Array_each_70243394107360">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>3074.00</td>
+                   <td>2.00</td>
+                   <td>0.00</td>
+                   <td>3072.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_70243394107360">Object#work</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=175"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:175">175</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.97%</td>
+                 <td>0.00%</td>
+                 <td>3074.00</td>
+                 <td>2.00</td>
+                 <td>0.00</td>
+                 <td>3072.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Enumerable_group_by_70243394107360">
+                      Enumerable#group_by
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>3072.00</td>
+                   <td>3072.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/465</td>
+                   <td class="method_name"><a href="#Array_each_70243394107360">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>3072.00</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>1536.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_calc_stat_70243394107360">Object#calc_stat</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=51"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:51">51</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.97%</td>
+                 <td>0.48%</td>
+                 <td>3072.00</td>
+                 <td>1536.00</td>
+                 <td>0.00</td>
+                 <td>1536.00</td>
+                 <td>1536</td>
+                 <td class="method_name">
+                   <a name="Object_browsers_70243394107360">
+                      Object#browsers
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=83"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:83">83</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1536.00</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1537</td>
+                   <td class="method_name"><a href="#Array_join_70243394107360">Array#join</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=83"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:83">83</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1536.00</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/3072</td>
+                   <td class="method_name"><a href="#Object_total_time_70243394107360">Object#total_time</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=71"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:71">71</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1536.00</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/3072</td>
+                   <td class="method_name"><a href="#Object_longest_session_70243394107360">Object#longest_session</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=75"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:75">75</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.97%</td>
+                 <td>0.97%</td>
+                 <td>3072.00</td>
+                 <td>3072.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>3072</td>
+                 <td class="method_name">
+                   <a name="Integer_to_s_70243394107360">
+                      Integer#to_s
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>3072.00</td>
+                   <td>3072.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Array_each_70243394107360">Array#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.97%</td>
+                 <td>0.97%</td>
+                 <td>3072.00</td>
+                 <td>3072.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1536</td>
+                 <td class="method_name">
+                   <a name="Class_new_70243394107360">
+                      Class#new
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#User_initialize_70243394107360">User#initialize</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1538.00</td>
+                   <td>1538.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1538/1538</td>
+                   <td class="method_name"><a href="#JSON__Ext__Generator__GeneratorMethods__Hash_to_json_70243394107360">JSON::Ext::Generator::GeneratorMethods::Hash#to_json</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.48%</td>
+                 <td>0.48%</td>
+                 <td>1538.00</td>
+                 <td>1538.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1538</td>
+                 <td class="method_name">
+                   <a name="Hash_keys_70243394107360">
+                      Hash#keys
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1537.00</td>
+                   <td>1537.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1537/1537</td>
+                   <td class="method_name"><a href="#JSON__Ext__Generator__GeneratorMethods__Hash_to_json_70243394107360">JSON::Ext::Generator::GeneratorMethods::Hash#to_json</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.48%</td>
+                 <td>0.48%</td>
+                 <td>1537.00</td>
+                 <td>1537.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1537</td>
+                 <td class="method_name">
+                   <a name="Symbol_to_s_70243394107360">
+                      Symbol#to_s
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1.00</td>
+                   <td>1.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1537</td>
+                   <td class="method_name"><a href="#Object_find_all_browsers_70243394107360">Object#find_all_browsers</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=134"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:134">134</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1536.00</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1537</td>
+                   <td class="method_name"><a href="#Object_browsers_70243394107360">Object#browsers</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=83"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:83">83</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.48%</td>
+                 <td>0.48%</td>
+                 <td>1537.00</td>
+                 <td>1537.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1537</td>
+                 <td class="method_name">
+                   <a name="Array_join_70243394107360">
+                      Array#join
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_calc_stat_70243394107360">Object#calc_stat</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=47"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:47">47</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.48%</td>
+                 <td>0.00%</td>
+                 <td>1536.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1536.00</td>
+                 <td>1536</td>
+                 <td class="method_name">
+                   <a name="Object_time_from_sesions_70243394107360">
+                      Object#time_from_sesions
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=67"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:67">67</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1536.00</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/4610</td>
+                   <td class="method_name"><a href="#Array_map_70243394107360">Array#map</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=67"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:67">67</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1536.00</td>
+                   <td>1536.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_dates_70243394107360">Object#dates</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=97"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:97">97</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.48%</td>
+                 <td>0.48%</td>
+                 <td>1536.00</td>
+                 <td>1536.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1536</td>
+                 <td class="method_name">
+                   <a name="Array_reverse_70243394107360">
+                      Array#reverse
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>5.00</td>
+                   <td>5.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_70243394107360">Object#work</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=184"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:184">184</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>5.00</td>
+                 <td>5.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="_Class__IO__write_70243394107360">
+                      &lt;Class::IO&gt;#write
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>2.00</td>
+                   <td>2.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/2</td>
+                   <td class="method_name"><a href="#Object_count_browsers_70243394107360">Object#count_browsers</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=117"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:117">117</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>2.00</td>
+                   <td>2.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/2</td>
+                   <td class="method_name"><a href="#Object_find_all_browsers_70243394107360">Object#find_all_browsers</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=134"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:134">134</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>4.00</td>
+                 <td>4.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>2</td>
+                 <td class="method_name">
+                   <a name="Array_uniq_70243394107360">
+                      Array#uniq
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>3.00</td>
+                   <td>1.00</td>
+                   <td>0.00</td>
+                   <td>2.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_70243394107360">Object#work</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=167"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:167">167</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>3.00</td>
+                 <td>1.00</td>
+                 <td>0.00</td>
+                 <td>2.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Object_count_browsers_70243394107360">
+                      Object#count_browsers
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=113"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:113">113</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>2.00</td>
+                   <td>2.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/2</td>
+                   <td class="method_name"><a href="#Array_uniq_70243394107360">Array#uniq</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=117"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:117">117</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/465</td>
+                   <td class="method_name"><a href="#Array_each_70243394107360">Array#each</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=114"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:114">114</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>1.00</td>
+                   <td>1.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#JSON__Ext__Generator__GeneratorMethods__Hash_to_json_70243394107360">JSON::Ext::Generator::GeneratorMethods::Hash#to_json</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>1.00</td>
+                 <td>1.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Kernel_dup_70243394107360">
+                      Kernel#dup
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Kernel_initialize_dup_70243394107360">Kernel#initialize_dup</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_calc_stat_70243394107360">Object#calc_stat</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=51"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:51">51</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1536</td>
+                 <td class="method_name">
+                   <a name="Object_sessions_count_70243394107360">
+                      Object#sessions_count
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=62"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:62">62</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1539</td>
+                   <td class="method_name"><a href="#Array_count_70243394107360">Array#count</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=62"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:62">62</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_total_time_70243394107360">Object#total_time</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=71"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:71">71</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1536</td>
+                 <td class="method_name">
+                   <a name="Array_sum_70243394107360">
+                      Array#sum
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Object_longest_session_70243394107360">Object#longest_session</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=75"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:75">75</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1536</td>
+                 <td class="method_name">
+                   <a name="Array_max_70243394107360">
+                      Array#max
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Object_work_70243394107360">Object#work</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=176"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:176">176</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Hash_default__70243394107360">
+                      Hash#default=
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>8464/8464</td>
+                   <td class="method_name"><a href="#Array_map_70243394107360">Array#map</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>8464</td>
+                 <td class="method_name">
+                   <a name="String_to_i_70243394107360">
+                      String#to_i
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>3/1539</td>
+                   <td class="method_name"><a href="#Object_work_70243394107360">Object#work</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=171"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:171">171</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1539</td>
+                   <td class="method_name"><a href="#Object_sessions_count_70243394107360">Object#sessions_count</a></td>
+                   <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=62"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:62">62</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1539</td>
+                 <td class="method_name">
+                   <a name="Array_count_70243394107360">
+                      Array#count
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Kernel_dup_70243394107360">Kernel#dup</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Kernel_initialize_dup_70243394107360">
+                      Kernel#initialize_dup
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#JSON__Ext__Generator__State_initialize_copy_70243394107360">JSON::Ext::Generator::State#initialize_copy</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1/1</td>
+                   <td class="method_name"><a href="#Kernel_initialize_dup_70243394107360">Kernel#initialize_dup</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="JSON__Ext__Generator__State_initialize_copy_70243394107360">
+                      JSON::Ext::Generator::State#initialize_copy
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>10756/10756</td>
+                   <td class="method_name"><a href="#JSON__Ext__Generator__GeneratorMethods__Hash_to_json_70243394107360">JSON::Ext::Generator::GeneratorMethods::Hash#to_json</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>10756</td>
+                 <td class="method_name">
+                   <a name="String_to_s_70243394107360">
+                      String#to_s
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>1536/1536</td>
+                   <td class="method_name"><a href="#Class_new_70243394107360">Class#new</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>1536</td>
+                 <td class="method_name">
+                   <a name="User_initialize_70243394107360">
+                      User#initialize
+                   </a>
+                 </td>
+                 <td><a href="txmt://open?url=file:///Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb&line=12"title="/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb:12">12</a></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="9">* indicates recursively called methods</td>
+          </tr>
+        </tfoot>
+      </table>
+
+  </body>
+</html>
