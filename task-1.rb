@@ -97,7 +97,8 @@ end
 def parse_file(file)
   users = []
   sessions = []
-  file.each do |line|
+  # file.each do |line|
+  File.readlines(file).each do |line|
     cols = line.split(',')
     users << parse_user(line) if cols[0] == 'user'
     sessions << parse_session(line) if cols[0] == 'session'
@@ -136,9 +137,9 @@ def find_all_browsers(sessions)
 end
 
 def work(file='data.txt')
-  file_lines = File.read(file).split("\n")
+  # file_lines = File.read(file).split("\n")
 
-  users, sessions = parse_file(file_lines)
+  users, sessions = parse_file(file)
 
   # Отчёт в json
   #   - Сколько всего юзеров +

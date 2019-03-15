@@ -1,0 +1,518 @@
+events: memory
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=IO::^write
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=String::to_s
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=String::encode
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Symbol::to_s
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Hash::keys
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=JSON/Ext/Generator/State::initialize_copy
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Kernel::initialize_dup
+0 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=JSON/Ext/Generator/State::initialize_copy
+calls=1 181
+181 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Kernel::dup
+0 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Kernel::initialize_dup
+calls=1 181
+181 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=JSON/Ext/Generator/GeneratorMethods/Hash::to_json
+0 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Kernel::dup
+calls=1 181
+181 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Hash::keys
+calls=1538 181
+181 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Symbol::to_s
+calls=1537 181
+181 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=String::encode
+calls=25366 181
+181 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=String::to_s
+calls=10756 181
+181 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Enumerable::all?
+0 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::each
+calls=460 90
+90 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=Object::always_used_chrome
+90 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Enumerable::all?
+calls=460 90
+90 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Array::reverse
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Date::iso8601
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Integer::div
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=String::[]=
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=MatchData::end
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=MatchData::begin
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Regexp::match
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=String::gsub!
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Date::^parse
+0 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=String::gsub!
+calls=8464 94
+94 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Regexp::match
+calls=16928 94
+94 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=MatchData::begin
+calls=8464 94
+94 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=MatchData::end
+calls=8464 94
+94 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=String::[]=
+calls=8464 94
+94 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Integer::div
+calls=8464 94
+94 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=Object::dates
+94 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::map
+calls=1536 94
+94 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::sort
+calls=1536 94
+94 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::reverse
+calls=1536 94
+94 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=Object::browsers
+82 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::join
+calls=1536 82
+82 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Array::max
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=Object::longest_session
+74 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::max
+calls=1536 74
+74 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Integer::to_s
+calls=1536 74
+74 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Integer::to_s
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Array::sum
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=Object::total_time
+70 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::sum
+calls=1536 70
+70 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Integer::to_s
+calls=1536 70
+70 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=Object::sessions_count
+62 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::count
+calls=1536 62
+62 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Array::any?
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=Object::used_ie
+86 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::any?
+calls=1536 86
+86 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=Object::browsers_list
+78 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::map
+calls=1536 78
+78 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::sort
+calls=1536 78
+78 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=String::to_i
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=Object::time_from_sesions
+66 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::map
+calls=1536 66
+66 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=Object::calc_stat
+47 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=Object::time_from_sesions
+calls=1536 47
+47 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=Object::browsers_list
+calls=1536 48
+48 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=Object::used_ie
+calls=1536 49
+49 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=Object::sessions_count
+calls=1536 51
+51 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=Object::total_time
+calls=1536 51
+51 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=Object::longest_session
+calls=1536 51
+51 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=Object::browsers
+calls=1536 51
+51 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=Object::dates
+calls=1536 56
+56 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=Object::always_used_chrome
+calls=460 56
+56 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=Object::collect_stats_from_users
+39 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::each
+calls=1 39
+39 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=User::initialize
+12 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Class::new
+0 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=User::initialize
+calls=1536 124
+124 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=Object::create_users_objects
+118 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::each
+calls=1 119
+119 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Hash::default=
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Enumerable::group_by
+0 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::each
+calls=1 172
+172 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Array::join
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Array::sort
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=String::upcase
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Array::map
+0 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=String::upcase
+calls=8464 133
+133 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=String::to_i
+calls=8464 66
+66 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=String::upcase
+calls=8464 78
+78 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Date::^parse
+calls=8464 94
+94 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Date::iso8601
+calls=8464 94
+94 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=Object::find_all_browsers
+131 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::map
+calls=2 131
+131 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::sort
+calls=1 131
+131 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::uniq
+calls=1 131
+131 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::join
+calls=1 131
+131 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Array::uniq
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=Object::count_browsers
+110 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::each
+calls=1 111
+111 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::uniq
+calls=1 114
+114 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Array::count
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=Object::parse_session
+28 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=String::split
+calls=8464 28
+28 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=Object::parse_user
+20 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=String::split
+calls=1536 20
+20 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=String::split
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=Array::each
+0 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=String::split
+calls=10000 102
+102 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=Object::parse_user
+calls=1536 103
+103 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=Object::parse_session
+calls=8464 104
+104 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Class::new
+calls=1536 124
+124 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=Object::calc_stat
+calls=1536 42
+42 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=String::upcase
+calls=918 90
+90 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+fn=IO::^readlines
+0 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=Object::parse_file
+98 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=IO::^readlines
+calls=1 101
+101 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::each
+calls=1 101
+101 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+fn=Object::work
+142 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=Object::parse_file
+calls=1 142
+142 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Array::count
+calls=3 168
+168 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=Object::count_browsers
+calls=1 164
+164 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=Object::find_all_browsers
+calls=1 170
+170 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Enumerable::group_by
+calls=1 172
+172 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=Hash::default=
+calls=1 173
+173 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=Object::create_users_objects
+calls=1 175
+175 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=Object::collect_stats_from_users
+calls=1 179
+179 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=JSON/Ext/Generator/GeneratorMethods/Hash::to_json
+calls=1 181
+181 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/ruby_runtime
+cfn=IO::^write
+calls=1 181
+181 0
+
+fl=/Users/vikont/RoR_Project/thinknetica/task-1/start.rb
+fn=[global]::[no method]
+23 0
+cfl=/Users/vikont/RoR_Project/thinknetica/task-1/task-1.rb
+cfn=Object::work
+calls=1 23
+23 0
+
