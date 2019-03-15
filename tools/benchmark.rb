@@ -8,8 +8,8 @@ end
 
 time = Benchmark.realtime do
   puts  "rss before concatenation: #{print_memory_usage}"
-  # work('./spec/fixtures/data_medium-10k.txt')
-  work('./spec/fixtures/data_large.txt')
+  work('./spec/fixtures/data_medium-10k.txt')
+  # work('./spec/fixtures/data_large.txt')
   puts  "rss after concatenation: #{print_memory_usage}"
 end.round(4)
 

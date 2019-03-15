@@ -27,7 +27,7 @@ RSpec.describe 'Dummy' do
       end.round(4)
     end
 
-    let(:not_slowly) { time < 0.2 }
+    let(:not_slowly) { time < 0.12 }
 
     it { expect(not_slowly).to be true }
   end

@@ -63,6 +63,7 @@ def sessions_count(user)
 end
 
 def time_from_sesions(user)
+  # binding.pry
   user.sessions.map {|s| s['time'].to_i }
 end
 
@@ -91,7 +92,9 @@ def always_used_chrome(browsers)
 end
 
 def dates(user)
-  user.sessions.map{|s| Date.parse(s['date']).iso8601 }.sort.reverse
+  # binding.pry
+  # user.sessions.map{|s| Date.parse(s['date']).iso8601 }.sort.reverse
+  user.sessions.map{|s| s['date'].tr("\n", '') }.sort.reverse
 end
 
 def parse_file(file)
