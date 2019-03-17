@@ -1,25 +1,20 @@
 # frozen_string_literal: true
 
-require 'json'
-require 'pry'
-require 'oj'
+require 'yajl'
 #require 'ruby-progressbar'
 
 def parse_user(fields)
   {
     id: fields[1],
-    first_name: fields[2],
-    last_name: fields[3],
-    age: fields[4],
+    full_name: fields[2] << " " << fields[3]
   }
 end
 
 def parse_session(fields)
   {
     user_id: fields[1],
-    session_id: fields[2],
     browser: fields[3].upcase!,
-    time: fields[4],
+    time: fields[4].to_i,
     date: fields[5].chomp!,
   }
 end
@@ -29,11 +24,10 @@ def aggregate_user_stats(data)
 
   user = data[1][:user]
   sessions = data[1][:sessions]
-  user_key = user[:first_name] << " " << user[:last_name]
-  time = sessions.map {|s| s[:time].to_i }
+  time = sessions.map {|s| s[:time] }
   browsers = sessions.map { |s| s[:browser] }
   {
-    user_key => {
+    user[:full_name]=> {
       sessionsCount: sessions.count,
       totalTime: time.sum.to_s << ' min.',
       longestSession: time.max.to_s << ' min.',
@@ -71,7 +65,7 @@ def work(input: "data.txt", output: "result.json")
     usersStats: {}
   }
 
-  bar_output = ENV["NOPROGRESS"] ? File.open(File::NULL, "w") : $stdout
+  #bar_output = ENV["NOPROGRESS"] ? File.open(File::NULL, "w") : $stdout
   #bar = ProgressBar.create(total: nil, output: bar_output)
   File.open(input) do |f|
     f.each_line do |line|
@@ -103,6 +97,8 @@ def work(input: "data.txt", output: "result.json")
     report[:allBrowsers] = report[:allBrowsers].sort!.join(',')
   #  bar.finish
   end
-
-  File.open(output, 'w+') { |f| f.puts Oj.dump(report, mode: :compat) }
+  File.open(output, 'w') do |f|
+    Yajl::Encoder.encode(report, f)
+    f << "\n"
+  end
 end
