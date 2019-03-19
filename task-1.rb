@@ -3,7 +3,7 @@
 require 'json'
 require 'pry'
 require 'date'
-require 'ruby-prof'
+
 require 'benchmark'
 
 class User
