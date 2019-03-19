@@ -34,7 +34,7 @@ def parse_session(session)
   }
 end
 
-def work(file = 'data_large.txt')
+def work(file: 'data_large.txt', output: './response/result.json')
   return false unless file
   file_lines = File.read(file).split("\n")
 
@@ -115,5 +115,6 @@ def work(file = 'data_large.txt')
       report['usersStats'][user_key]['dates'] = user.sessions.map{|s| s['date'] }.sort.reverse
     end
   end
-  File.write('result.json', "#{report.to_json}\n")
+  File.write(output, "#{report.to_json}\n")
+  # File.write('./response/result.json', "#{report.to_json}\n")
 end
