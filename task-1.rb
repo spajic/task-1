@@ -5,15 +5,6 @@ require 'pry'
 require 'date'
 require 'ruby-progressbar'
 
-class User
-  attr_reader :attributes, :sessions
-
-  def initialize(attributes:, sessions:)
-    @attributes = attributes
-    @sessions = sessions
-  end
-end
-
 def parse_user(user)
   fields = user.split(',')
   parsed_result = {
@@ -36,26 +27,37 @@ def parse_session(session)
 end
 
 def collect_stats_from_users(report, users_objects, &block)
-  users_objects.each do |user|
-    user_key = "#{user.attributes['first_name']}" + ' ' + "#{user.attributes['last_name']}"
+  users_objects.each do |k, user|
+    user_key = "#{user['first_name']}" + ' ' + "#{user['last_name']}"
     report['usersStats'][user_key] ||= {}
     report['usersStats'][user_key] = report['usersStats'][user_key].merge(block.call(user))
   end
 end
 
 def work(lines='')
-  total = lines ? lines.to_i : `wc -l data_large.txt`.strip.to_i
+  total = lines.empty? ? `wc -l data#{lines}.txt`.strip.to_i : lines.to_i
   progressbar = ProgressBar.create(total: total, format: '%a, %J, %E, %B')
 
   file_lines = File.read("data#{lines}.txt").split("\n")
 
-  users = []
+  users = {}
   sessions = []
 
   file_lines.each do |line|
     cols = line.split(',')
-    users = users + [parse_user(line)] if cols[0] == 'user'
-    sessions = sessions + [parse_session(line)] if cols[0] == 'session'
+    if cols[0] == 'user'
+      attrs = parse_user(line)
+      users[attrs['id']] = attrs
+      users[attrs['id']][:sessions] = []
+    end
+
+    if cols[0] == 'session'
+      session = parse_session(line)
+      user = users[session['user_id']]
+      user[:sessions] << session
+      sessions << session
+    end
+
     progressbar.increment
   end
 
@@ -98,52 +100,43 @@ def work(lines='')
       .join(',')
 
   # Статистика по пользователям
-  users_objects = []
-
-  progressbar = ProgressBar.create(total: report[:totalUsers], format: '%a, %J, %E, %B')
-  users.each do |user|
-    attributes = user
-    user_sessions = sessions.select { |session| session['user_id'] == user['id'] }
-    user_object = User.new(attributes: attributes, sessions: user_sessions)
-    users_objects = users_objects + [user_object]
-    progressbar.increment
-  end
+  users_objects = users
 
   report['usersStats'] = {}
 
   # Собираем количество сессий по пользователям
   collect_stats_from_users(report, users_objects) do |user|
-    { 'sessionsCount' => user.sessions.count }
+    { 'sessionsCount' => user[:sessions].count }
   end
 
   # Собираем количество времени по пользователям
   collect_stats_from_users(report, users_objects) do |user|
-    { 'totalTime' => user.sessions.map {|s| s['time']}.map {|t| t.to_i}.sum.to_s + ' min.' }
+    { 'totalTime' => user[:sessions].map {|s| s['time']}.map {|t| t.to_i}.sum.to_s + ' min.' }
   end
 
   # Выбираем самую длинную сессию пользователя
   collect_stats_from_users(report, users_objects) do |user|
-    { 'longestSession' => user.sessions.map {|s| s['time']}.map {|t| t.to_i}.max.to_s + ' min.' }
+    { 'longestSession' => user[:sessions].map {|s| s['time']}.map {|t| t.to_i}.max.to_s + ' min.' }
   end
 
   # Браузеры пользователя через запятую
   collect_stats_from_users(report, users_objects) do |user|
-    { 'browsers' => user.sessions.map {|s| s['browser']}.map {|b| b.upcase}.sort.join(', ') }
+    { 'browsers' => user[:sessions].map {|s| s['browser']}.map {|b| b.upcase}.sort.join(', ') }
   end
 
   # Хоть раз использовал IE?
   collect_stats_from_users(report, users_objects) do |user|
-    { 'usedIE' => user.sessions.map{|s| s['browser']}.any? { |b| b.upcase =~ /INTERNET EXPLORER/ } }
+    { 'usedIE' => user[:sessions].map{|s| s['browser']}.any? { |b| b.upcase =~ /INTERNET EXPLORER/ } }
   end
 
   # Всегда использовал только Chrome?
   collect_stats_from_users(report, users_objects) do |user|
-    { 'alwaysUsedChrome' => user.sessions.map{|s| s['browser']}.all? { |b| b.upcase =~ /CHROME/ } }
+    { 'alwaysUsedChrome' => user[:sessions].map{|s| s['browser']}.all? { |b| b.upcase =~ /CHROME/ } }
   end
 
   # Даты сессий через запятую в обратном порядке в формате iso8601
   collect_stats_from_users(report, users_objects) do |user|
-    { 'dates' => user.sessions.map{|s| s['date']}.map {|d| Date.parse(d)}.sort.reverse.map { |d| d.iso8601 } }
+    { 'dates' => user[:sessions].map{|s| s['date']}.map {|d| Date.parse(d)}.sort.reverse.map { |d| d.iso8601 } }
   end
 
   File.write('result.json', "#{report.to_json}\n")
@@ -151,5 +144,7 @@ end
 
 if ENV['LINES']
   GC.disable if ENV['GC_DISABLE']
+  start_time = Time.now
   work(ENV['LINES'])
+  puts  "time in sec: #{Time.now - start_time}"
 end
