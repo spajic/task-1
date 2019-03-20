@@ -7,7 +7,7 @@ end
 
 time = Benchmark.realtime do
   puts  "rss after concatenation: #{print_memory_usage}"
-  work('../data_large.txt')
+  work(file: '../data_large2.txt', output: '../response/result.json')
   puts  "rss after concatenation: #{print_memory_usage}"
 end
 

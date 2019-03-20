@@ -4,8 +4,6 @@ require 'json'
 require 'pry'
 require 'date'
 
-require 'benchmark'
-
 class User
   attr_reader :attributes, :sessions
 
@@ -34,7 +32,7 @@ def parse_session(session)
   }
 end
 
-def work(file: 'data_large.txt', output: './response/result.json')
+def work(file: 'data_large2.txt', output: './response/result.json')
   return false unless file
   file_lines = File.read(file).split("\n")
 
@@ -116,5 +114,4 @@ def work(file: 'data_large.txt', output: './response/result.json')
     end
   end
   File.write(output, "#{report.to_json}\n")
-  # File.write('./response/result.json', "#{report.to_json}\n")
 end
