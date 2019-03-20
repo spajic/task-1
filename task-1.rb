@@ -70,22 +70,23 @@ def work(file: 'data_large2.txt', output: './response/result.json')
     line_slice.each do |line|
       cols = line.split(',')
       id = cols[1]
-      data[id] ||= {}
       if cols[0] == 'user'
         report[:totalUsers] += 1
         if  data[id].nil?
           report[:usersStats].merge!(add_parameters(data.shift))
         end
+        data[id] ||= {}
         data[id][:user] = parse_user(cols)
       else
         report[:totalSessions] += 1
+        data[id] ||= {}
         data[id][:sessions] ||= []
         data[id][:sessions] << parse_session(cols)
         sessions_browsers << cols[3]
       end
     end
-    report[:usersStats].merge!(add_parameters(data.shift))
   end
+  report[:usersStats].merge!(add_parameters(data.shift))
 
   report[:uniqueBrowsersCount] = sessions_browsers.uniq.count
   report[:totalSessions] = sessions_browsers.count
