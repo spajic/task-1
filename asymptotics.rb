@@ -1,4 +1,5 @@
 require 'benchmark/ips'
+# require_relative 'task_1_original'
 require_relative 'task_1'
 
 Benchmark.ips do |b|
@@ -8,6 +9,9 @@ Benchmark.ips do |b|
   b.report('20k') { work('data/data_20k.txt') }
   b.report('30k') { work('data/data_30k.txt') }
   b.report('40k') { work('data/data_40k.txt') }
+  b.report('50k') { work('data/data_50k.txt') }
+  b.report('100k') { work('data/data_100k.txt') }
+  b.report('500k') { work('data/data_500k.txt') }
 
   b.compare!
 end
