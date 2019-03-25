@@ -3,19 +3,10 @@
 
 require 'json'
 require 'date'
-require 'pry'
+#require 'pry'
 require 'csv'
 
 class TaskClass
-  class User
-    attr_reader :attributes, :sessions
-
-    def initialize(attributes:, sessions:)
-      @attributes = attributes
-      @sessions = sessions
-    end
-  end
-
   def parse_user(fields)
     {
       'id' => fields[1],
@@ -88,56 +79,23 @@ class TaskClass
   end
 
   def prepare_data(filename, users, sessions)
-    File.open(filename) do |file|
-      file.lazy.each_slice(2000) do |lines|
-        lines.each do |row|
-          row = row.chomp.split(',')
-          if row[0] == 'session'
-            session = parse_session(row)
-            sessions << session
-            users[session['user_id'].to_i]['sessions'] << session
-          else
-            users << parse_user(row)
-          end
-        end
+    file_lines = File.open(filename, "r")
+    file_lines.each_line do |line|
+      cols = line.chomp("\n").split(',')
+      if cols[0] == 'session'
+        session = parse_session(cols)
+        sessions << session
+        users[session['user_id'].to_i]['sessions'] << session
+      else
+        users << parse_user(cols)
       end
     end
-    # file_lines = File.open(filename, "r")
-    # file_lines.each_line do |line|
-    #   cols = line.chomp.split(',')
-    #   if cols[0] == 'session'
-    #     sessions << parse_session(cols)
-    #   else
-    #     users << parse_user(cols)
-    #   end
-    # end
-    # CSV.foreach(filename) do |row|
-    #   if row[0] == 'session'
-    #     sessions << parse_session(row)
-    #   else
-    #     users << parse_user(row)
-    #   end
-    # end
-    # File.open(filename, 'r') do |file|
-    #   csv = CSV.new(file, headers: true)
-    #   sum = 0
-    #
-    #   while row = csv.shift
-    #     if row[0] == 'session'
-    #       sessions << parse_session(row)
-    #     else
-    #       users << parse_user(row)
-    #     end
-    #   end
-    # end
   end
 
   def work(filename:)
     users = []
     sessions = []
-    t1=Time.now
     prepare_data(filename, users, sessions)
-    puts Time.now-t1
 
     # Отчёт в json
     #   - Сколько всего юзеров +
@@ -176,14 +134,6 @@ class TaskClass
         .uniq
         .join(',')
 
-    # Статистика по пользователям
-    users_objects = []
-t2=Time.now
-    # users.each do |user|
-    #   user_object = User.new(attributes: user, sessions: user['sessions'])
-    #   users_objects << user_object
-    # end
-    puts Time.now - t2
     collect_stats_from_users(report, users)
 
     File.write('result.json', "#{report.to_json}\n")
