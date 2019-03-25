@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    memory_profiler (0.9.12)
+    ruby-prof (0.17.0)
+    stackprof (0.2.12)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  memory_profiler
+  ruby-prof
+  stackprof
+
+BUNDLED WITH
+   1.17.2
