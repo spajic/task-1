@@ -1,6 +1,6 @@
 require 'benchmark/ips'
-# require_relative 'task_1_original'
 require_relative 'task_1'
+# require_relative 'task_1_original'
 
 Benchmark.ips do |b|
   b.warmup = 0

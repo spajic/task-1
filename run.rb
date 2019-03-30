@@ -19,7 +19,7 @@ if ARGV[0] == 'profile'
   # end
 
   require 'ruby-prof'
-  RubyProf.measure_mode = RubyProf::MEMORY
+  RubyProf.measure_mode = RubyProf::ALLOCATIONS
   result = RubyProf.profile do
     work(data_file)
   end

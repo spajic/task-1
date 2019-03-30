@@ -107,3 +107,15 @@ Ruby 2.6.1 final results:
 
   25.605 ips
   10.896784 sec
+
+
+Changed Ruby to 2.6.1
+  rbenv install 2.6.1-railsexpress
+  rbenv local 2.6.1-railsexpress
+  DATA=data/data_large.txt ruby run.rb bencmark (ruby-prof )
+  qcachegrind profile.callgrind.out.*
+
+Replace File.readlines with IO.foreach
+  26.974 ips
+  10.640090 sec
+  40MB!!!!

@@ -136,7 +136,7 @@ def work(file_name = 'data.txt', show_progress = false)
   File.open('result.json', 'w') do |report_file|
     report_file.write('{"usersStats":{')
 
-    File.readlines(file_name).each do |line|
+    IO.foreach(file_name) do |line|
       if line.start_with?(USER)
         if user != nil
           user_report.add_user_to_report(user, report_file, false)
