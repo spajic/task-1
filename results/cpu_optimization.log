@@ -1,0 +1,121 @@
+Original:
+  Calculating -------------------------------------
+    5k      1.996  (± 0.0%) i/s -     10.000  in   5.039163s
+   10k      0.417  (± 0.0%) i/s -      3.000  in   7.203067s
+   20k      0.103  (± 0.0%) i/s -      1.000  in   9.695104s
+   30k      0.041  (± 0.0%) i/s -      1.000  in  24.452029s
+   40k      0.023  (± 0.0%) i/s -      1.000  in  42.555962s
+
+  Comparison:
+    5k:        2.0 i/s
+   10k:        0.4 i/s - 4.78x  slower
+   20k:        0.1 i/s - 19.35x  slower
+   30k:        0.0 i/s - 48.80x  slower
+   40k:        0.0 i/s - 84.93x  slower
+
+Test set 10k of lines
+Confidense 95%
+
+Initial value:
+  0.482 ips
+
+Select block optimization:
+  6.851 ips
+
+Optimize browsers calculation:
+  12.817 ips
+
+Replace regex matching to include?:
+  13.182 ips
+
+Replace merge! with key inserting in collect_stats_from_users block:
+  14.591 ips
+
+Replace cols[0] == 'user' with start_with?('u'):
+  14.920 ips
+
+Use oj for JSON generation
+  16.136 ips
+
+Remove user object:
+  17.292 ips
+
+Group session aggregation loops into one:
+  19.490 ips
+
+# Increase confidence to 99%
+
+Use variable usersStats = report[:usersStats] in collect_stats_from_users
+  19.415 ips
+
+Merge session counting with another aggs:
+  20.184 ips
+
+Remove user_id and session_id from session hash:
+  20.771 ips
+
+Replace session hash with 3-fields object:
+  21.182 ips
+
+Replace user hash with 3-fields object:
+  21.335 ips
+
+# Here I changed ruby version from 2.6.1 to 2.5.1-railsexpress
+
+# Memory optimization
+New metrics initial values:
+  29066 allocations per 40k file
+  28.522816 sec per large file
+
+Stream processing:
+  26344 allocations
+  20.479 ips
+  21.892883 sec
+
+Do not recreating user and session objects
+  26079 allocations
+  21.580 ips
+  20.584606 sec
+
+Stream JSON generation:
+  21778 allocations
+  19.940 ips
+  15.282201 sec
+
+Remove duplication of splitting!!!
+  15510 allocations
+  25.237 ips
+  12.547515 sec
+
+-- Optimize join of user browsers
+
+Ruby 2.6.1 final results:
+  Calculating -------------------------------------
+    5k     51.904  (±17.3%) i/s -    250.000  in   5.007745s
+    10k     24.256  (±12.4%) i/s -    119.000  in   5.027979s
+    20k     14.260  (± 7.0%) i/s -     72.000  in   5.062890s
+    30k      8.745  (±11.4%) i/s -     44.000  in   5.064456s
+    40k      6.990  (± 0.0%) i/s -     35.000  in   5.009650s
+
+  Comparison:
+    5k:       51.9 i/s
+    10k:       24.3 i/s - 2.14x  slower
+    20k:       14.3 i/s - 3.64x  slower
+    30k:        8.7 i/s - 5.94x  slower
+    40k:        7.0 i/s - 7.43x  slower
+
+
+  25.605 ips
+  10.896784 sec
+
+
+Changed Ruby to 2.6.1
+  rbenv install 2.6.1-railsexpress
+  rbenv local 2.6.1-railsexpress
+  DATA=data/data_large.txt ruby run.rb bencmark (ruby-prof )
+  qcachegrind profile.callgrind.out.*
+
+Replace File.readlines with IO.foreach
+  26.974 ips
+  10.640090 sec
+  40MB!!!!

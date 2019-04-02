@@ -1,0 +1,7 @@
+.DS_Store
+*.json
+*.html
+massif.out.*
+profile.callgrind.out.*
+data/data_large.txt
+tmp/*
