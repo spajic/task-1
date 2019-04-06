@@ -4,6 +4,8 @@ require 'json'
 require 'pry-byebug'
 require 'date'
 
+$support_dir = File.expand_path('../../spec/support', __FILE__ )
+
 class User
   attr_reader :attributes, :sessions
 
@@ -43,7 +45,7 @@ def collect_stats_from_users(report, users_objects, &block)
 end
 
 def work
-  file_lines = File.read('data.txt').split("\n")
+  file_lines = File.read("#{$support_dir}/data.txt").split("\n")
 
   users = []
   sessions = []
@@ -139,5 +141,5 @@ def work
     { 'dates' => user.sessions.map{|s| s['date']}.map {|d| Date.parse(d)}.sort.reverse.map { |d| d.iso8601 } }
   end
 
-  File.write('result.json', "#{report.to_json}\n")
+  File.write("#{$support_dir}/result.json", "#{report.to_json}\n")
 end
