@@ -44,8 +44,8 @@ def collect_stats_from_users(report, users_objects, &block)
   end
 end
 
-def work
-  file_lines = File.read("#{$support_dir}/data.txt").split("\n")
+def work(filename)
+  file_lines = File.read("#{$support_dir}/#{filename}").split("\n")
 
   users = []
   sessions = []

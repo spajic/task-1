@@ -69,7 +69,7 @@ describe 'Parser' do
   before { File.write("#{$support_dir}/data.txt", data_for_processing) }
 
   it 'parses file and saves to file calculated report' do
-    work
+    work('data.txt')
 
     File.read("#{$support_dir}/result.json").must_equal(expected_result)
   end
