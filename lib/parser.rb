@@ -5,6 +5,7 @@ require 'pry-byebug'
 require 'date'
 
 $support_dir = File.expand_path('../../spec/support', __FILE__ )
+$optimizations_dir = File.expand_path('../../optimizations', __FILE__ )
 
 class User
   attr_reader :attributes, :sessions
