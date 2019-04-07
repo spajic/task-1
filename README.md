@@ -17,5 +17,5 @@ bother us.
 ## Step 1
 I tried to turn off GC in our sample test and check whether memory issues could cause such problems with the speed.
 Metrics didn't change a lot hence i understood that main problem for now is in algorithm by itself and we should seek 
-where CPU works mostly maybe we could apply certain optimization there. Additionally we disabled GC to be focused only 
-on algorithm issue.
+where CPU works mostly. Maybe we could apply certain optimization there. Additionally we disabled GC to be focused only 
+in algorithm issue.
