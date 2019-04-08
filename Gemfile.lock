@@ -10,6 +10,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    benchmark-ips (2.7.2)
     benchmark-malloc (0.1.0)
     benchmark-perf (0.4.0)
     benchmark-trend (0.2.0)
@@ -39,6 +40,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  benchmark-ips
   benchmark-perf
   pry
   rspec
