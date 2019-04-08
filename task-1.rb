@@ -41,8 +41,8 @@ def collect_stats_from_users(report, users_objects, &block)
   end
 end
 
-def work
-  file_lines = File.read('data.txt').split("\n")
+def work(filename = 'data.txt')
+  file_lines = File.read(filename).split("\n")
 
   users = []
   sessions = []
@@ -138,5 +138,45 @@ def work
     { 'dates' => user.sessions.map{|s| s['date']}.map {|d| Date.parse(d)}.sort.reverse.map { |d| d.iso8601 } }
   end
 
-  File.write('result.json', "#{report.to_json}\n")
+  File.write("result.json", "#{report.to_json}\n")
 end
+
+filenames = ['10_lines', '100_lines', '1000_lines', '10000_lines', '20000_lines']
+# filenames = Array.new(5) { '100_lines' }
+# filenames.each do |fn|
+#   work("sample_data/#{fn}.txt")
+# end
+# require "benchmark/ips"
+# require "benchmark"
+
+# Benchmark.ips do |x|
+#   filenames.each do |filename|
+#     x.report(filename) do
+#       work("sample_data/#{filename}.txt")
+#     end
+#   end
+#   x.compare!
+# end
+#
+# Benchmark.bmbm(2) do |x|
+#   filenames.each do |fn|
+#     x.report(fn) do
+#       2.times do
+#         work("sample_data/#{fn}.txt")
+#       end
+#     end
+#   end
+# end
+
+# require 'stackprof'
+
+# StackProf.run(mode: :object, out: 'tmp/stackprof.dump', raw: true) do
+#   work("sample_data/20000_lines.txt")
+# end
+
+# profile_data = StackProf.run(mode: :object) do
+#   work("sample_data/20000_lines.txt")
+# end
+
+# StackProf::Report.new(profile_data).print_text
+# StackProf::Report.new(profile_data).print_graphviz
