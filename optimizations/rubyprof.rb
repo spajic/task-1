@@ -14,3 +14,16 @@ save_stdout_to_file('rubyprof_wall.txt') do
   printer = RubyProf::FlatPrinter.new(result)
   printer.print($stdout)
 end
+
+GC.enable
+
+save_stdout_to_file('rubyprof_alloc.txt') do
+  RubyProf.measure_mode = RubyProf::ALLOCATIONS
+
+  result = RubyProf.profile do
+    work('data_65kb.txt')
+  end
+
+  printer = RubyProf::FlatPrinter.new(result)
+  printer.print($stdout)
+end

@@ -1,51 +1,51 @@
 Measure Mode: wall_time
-Thread ID: 70301182517280
-Fiber ID: 70301187143240
-Total: 0.020671
+Thread ID: 70236183396360
+Fiber ID: 70236185621160
+Total: 0.021233
 Sort by: self_time
 
  %self      total      self      wait     child     calls  name
- 26.26      0.016     0.005     0.000     0.010        9   Array#each
- 15.73      0.004     0.003     0.000     0.001     2378   Array#map
- 13.68      0.003     0.003     0.000     0.000     3293   String#split
-  5.70      0.002     0.001     0.000     0.001        1   JSON::Ext::Generator::GeneratorMethods::Hash#to_json
-  4.96      0.002     0.001     0.000     0.001     1382   Object#parse_session
-  4.75      0.001     0.001     0.000     0.000     4292   String#encode
-  3.78      0.001     0.001     0.000     0.000     1848   Hash#merge
+ 26.36      0.016     0.006     0.000     0.010        9   Array#each
+ 15.54      0.004     0.003     0.000     0.001     2378   Array#map
+ 13.04      0.003     0.003     0.000     0.000     3293   String#split
+  5.66      0.003     0.001     0.000     0.001        1   JSON::Ext::Generator::GeneratorMethods::Hash#to_json
+  5.17      0.002     0.001     0.000     0.001     1382   Object#parse_session
+  4.61      0.001     0.001     0.000     0.000     4292   String#encode
+  3.85      0.001     0.001     0.000     0.000     1848   Hash#merge
   3.09      0.001     0.001     0.000     0.000     3841   String#upcase
-  2.77      0.001     0.001     0.000     0.000      529   Array#sort
-  2.47      0.001     0.001     0.000     0.000     1382   Set#add
-  2.23      0.000     0.000     0.000     0.000     2764   String#to_i
-  2.20      0.001     0.000     0.000     0.000      264   Array#any?
-  1.81      0.000     0.000     0.000     0.000        1   <Class::IO>#write
-  1.68      0.001     0.000     0.000     0.000        1   Array#each_index
-  1.11      0.000     0.000     0.000     0.000     2116   String#to_s
-  1.05      0.000     0.000     0.000     0.000      264   Object#parse_user
-  0.97      0.000     0.000     0.000     0.000      264   Array#all?
-  0.95      0.000     0.000     0.000     0.000      265   Array#join
-  0.85      0.000     0.000     0.000     0.000      266  *Class#new
-  0.76      0.000     0.000     0.000     0.000      528   Integer#to_s
-  0.60      0.000     0.000     0.000     0.000        1   Array#flatten
-  0.44      0.000     0.000     0.000     0.000      264   User#initialize
-  0.31      0.000     0.000     0.000     0.000      266   Hash#keys
-  0.31      0.000     0.000     0.000     0.000        1   Array#uniq
-  0.30      0.000     0.000     0.000     0.000      264   Array#reverse
-  0.25      0.000     0.000     0.000     0.000        1   <Class::IO>#read
-  0.23      0.000     0.000     0.000     0.000      264   Array#max
-  0.20      0.000     0.000     0.000     0.000      264   Array#sum
-  0.17      0.021     0.000     0.000     0.021        1   Object#work
-  0.15      0.000     0.000     0.000     0.000      266   Array#count
-  0.09      0.021     0.000     0.000     0.021        1   [global]#[no method]
+  2.90      0.001     0.001     0.000     0.000      529   Array#sort
+  2.38      0.001     0.001     0.000     0.000     1382   Set#add
+  2.07      0.001     0.000     0.000     0.000      264   Array#any?
+  2.06      0.000     0.000     0.000     0.000     2764   String#to_i
+  1.94      0.000     0.000     0.000     0.000        1   <Class::IO>#read
+  1.60      0.001     0.000     0.000     0.000        1   Array#each_index
+  1.25      0.000     0.000     0.000     0.000     2116   String#to_s
+  1.20      0.000     0.000     0.000     0.000      264   Array#all?
+  1.08      0.000     0.000     0.000     0.000        1   <Class::IO>#write
+  1.03      0.000     0.000     0.000     0.000      265   Array#join
+  0.85      0.000     0.000     0.000     0.000      264   Object#parse_user
+  0.81      0.000     0.000     0.000     0.000      266  *Class#new
+  0.68      0.000     0.000     0.000     0.000      528   Integer#to_s
+  0.53      0.000     0.000     0.000     0.000        1   Array#flatten
+  0.47      0.000     0.000     0.000     0.000      264   User#initialize
+  0.36      0.000     0.000     0.000     0.000      264   Array#reverse
+  0.36      0.000     0.000     0.000     0.000        1   Array#uniq
+  0.24      0.000     0.000     0.000     0.000      266   Hash#keys
+  0.19      0.000     0.000     0.000     0.000      264   Array#sum
+  0.18      0.000     0.000     0.000     0.000      264   Array#max
+  0.15      0.021     0.000     0.000     0.021        1   Object#work
+  0.12      0.000     0.000     0.000     0.000      266   Array#count
+  0.10      0.021     0.000     0.000     0.021        1   [global]#[no method]
   0.03      0.000     0.000     0.000     0.000        1   Hash#each_key
-  0.01      0.000     0.000     0.000     0.000        1   Set#each
-  0.01      0.009     0.000     0.000     0.009        7   Object#collect_stats_from_users
-  0.01      0.000     0.000     0.000     0.000        1   Set#initialize
-  0.01      0.000     0.000     0.000     0.000        1   Kernel#dup
-  0.01      0.000     0.000     0.000     0.000        1   Symbol#to_s
+  0.02      0.000     0.000     0.000     0.000        1   Kernel#dup
+  0.02      0.000     0.000     0.000     0.000        1   Set#initialize
   0.01      0.000     0.000     0.000     0.000        1   Enumerable#count
-  0.01      0.000     0.000     0.000     0.000        1   Kernel#initialize_dup
+  0.01      0.010     0.000     0.000     0.010        7   Object#collect_stats_from_users
+  0.01      0.000     0.000     0.000     0.000        1   Set#each
   0.01      0.000     0.000     0.000     0.000        1   Hash#initialize
+  0.01      0.000     0.000     0.000     0.000        1   Kernel#initialize_dup
   0.00      0.000     0.000     0.000     0.000        1   JSON::Ext::Generator::State#initialize_copy
   0.00      0.000     0.000     0.000     0.000        1   NilClass#nil?
+  0.00      0.000     0.000     0.000     0.000        1   Symbol#to_s
 
 * indicates recursively called methods
