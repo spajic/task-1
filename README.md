@@ -19,3 +19,19 @@ I tried to turn off GC in our sample test and check whether memory issues could 
 Metrics didn't change a lot hence i understood that main problem for now is in algorithm by itself and we should seek 
 where CPU works mostly. Maybe we could apply certain optimization there. Additionally we disabled GC to be focused only 
 in algorithm issue.
+
+After all measures we figured out the problem in sequential looping over an array without any using of ids for fast search.
+
+## Step 2
+After refactoring in step1 where i replaced sequential looping through array with using of ids i reduced algorithm
+complexity at least x3. I applied stackprof and rubyprof once more for checking what we've got for now and next problem we
+saw using of all? method for checking of existing sessions in presaved array.
+
+## Step 3
+We applied set data structure for making unique assembling for us. After next measures we saw problem with date parsing
+in the final part of the report.
+
+## Step 4 
+Exactly in our case this part of algorithm do nothing so we excluded it without any breaking of law. Finally we are at
+the point where we can't gain much of performance with simple refactorings. It's a good moment for capturing our memory 
+situation in terms of waisting it. 
