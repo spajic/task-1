@@ -3,6 +3,7 @@
 require 'json'
 require 'pry-byebug'
 require 'date'
+require 'set'
 
 $support_dir = File.expand_path('../../spec/support', __FILE__ )
 $optimizations_dir = File.expand_path('../../optimizations', __FILE__ )
@@ -83,10 +84,10 @@ def work(filename)
   report[:totalUsers] = users.count
 
   # Подсчёт количества уникальных браузеров
-  uniqueBrowsers = []
+  uniqueBrowsers = Set.new
   flatten.each do |session|
     browser = session['browser']
-    uniqueBrowsers += [browser] if uniqueBrowsers.all? { |b| b != browser }
+    uniqueBrowsers << browser
   end
 
   report['uniqueBrowsersCount'] = uniqueBrowsers.count
