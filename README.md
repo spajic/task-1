@@ -34,4 +34,4 @@ in the final part of the report.
 ## Step 4 
 Exactly in our case this part of algorithm do nothing so we excluded it without any breaking of law. Finally we are at
 the point where we can't gain much of performance with simple refactorings. It's a good moment for capturing our memory 
-situation in terms of waisting it. 
+situation in terms of waisting it. So after measures i see that we have a lot of redundant array allocations. 

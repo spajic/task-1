@@ -56,11 +56,11 @@ def work(filename)
     cols = line.split(',')
 
     if cols[0] == 'user'
-      users = users + [parse_user(line)]
+      users << parse_user(line)
 
       sessions << []
     else
-      sessions[-1] = sessions[-1] + [parse_session(line)]
+      sessions[-1] << parse_session(line)
     end
   end
 
@@ -97,10 +97,9 @@ def work(filename)
   report['allBrowsers'] =
     flatten
       .map { |s| s['browser'] }
-      .map { |b| b.upcase }
       .sort
       .uniq
-      .join(',')
+      .join(',').upcase
 
   # Статистика по пользователям
   users_objects = []
