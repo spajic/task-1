@@ -1,0 +1,51 @@
+Measure Mode: allocations
+Thread ID: 70319549374480
+Fiber ID: 70319546561660
+Total: 51966.000000
+Sort by: self_time
+
+ %self      total      self      wait     child     calls  name
+ 46.50  24163.000 24163.000     0.000     0.000     3293   String#split
+ 20.34  44143.000 10569.000     0.000 33574.000        9   Array#each
+  8.77   4557.000  4557.000     0.000     0.000     4292   String#encode
+  4.74   2461.000  2461.000     0.000     0.000     2460   String#upcase
+  4.57   3759.000  2377.000     0.000  1382.000     2377   Array#map
+  3.56   1848.000  1848.000     0.000     0.000     1848   Hash#merge
+  2.66  11056.000  1382.000     0.000  9674.000     1382   Object#parse_session
+  1.91    992.000   992.000     0.000     0.000      529   Array#sort
+  1.52   1320.000   792.000     0.000   528.000        1   Array#each_index
+  1.02    530.000   529.000     0.000     1.000      266  *Class#new
+  1.02    528.000   528.000     0.000     0.000      528   Integer#to_s
+  0.61   1045.000   317.000     0.000   728.000      264   Array#any?
+  0.51    266.000   266.000     0.000     0.000      266   Hash#keys
+  0.51    265.000   265.000     0.000     0.000      265   Array#join
+  0.51    264.000   264.000     0.000     0.000      264   Array#reverse
+  0.51   1848.000   264.000     0.000  1584.000      264   Object#parse_user
+  0.39    201.000   201.000     0.000     0.000     1382   Set#add
+  0.32    514.000   165.000     0.000   349.000      264   Array#all?
+  0.02  51965.000     8.000     0.000 51957.000        1   Object#work
+  0.01      3.000     3.000     0.000     0.000        1   <Class::IO>#write
+  0.00      4.000     2.000     0.000     2.000        1   Enumerable#count
+  0.00      2.000     2.000     0.000     0.000        1   Set#each
+  0.00      2.000     2.000     0.000     0.000        1   Array#uniq
+  0.00      2.000     2.000     0.000     0.000        1   <Class::IO>#read
+  0.00      2.000     2.000     0.000     0.000        1   Array#flatten
+  0.00      1.000     1.000     0.000     0.000        1   Symbol#to_s
+  0.00      1.000     1.000     0.000     0.000        1   Kernel#dup
+  0.00   4826.000     1.000     0.000  4825.000        1   JSON::Ext::Generator::GeneratorMethods::Hash#to_json
+  0.00  51966.000     1.000     0.000 51965.000        1   [global]#[no method]
+  0.00      0.000     0.000     0.000     0.000        1   Hash#each_key
+  0.00      0.000     0.000     0.000     0.000        1   Hash#initialize
+  0.00      1.000     0.000     0.000     1.000        1   Set#initialize
+  0.00      0.000     0.000     0.000     0.000      264   User#initialize
+  0.00      0.000     0.000     0.000     0.000      266   Array#count
+  0.00  19516.000     0.000     0.000 19516.000        7   Object#collect_stats_from_users
+  0.00      0.000     0.000     0.000     0.000     2764   String#to_i
+  0.00      0.000     0.000     0.000     0.000      264   Array#sum
+  0.00      0.000     0.000     0.000     0.000      264   Array#max
+  0.00      0.000     0.000     0.000     0.000        1   Kernel#initialize_dup
+  0.00      0.000     0.000     0.000     0.000        1   JSON::Ext::Generator::State#initialize_copy
+  0.00      0.000     0.000     0.000     0.000     2116   String#to_s
+  0.00      0.000     0.000     0.000     0.000        1   NilClass#nil?
+
+* indicates recursively called methods
