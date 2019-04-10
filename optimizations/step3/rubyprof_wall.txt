@@ -1,0 +1,60 @@
+Measure Mode: wall_time
+Thread ID: 70129408991240
+Fiber ID: 70129414541640
+Total: 0.032080
+Sort by: self_time
+
+ %self      total      self      wait     child     calls  name
+ 18.98      0.026     0.006     0.000     0.020        9   Array#each
+ 13.60      0.013     0.004     0.000     0.009     2906   Array#map
+ 10.42      0.003     0.003     0.000     0.000     3293   String#split
+ 10.13      0.007     0.003     0.000     0.004     1382   <Class::Date>#parse
+  5.44      0.002     0.002     0.000     0.000     2764   Regexp#match
+  3.88      0.002     0.001     0.000     0.001        1   JSON::Ext::Generator::GeneratorMethods::Hash#to_json
+  3.77      0.003     0.001     0.000     0.001     1382   Object#parse_session
+  3.23      0.001     0.001     0.000     0.000     1382   String#gsub!
+  2.84      0.001     0.001     0.000     0.000     1848   Hash#merge
+  2.71      0.001     0.001     0.000     0.000      529   Array#sort
+  2.65      0.001     0.001     0.000     0.000     4292   String#encode
+  2.13      0.001     0.001     0.000     0.000     3841   String#upcase
+  1.96      0.001     0.001     0.000     0.000     1382   Date#iso8601
+  1.91      0.001     0.001     0.000     0.000     1382   Set#add
+  1.46      0.000     0.000     0.000     0.000        1   <Class::IO>#write
+  1.42      0.001     0.000     0.000     0.000        1   Array#each_index
+  1.30      0.000     0.000     0.000     0.000     2764   String#to_i
+  1.23      0.000     0.000     0.000     0.000     2744   Date#<=>
+  1.15      0.000     0.000     0.000     0.000      264   Array#any?
+  1.08      0.000     0.000     0.000     0.000     1382   MatchData#begin
+  0.99      0.000     0.000     0.000     0.000     1382   String#[]=
+  0.89      0.000     0.000     0.000     0.000     2116   String#to_s
+  0.80      0.000     0.000     0.000     0.000      264   Object#parse_user
+  0.73      0.000     0.000     0.000     0.000      265   Array#join
+  0.71      0.000     0.000     0.000     0.000      266  *Class#new
+  0.67      0.000     0.000     0.000     0.000      264   Array#all?
+  0.63      0.000     0.000     0.000     0.000     1382   MatchData#end
+  0.63      0.000     0.000     0.000     0.000     1382   Integer#div
+  0.44      0.000     0.000     0.000     0.000        1   Array#flatten
+  0.34      0.000     0.000     0.000     0.000      528   Integer#to_s
+  0.34      0.000     0.000     0.000     0.000      264   User#initialize
+  0.26      0.000     0.000     0.000     0.000        1   Array#uniq
+  0.20      0.000     0.000     0.000     0.000        1   <Class::IO>#read
+  0.18      0.000     0.000     0.000     0.000      264   Array#reverse
+  0.17      0.000     0.000     0.000     0.000      264   Array#max
+  0.16      0.000     0.000     0.000     0.000      266   Hash#keys
+  0.16      0.000     0.000     0.000     0.000      264   Array#sum
+  0.12      0.000     0.000     0.000     0.000      266   Array#count
+  0.12      0.032     0.000     0.000     0.032        1   Object#work
+  0.07      0.032     0.000     0.000     0.032        1   [global]#[no method]
+  0.02      0.000     0.000     0.000     0.000        1   Hash#each_key
+  0.01      0.000     0.000     0.000     0.000        1   Set#initialize
+  0.01      0.019     0.000     0.000     0.019        7   Object#collect_stats_from_users
+  0.01      0.000     0.000     0.000     0.000        1   Set#each
+  0.01      0.000     0.000     0.000     0.000        1   Enumerable#count
+  0.01      0.000     0.000     0.000     0.000        1   Kernel#dup
+  0.00      0.000     0.000     0.000     0.000        1   NilClass#nil?
+  0.00      0.000     0.000     0.000     0.000        1   Symbol#to_s
+  0.00      0.000     0.000     0.000     0.000        1   Kernel#initialize_dup
+  0.00      0.000     0.000     0.000     0.000        1   Hash#initialize
+  0.00      0.000     0.000     0.000     0.000        1   JSON::Ext::Generator::State#initialize_copy
+
+* indicates recursively called methods
