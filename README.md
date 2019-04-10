@@ -35,3 +35,8 @@ in the final part of the report.
 Exactly in our case this part of algorithm do nothing so we excluded it without any breaking of law. Finally we are at
 the point where we can't gain much of performance with simple refactorings. It's a good moment for capturing our memory 
 situation in terms of waisting it. So after measures i see that we have a lot of redundant array allocations. 
+
+## Step 5
+After removing all obvious places of redundant array allocations i used frozen_string_literal for avoiding allocations of 
+redundant strings
+
