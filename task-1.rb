@@ -1,7 +1,13 @@
-# Deoptimized version of homework task
+# frozen_string_literal: true
 
 require 'json'
 require 'date'
+require 'pry'
+
+DELIMITER = ','.freeze
+USER_PREFIX = 'user,'.freeze
+SESSION_PREFIX = 'session,'.freeze
+DATE_PATTERN = '%Y-%m-%d'.freeze
 
 class User
   attr_reader :attributes, :sessions
@@ -15,78 +21,55 @@ end
 def parse_user(user)
   fields = user.split(',')
   parsed_result = {
-    'id' => fields[1],
-    'first_name' => fields[2],
-    'last_name' => fields[3],
-    'age' => fields[4],
+    id: fields[1],
+    name: "#{fields[2]} #{fields[3]}",
+    age: fields[4],
   }
 end
 
 def parse_session(session)
   fields = session.split(',')
   parsed_result = {
-    'user_id' => fields[1],
-    'session_id' => fields[2],
-    'browser' => fields[3],
-    'time' => fields[4],
-    'date' => fields[5],
+    user_id: fields[1],
+    session_id: fields[2],
+    browser: fields[3].upcase!,
+    time: fields[4],
+    date: fields[5],
   }
 end
 
-def collect_stats_from_users(report, users_objects, &block)
-  users_objects.each do |user|
-    user_key = "#{user.attributes['first_name']}" + ' ' + "#{user.attributes['last_name']}"
-    report['usersStats'][user_key] ||= {}
-    report['usersStats'][user_key] = report['usersStats'][user_key].merge(block.call(user))
-  end
-end
-
 def work(filename = 'data.txt')
-  file_lines = File.read(filename).split("\n")
-
+  report = {
+    totalUsers: 0,
+    uniqueBrowsersCount: 0,
+    totalSessions: 0,
+  }
   users = []
   sessions = []
 
-  file_lines.each do |line|
-    cols = line.split(',')
-    users = users + [parse_user(line)] if cols[0] == 'user'
-    sessions = sessions + [parse_session(line)] if cols[0] == 'session'
+  File.foreach(filename) do |line|
+    if line.start_with?(USER_PREFIX)
+      users << parse_user(line)
+      report[:totalUsers] += 1
+    end
+
+    if line.start_with?(SESSION_PREFIX)
+      sessions << parse_session(line)
+      report[:totalSessions] += 1
+    end
   end
 
-  # Отчёт в json
-  #   - Сколько всего юзеров +
-  #   - Сколько всего уникальных браузеров +
-  #   - Сколько всего сессий +
-  #   - Перечислить уникальные браузеры в алфавитном порядке через запятую и капсом +
-  #
-  #   - По каждому пользователю
-  #     - сколько всего сессий +
-  #     - сколько всего времени +
-  #     - самая длинная сессия +
-  #     - браузеры через запятую +
-  #     - Хоть раз использовал IE? +
-  #     - Всегда использовал только Хром? +
-  #     - даты сессий в порядке убывания через запятую +
-
-  report = {}
-
-  report[:totalUsers] = users.count
-
-  # Подсчёт количества уникальных браузеров
   uniqueBrowsers = []
   sessions.each do |session|
-    browser = session['browser']
+    browser = session[:browser]
     uniqueBrowsers += [browser] if uniqueBrowsers.all? { |b| b != browser }
   end
 
-  report['uniqueBrowsersCount'] = uniqueBrowsers.count
-
-  report['totalSessions'] = sessions.count
+  report[:uniqueBrowsersCount] = uniqueBrowsers.count
 
   report['allBrowsers'] =
     sessions
-      .map { |s| s['browser'] }
-      .map { |b| b.upcase }
+      .map { |s| s[:browser] }
       .sort
       .uniq
       .join(',')
@@ -96,47 +79,33 @@ def work(filename = 'data.txt')
 
   users.each do |user|
     attributes = user
-    user_sessions = sessions.select { |session| session['user_id'] == user['id'] }
-    user_object = User.new(attributes: attributes, sessions: user_sessions)
-    users_objects = users_objects + [user_object]
+    user_sessions = sessions.select { |session| session[:user_id] == user[:id] }
+    users_objects << User.new(attributes: attributes, sessions: user_sessions)
   end
 
   report['usersStats'] = {}
 
+  counter = 0
+  while report[:totalUsers] > counter
+    u = users_objects.shift
+    user_key = u.attributes[:name]
+    report['usersStats'][user_key] = {
+      'sessionsCount' => u.sessions.count,
+      'totalTime' => u.sessions.map do |s|
+        s[:time]
+      end.map do |t|
+        t.to_i
+      end.sum.to_s + ' min.',
+      'longestSession' => u.sessions.map {|s| s[:time]}.map {|t| t.to_i}.max.to_s + ' min.',
+      'browsers' => u.sessions.map {|s| s[:browser]}.sort.join(', '),
+      'usedIE' => u.sessions.map{|s| s[:browser]}.any? { |b| b =~ /INTERNET EXPLORER/ },
+      'alwaysUsedChrome' => u.sessions.map{|s| s[:browser]}.all? { |b| b =~ /CHROME/ },
+      'dates' => u.sessions.map! { |s| Date.strptime(s[:date], DATE_PATTERN) }.sort! {|a,b| b <=> a}
+    }
+    counter += 1
+  end
+
   # Собираем количество сессий по пользователям
-  collect_stats_from_users(report, users_objects) do |user|
-    { 'sessionsCount' => user.sessions.count }
-  end
-
-  # Собираем количество времени по пользователям
-  collect_stats_from_users(report, users_objects) do |user|
-    { 'totalTime' => user.sessions.map {|s| s['time']}.map {|t| t.to_i}.sum.to_s + ' min.' }
-  end
-
-  # Выбираем самую длинную сессию пользователя
-  collect_stats_from_users(report, users_objects) do |user|
-    { 'longestSession' => user.sessions.map {|s| s['time']}.map {|t| t.to_i}.max.to_s + ' min.' }
-  end
-
-  # Браузеры пользователя через запятую
-  collect_stats_from_users(report, users_objects) do |user|
-    { 'browsers' => user.sessions.map {|s| s['browser']}.map {|b| b.upcase}.sort.join(', ') }
-  end
-
-  # Хоть раз использовал IE?
-  collect_stats_from_users(report, users_objects) do |user|
-    { 'usedIE' => user.sessions.map{|s| s['browser']}.any? { |b| b.upcase =~ /INTERNET EXPLORER/ } }
-  end
-
-  # Всегда использовал только Chrome?
-  collect_stats_from_users(report, users_objects) do |user|
-    { 'alwaysUsedChrome' => user.sessions.map{|s| s['browser']}.all? { |b| b.upcase =~ /CHROME/ } }
-  end
-
-  # Даты сессий через запятую в обратном порядке в формате iso8601
-  collect_stats_from_users(report, users_objects) do |user|
-    { 'dates' => user.sessions.map{|s| s['date']}.map {|d| Date.parse(d)}.sort.reverse.map { |d| d.iso8601 } }
-  end
 
   File.write("result.json", "#{report.to_json}\n")
 end
@@ -167,16 +136,34 @@ filenames = ['10_lines', '100_lines', '1000_lines', '10000_lines', '20000_lines'
 #     end
 #   end
 # end
+#
+# require "benchmark"
 
-# require 'stackprof'
-
-# StackProf.run(mode: :object, out: 'tmp/stackprof.dump', raw: true) do
-#   work("sample_data/20000_lines.txt")
+# Benchmark.bmbm(2) do |x|
+#   x.report('20k lines:') do
+#     2.times do
+#       work("sample_data/20000_lines.txt")
+#     end
+#   end
 # end
 
-# profile_data = StackProf.run(mode: :object) do
-#   work("sample_data/20000_lines.txt")
+require 'stackprof'
+
+StackProf.run(mode: :object, out: 'tmp/stackprof.dump', raw: true) do
+  work("sample_data/20000_lines.txt")
+end
+
+profile_data = StackProf.run(mode: :object) do
+  work("sample_data/20000_lines.txt")
+end
+
+StackProf::Report.new(profile_data).print_text
+StackProf::Report.new(profile_data).print_graphviz
+
+# def print_memory_usage
+#   "%d MB" % (`ps -o rss= -p #{Process.pid}`.to_i / 1024)
 # end
 
-# StackProf::Report.new(profile_data).print_text
-# StackProf::Report.new(profile_data).print_graphviz
+# puts "rss before: #{print_memory_usage}"
+#   work("sample_data/20000_lines.txt")
+# puts "rss after: #{print_memory_usage}"
