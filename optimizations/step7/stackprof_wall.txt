@@ -1,0 +1,60 @@
+==================================
+  Mode: wall(1000)
+  Samples: 13 (0.00% miss rate)
+  GC: 0 (0.00%)
+==================================
+     TOTAL    (pct)     SAMPLES    (pct)     FRAME
+        13 (100.0%)           6  (46.2%)     Object#work
+         5  (38.5%)           5  (38.5%)     CSV::Parser::InputsScanner#scan_all
+         2  (15.4%)           2  (15.4%)     CSV::Parser::InputsScanner#scan
+        13 (100.0%)           0   (0.0%)     CSV#each
+        13 (100.0%)           0   (0.0%)     CSV.foreach
+        13 (100.0%)           0   (0.0%)     CSV.open
+        13 (100.0%)           0   (0.0%)     block (2 levels) in <main>
+        13 (100.0%)           0   (0.0%)     block in <main>
+        13 (100.0%)           0   (0.0%)     Object#save_stdout_to_file
+        13 (100.0%)           0   (0.0%)     <main>
+        13 (100.0%)           0   (0.0%)     <main>
+         1   (7.7%)           0   (0.0%)     CSV::Parser#parse_column_end
+         5  (38.5%)           0   (0.0%)     CSV::Parser#parse_unquoted_column_value
+         5  (38.5%)           0   (0.0%)     CSV::Parser#parse_column_value
+         1   (7.7%)           0   (0.0%)     CSV::Parser#parse_row_end
+         6  (46.2%)           0   (0.0%)     CSV::Parser#emit_row
+        13 (100.0%)           0   (0.0%)     CSV::Parser#parse
+Object#work (/Users/donasktello/Projects/task-1/lib/parser.rb:19)
+  samples:     6 self (46.2%)  /     13 total (100.0%)
+  callers:
+      13  (  100.0%)  block (2 levels) in <main>
+      13  (  100.0%)  Object#work
+       6  (   46.2%)  CSV::Parser#emit_row
+  callees (7 total):
+      13  (  185.7%)  CSV.foreach
+      13  (  185.7%)  Object#work
+  code:
+                                  |    19  | def work(filename)
+                                  |    20  |   # report = {}
+                                  |    21  |   File.write(
+                                  |    22  |     "#{$support_dir}/result.json",
+                                  |    23  |     "{\"totalUsers\":%{totalUsers},"\
+                                  |    24  |     "\"uniqueBrowsersCount\":%{uniqueBrowsersCount},"\
+                                  |    25  |     "\"totalSessions\":%{totalSessions},"\
+                                  |    26  |     "\"allBrowsers\":\"%{allBrowsers},"\
+                                  |    27  |     "\"usersStats\":{"
+                                  |    28  |   )
+                                  |    29  | 
+                                  |    30  |   longest_session = total_time = sessions_count = 0
+                                  |    31  |   uniqueBrowsers = dates = browsers = []
+                                  |    32  |   always_chrome = used_ie = false
+   13  (100.0%)                   |    33  | File.open("#{$support_dir}/result.json", 'a') do |f|
+   13  (100.0%)                   |    34  |   CSV.foreach("#{$support_dir}/#{filename}", row_sep: "\n") do |row|
+    1    (7.7%) /     1   (7.7%)  |    35  |     if row[0] == 'user'
+                                  |    36  |       # report[:totalUsers] += 1
+                                  |    37  | 
+                                  |    38  |       if sessions_count > 0
+                                  |    39  |         user = "\"#{row[2]} #{row[3]}\":{" << SESSIONS << sessions_count.to_s << "\"," <<
+                                  |    40  |             TOTAL_TIME << total_time.to_s << " min.\"," << LONGEST_SESSION << longest_session.to_s << " min.\"," <<
+                                  |    41  |             BROWSERS << browsers.sort!.join(', ').upcase! << "\"," << USED_IE << "#{used_ie}" << "\"," << ALWAYS_CHROME << "#{always_chrome}" <<
+    4   (30.8%) /     4  (30.8%)  |    42  |             "\"," << DATES << dates.to_s << '},'
+                                  |    43  | 
+    1    (7.7%) /     1   (7.7%)  |    44  |         f.write(user)
+                                  |    45  | 

@@ -70,7 +70,7 @@ describe 'Parser' do
 
   it 'parses file and saves to file calculated report' do
     work('data.txt')
-
+    binding.pry
     File.read("#{$support_dir}/result.json").must_equal(expected_result)
   end
 end

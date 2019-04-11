@@ -1,0 +1,1002 @@
+events: memory
+
+fl=/Users/donasktello/ruby_runtime
+fn=IO::closed?
+0 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=IO::close
+0 1
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/forwardable.rb
+fn=CSV::close
+224 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::close
+calls=1 230
+230 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser/InputsScanner::eos?
+76 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=StringScanner::eos?
+calls=1 76
+76 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::parse_quoted_column_value
+658 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser/InputsScanner::scan_all
+calls=1 658
+658 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::shift
+0 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=String::initialize_copy
+0 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=StringScanner::string
+0 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::last
+0 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::clear
+0 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=IO::write
+0 8
+
+fl=/Users/donasktello/ruby_runtime
+fn=String::inspect
+0 517
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::inspect
+0 90
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::inspect
+calls=4134 42
+42 517
+
+fl=/Users/donasktello/ruby_runtime
+fn=FalseClass::to_s
+0 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=String::upcase!
+0 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::join
+0 59
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::sort!
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=Integer::to_s
+0 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=String::start_with?
+0 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=String::to_i
+0 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/fields_converter.rb
+fn=CSV/FieldsConverter::need_convert?
+74 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/fields_converter.rb
+fn=CSV/FieldsConverter::convert
+42 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/fields_converter.rb
+cfn=CSV/FieldsConverter::need_convert?
+calls=1646 42
+42 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::emit_row
+726 240
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/fields_converter.rb
+cfn=CSV/FieldsConverter::convert
+calls=1646 740
+740 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::to_i
+calls=3320 59
+59 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::start_with?
+calls=1382 61
+61 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Integer::to_s
+calls=789 39
+39 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::sort!
+calls=263 39
+39 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::join
+calls=263 39
+39 59
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::upcase!
+calls=263 39
+39 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=FalseClass::to_s
+calls=526 39
+39 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::inspect
+calls=263 39
+39 607
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::write
+calls=263 44
+44 8
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::clear
+calls=789 49
+49 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::parse_row_end
+704 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser/InputsScanner::scan
+calls=1647 704
+704 1
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser/InputsScanner::scan
+53 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=StringScanner::scan
+calls=9613 53
+53 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=StringScanner::eos?
+calls=7331 57
+57 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=StringScanner::scan
+calls=1647 53
+53 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=StringScanner::eos?
+calls=1514 57
+57 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::parse_column_end
+690 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser/InputsScanner::scan
+calls=9613 690
+690 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=StringScanner::eos?
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=StringScanner::scan
+0 1
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser/InputsScanner::scan_all
+65 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=StringScanner::scan
+calls=9620 65
+65 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Kernel::nil?
+calls=8846 68
+68 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=StringScanner::eos?
+calls=8850 70
+70 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser/InputsScanner::read_chunk
+calls=7 68
+68 62
+cfl=/Users/donasktello/ruby_runtime
+cfn=StringScanner::scan
+calls=1 65
+65 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::parse_unquoted_column_value
+634 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser/InputsScanner::scan_all
+calls=9613 634
+634 63
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::parse_column_value
+605 1
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::parse_unquoted_column_value
+calls=9613 628
+628 64
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::parse_quoted_column_value
+calls=1 628
+628 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::push
+0 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=StringScanner::pos
+0 1
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser/InputsScanner::keep_start
+80 4
+cfl=/Users/donasktello/ruby_runtime
+cfn=StringScanner::pos
+calls=1647 80
+80 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::push
+calls=1647 80
+80 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::pop
+0 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser/InputsScanner::keep_drop
+109 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::pop
+calls=1647 109
+109 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::start_row
+717 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser/InputsScanner::keep_drop
+calls=1647 720
+720 1
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser/InputsScanner::keep_start
+calls=1647 722
+722 5
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::skip_needless_lines
+578 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=IO::eof?
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=StringScanner::initialize
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=String::valid_encoding?
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=IO::gets
+0 73
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::first
+0 1
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser/InputsScanner::read_chunk
+118 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::first
+calls=1 136
+136 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Module::===
+calls=1 137
+137 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::gets
+calls=1 146
+146 17
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::valid_encoding?
+calls=1 148
+148 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Class::new
+calls=1 149
+149 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Kernel::respond_to?
+calls=1 150
+150 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::eof?
+calls=1 150
+150 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::last
+calls=7 121
+121 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=StringScanner::string
+calls=7 123
+123 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=StringScanner::pos
+calls=7 124
+124 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::[]
+calls=7 124
+124 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Kernel::dup
+calls=7 130
+130 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::first
+calls=7 136
+136 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Module::===
+calls=7 137
+137 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::gets
+calls=7 146
+146 56
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::valid_encoding?
+calls=7 148
+148 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Class::new
+calls=7 149
+149 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Kernel::respond_to?
+calls=7 150
+150 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::eof?
+calls=7 150
+150 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::shift
+calls=1 151
+151 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::initialize_copy
+0 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=Kernel::initialize_dup
+0 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::initialize_copy
+calls=1 44
+44 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::initialize_copy
+calls=7 130
+130 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=Kernel::dup
+0 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Kernel::initialize_dup
+calls=1 44
+44 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Kernel::initialize_dup
+calls=7 130
+130 1
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser/InputsScanner::initialize
+44 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Kernel::dup
+calls=1 44
+44 1
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser/InputsScanner::read_chunk
+calls=1 49
+49 20
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::build_scanner
+555 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Kernel::is_a?
+calls=1 556
+556 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::collect
+calls=1 568
+568 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Class::new
+calls=1 572
+572 22
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::parse
+231 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Kernel::block_given?
+calls=1 231
+231 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::build_scanner
+calls=1 245
+245 23
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::skip_needless_lines
+calls=1647 265
+265 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::start_row
+calls=1647 266
+266 6
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::parse_column_value
+calls=9613 251
+251 66
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::parse_column_end
+calls=9613 255
+255 1
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::parse_row_end
+calls=1647 257
+257 1
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::emit_row
+calls=1646 262
+262 918
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser/InputsScanner::eos?
+calls=1 267
+267 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=NilClass::nil?
+calls=1 268
+268 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::may_quoted?
+517 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Kernel::is_a?
+calls=1 517
+517 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::prepare_parser
+513 2
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::may_quoted?
+calls=1 513
+513 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=FalseClass::===
+0 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::prepare_header
+475 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Module::===
+calls=2 478
+478 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=NilClass::===
+calls=1 478
+478 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=FalseClass::===
+calls=1 478
+478 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::prepare_line
+461 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=Regexp::initialize
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=NilClass::===
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=Module::===
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=String::[]
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=Regexp::^escape
+0 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::resolve_row_separator
+399 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::to_s
+calls=1 433
+433 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::encode
+calls=1 433
+433 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=String::encode
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=String::to_s
+0 1
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::prepare_regexp
+332 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::to_s
+calls=2 335
+335 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::encode
+calls=10 395
+395 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::resolve_row_separator
+calls=1 334
+334 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Regexp::^escape
+calls=4 343
+343 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::[]
+calls=1 341
+341 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Module::===
+calls=2 346
+346 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=NilClass::===
+calls=1 346
+346 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Class::new
+calls=7 395
+395 2
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::prepare_variable
+311 1
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::prepare
+303 2
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::prepare_variable
+calls=1 303
+303 1
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::prepare_regexp
+calls=1 304
+304 6
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::prepare_line
+calls=1 305
+305 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::prepare_header
+calls=1 306
+306 1
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::prepare_parser
+calls=1 307
+307 3
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+fn=CSV/Parser::initialize
+170 1
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::prepare
+calls=1 175
+175 15
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+fn=CSV::build_header_fields_converter
+1341 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Hash::merge
+calls=1 1344
+1344 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Class::new
+calls=1 1345
+1345 1
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+cfn=CSV::normalize_converters
+calls=1 1346
+1346 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::each
+calls=1 1346
+1346 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+fn=CSV::header_fields_converter
+1336 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+cfn=CSV::build_header_fields_converter
+calls=1 1336
+1336 3
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::each
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::collect
+0 1
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+fn=CSV::normalize_converters
+1277 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Kernel::is_a?
+calls=1 1278
+1278 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::collect
+calls=1 1281
+1281 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Kernel::is_a?
+calls=1 1278
+1278 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::collect
+calls=1 1281
+1281 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/fields_converter.rb
+fn=CSV/FieldsConverter::need_static_convert?
+70 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=NilClass::nil?
+calls=1 70
+70 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=NilClass::nil?
+calls=1 70
+70 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/fields_converter.rb
+fn=CSV/FieldsConverter::initialize
+8 1
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/fields_converter.rb
+cfn=CSV/FieldsConverter::need_static_convert?
+calls=1 14
+14 1
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/fields_converter.rb
+cfn=CSV/FieldsConverter::need_static_convert?
+calls=1 14
+14 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+fn=CSV::build_fields_converter
+1325 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Hash::merge
+calls=1 1327
+1327 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Class::new
+calls=1 1328
+1328 2
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+cfn=CSV::normalize_converters
+calls=1 1329
+1329 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::each
+calls=1 1329
+1329 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+fn=CSV::fields_converter
+1320 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+cfn=CSV::build_fields_converter
+calls=1 1320
+1320 4
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+fn=CSV::parser_options
+1357 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+cfn=CSV::fields_converter
+calls=1 1357
+1357 4
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+cfn=CSV::header_fields_converter
+calls=1 1357
+1357 3
+cfl=/Users/donasktello/ruby_runtime
+cfn=Hash::merge
+calls=1 1357
+1357 1
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+fn=CSV::parser
+1353 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+cfn=CSV::parser_options
+calls=1 1353
+1353 9
+cfl=/Users/donasktello/ruby_runtime
+cfn=Class::new
+calls=1 1353
+1353 15
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+fn=CSV::each
+1176 1
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+cfn=CSV::parser
+calls=1 1176
+1176 24
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::parse
+calls=1 1176
+1176 1018
+
+fl=/Users/donasktello/ruby_runtime
+fn=NilClass::nil?
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=IO::external_encoding
+0 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=IO::internal_encoding
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=Kernel::respond_to?
+0 1
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+fn=CSV::raw_encoding
+1310 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Kernel::respond_to?
+calls=1 1310
+1310 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::internal_encoding
+calls=1 1311
+1311 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::external_encoding
+calls=1 1311
+1311 0
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+fn=CSV::determine_encoding
+1263 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+cfn=CSV::raw_encoding
+calls=1 1263
+1263 3
+
+fl=/Users/donasktello/ruby_runtime
+fn=Kernel::is_a?
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=Kernel::nil?
+0 1
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+fn=CSV::initialize
+915 2
+cfl=/Users/donasktello/ruby_runtime
+cfn=Kernel::nil?
+calls=1 915
+915 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Kernel::is_a?
+calls=1 918
+918 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+cfn=CSV::determine_encoding
+calls=1 919
+919 3
+cfl=/Users/donasktello/ruby_runtime
+cfn=NilClass::nil?
+calls=1 947
+947 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=Class::new
+0 2
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+cfn=CSV::initialize
+calls=1 648
+648 7
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/fields_converter.rb
+cfn=CSV/FieldsConverter::initialize
+calls=1 1328
+1328 2
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/fields_converter.rb
+cfn=CSV/FieldsConverter::initialize
+calls=1 1345
+1345 1
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser::initialize
+calls=1 1353
+1353 15
+cfl=/Users/donasktello/ruby_runtime
+cfn=Regexp::initialize
+calls=7 395
+395 1
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv/parser.rb
+cfn=CSV/Parser/InputsScanner::initialize
+calls=1 572
+572 22
+cfl=/Users/donasktello/ruby_runtime
+cfn=StringScanner::initialize
+calls=1 149
+149 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=StringScanner::initialize
+calls=7 149
+149 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=Hash::merge
+0 2
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+fn=CSV::^open
+637 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Hash::merge
+calls=1 637
+637 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::^open
+calls=1 640
+640 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Class::new
+calls=1 648
+648 7
+cfl=/Users/donasktello/ruby_runtime
+cfn=Kernel::block_given?
+calls=1 655
+655 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+cfn=CSV::each
+calls=1 510
+510 1043
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/forwardable.rb
+cfn=CSV::close
+calls=1 659
+659 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=Kernel::block_given?
+0 1
+
+fl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+fn=CSV::^foreach
+508 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Kernel::block_given?
+calls=1 508
+508 0
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+cfn=CSV::^open
+calls=1 509
+509 1053
+
+fl=/Users/donasktello/ruby_runtime
+fn=File::initialize
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=IO::^open
+0 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=File::initialize
+calls=1 33
+33 1
+cfl=/Users/donasktello/.rvm/rubies/ruby-2.6.1-railsexpress/lib/ruby/2.6.0/csv.rb
+cfn=CSV::^foreach
+calls=1 34
+34 1054
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::closed?
+calls=1 34
+34 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::close
+calls=1 34
+34 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=File::initialize
+calls=1 640
+640 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=IO::^write
+0 9
+
+fl=/Users/donasktello/Projects/task-1/lib/parser.rb
+fn=Object::work
+21 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::^write
+calls=1 21
+21 9
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::^open
+calls=1 33
+33 1056
+
+fl=/Users/donasktello/Projects/task-1/optimizations/rubyprof_patched.rb
+fn=[global]::[no method]
+7 1
+cfl=/Users/donasktello/Projects/task-1/lib/parser.rb
+cfn=Object::work
+calls=1 7
+7 1065
+
