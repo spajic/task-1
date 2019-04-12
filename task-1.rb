@@ -76,10 +76,11 @@ def work(filename = 'data.txt')
 
   # Статистика по пользователям
   users_objects = []
+  sessions_by_user = sessions.group_by { |s| s[:user_id] }
 
   users.each do |user|
     attributes = user
-    user_sessions = sessions.select { |session| session[:user_id] == user[:id] }
+    user_sessions = sessions_by_user[user[:id]] || []
     users_objects << User.new(attributes: attributes, sessions: user_sessions)
   end
 
@@ -167,3 +168,12 @@ StackProf::Report.new(profile_data).print_graphviz
 # puts "rss before: #{print_memory_usage}"
 #   work("sample_data/20000_lines.txt")
 # puts "rss after: #{print_memory_usage}"
+
+# require 'memory_profiler'
+
+# MemoryProfiler.start
+
+# work("sample_data/20000_lines.txt")
+
+# report = MemoryProfiler.stop
+# report.pretty_print
