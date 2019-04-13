@@ -26,12 +26,6 @@ describe 'Parser' do
 
   let(:expected_result) do
     {
-      "totalUsers":3,
-      "uniqueBrowsersCount":14,
-      "totalSessions":15,
-      "allBrowsers":'CHROME 13,CHROME 20,CHROME 35,CHROME 6,FIREFOX 12,FIREFOX 32,FIREFOX 47,'\
-                    'INTERNET EXPLORER 10,INTERNET EXPLORER 28,INTERNET EXPLORER 35,SAFARI 17,'\
-                    'SAFARI 29,SAFARI 39,SAFARI 49',
       "usersStats":{
         "Leida Cira": {
           "sessionsCount":6,
@@ -60,7 +54,13 @@ describe 'Parser' do
           "usedIE":false,
           "alwaysUsedChrome":false,
           "dates":["2018-09-21", "2018-02-02", "2017-05-22", "2016-11-25"]
-        }
+        },
+      "totalUsers":3,
+      "uniqueBrowsersCount":14,
+      "totalSessions":15,
+      "allBrowsers":'CHROME 13,CHROME 20,CHROME 35,CHROME 6,FIREFOX 12,FIREFOX 32,FIREFOX 47,'\
+                    'INTERNET EXPLORER 10,INTERNET EXPLORER 28,INTERNET EXPLORER 35,SAFARI 17,'\
+                    'SAFARI 29,SAFARI 39,SAFARI 49',
       }
     }.to_json + "\n"
   end
