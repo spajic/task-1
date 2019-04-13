@@ -59,29 +59,28 @@ def work(filename = 'data.txt')
     end
   end
 
-  uniqueBrowsers = []
-  sessions.each do |session|
-    browser = session[:browser]
-    uniqueBrowsers += [browser] if uniqueBrowsers.all? { |b| b != browser }
+
+  all_browsers = []
+  users_objects = []
+  sessions_by_user = {}
+
+  while sessions[0]
+    sess = sessions.shift
+    next unless sess
+    sessions_by_user[sess[:user_id]] = sessions_by_user[sess[:user_id]] ? (sessions_by_user[sess[:user_id]] << sess) : [sess]
+    all_browsers << sess[:browser]
   end
 
-  report[:uniqueBrowsersCount] = uniqueBrowsers.count
+  report[:allBrowsers] = all_browsers
+    .uniq!
+    .sort!
+    .join(',')
 
-  report['allBrowsers'] =
-    sessions
-      .map { |s| s[:browser] }
-      .sort
-      .uniq
-      .join(',')
-
-  # Статистика по пользователям
-  users_objects = []
-  sessions_by_user = sessions.group_by { |s| s[:user_id] }
+  report[:uniqueBrowsersCount] = all_browsers.size
 
   users.each do |user|
     attributes = user
-    user_sessions = sessions_by_user[user[:id]] || []
-    users_objects << User.new(attributes: attributes, sessions: user_sessions)
+    users_objects << User.new(attributes: attributes, sessions: sessions_by_user[user[:id]] || [])
   end
 
   report['usersStats'] = {}
@@ -108,7 +107,7 @@ def work(filename = 'data.txt')
 
   # Собираем количество сессий по пользователям
 
-  File.write("result.json", "#{report.to_json}\n")
+  File.write("result.json", report.to_json << "\n")
 end
 
 filenames = ['10_lines', '100_lines', '1000_lines', '10000_lines', '20000_lines']
@@ -148,18 +147,18 @@ filenames = ['10_lines', '100_lines', '1000_lines', '10000_lines', '20000_lines'
 #   end
 # end
 
-require 'stackprof'
+# require 'stackprof'
 
-StackProf.run(mode: :object, out: 'tmp/stackprof.dump', raw: true) do
-  work("sample_data/20000_lines.txt")
-end
+# StackProf.run(mode: :object, out: 'tmp/stackprof.dump', raw: true) do
+#   work("sample_data/20000_lines.txt")
+# end
 
-profile_data = StackProf.run(mode: :object) do
-  work("sample_data/20000_lines.txt")
-end
+# profile_data = StackProf.run(mode: :object) do
+#   work("sample_data/20000_lines.txt")
+# end
 
-StackProf::Report.new(profile_data).print_text
-StackProf::Report.new(profile_data).print_graphviz
+# StackProf::Report.new(profile_data).print_text
+# StackProf::Report.new(profile_data).print_graphviz
 
 # def print_memory_usage
 #   "%d MB" % (`ps -o rss= -p #{Process.pid}`.to_i / 1024)
@@ -177,3 +176,14 @@ StackProf::Report.new(profile_data).print_graphviz
 
 # report = MemoryProfiler.stop
 # report.pretty_print
+#
+# require 'ruby-prof'
+
+# # profile the code
+# result = RubyProf.profile do
+#   work("sample_data/20000_lines.txt")
+# end
+
+# # print a graph profile to text
+# printer = RubyProf::GraphPrinter.new(result)
+# printer.print(STDOUT, {})
