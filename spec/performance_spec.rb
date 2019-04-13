@@ -22,5 +22,15 @@ RSpec.describe "Performance" do
         user2.delete!(DEL)
       }.to perform_allocation(3)
     end
+
+    it 'curs' do
+      expect {
+        PAT = 'string,'.freeze
+        REP = ''.freeze
+        'string,two'.sub!(PAT, REP)
+        'string,two'.sub!(PAT, REP)
+        'string,two'.sub!(PAT, REP)
+      }.to perform_allocation(7)
+    end
   end
 end

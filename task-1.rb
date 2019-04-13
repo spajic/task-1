@@ -48,14 +48,14 @@ def work(filename = 'data.txt')
   sessions = []
 
   File.foreach(filename) do |line|
+    if line.start_with?(SESSION_PREFIX)
+      sessions << parse_session(line)
+      next if report[:totalSessions] += 1
+    end
+
     if line.start_with?(USER_PREFIX)
       users << parse_user(line)
       report[:totalUsers] += 1
-    end
-
-    if line.start_with?(SESSION_PREFIX)
-      sessions << parse_session(line)
-      report[:totalSessions] += 1
     end
   end
 
@@ -89,18 +89,20 @@ def work(filename = 'data.txt')
   while report[:totalUsers] > counter
     u = users_objects.shift
     user_key = u.attributes[:name]
+
+    user_sessions_time = u.sessions.map { |s| s[:time].to_i }
+    user_browsers = u.sessions.map { |s| s[:browser] }
+
     report['usersStats'][user_key] = {
       'sessionsCount' => u.sessions.count,
-      'totalTime' => u.sessions.map do |s|
-        s[:time]
-      end.map do |t|
-        t.to_i
-      end.sum.to_s + ' min.',
-      'longestSession' => u.sessions.map {|s| s[:time]}.map {|t| t.to_i}.max.to_s + ' min.',
-      'browsers' => u.sessions.map {|s| s[:browser]}.sort.join(', '),
-      'usedIE' => u.sessions.map{|s| s[:browser]}.any? { |b| b =~ /INTERNET EXPLORER/ },
-      'alwaysUsedChrome' => u.sessions.map{|s| s[:browser]}.all? { |b| b =~ /CHROME/ },
-      'dates' => u.sessions.map! { |s| Date.strptime(s[:date], DATE_PATTERN) }.sort! {|a,b| b <=> a}
+      'totalTime' => user_sessions_time.sum.to_s << ' min.',
+      'longestSession' => user_sessions_time.max.to_s << ' min.',
+      'browsers' => user_browsers.sort.join(', '),
+      'usedIE' => !user_browsers.find { |b| b =~ /INTERNET EXPLORER/ }.nil?,
+      'alwaysUsedChrome' => !user_browsers.find { |b| b !~ /CHROME/ },
+      'dates' => u.sessions.map! do |s|
+        Date.civil(s[:date][0,4].to_i, s[:date][5,2].to_i, s[:date][8,2].to_i)
+      end.sort! {|a,b| b <=> a}
     }
     counter += 1
   end
@@ -140,10 +142,8 @@ filenames = ['10_lines', '100_lines', '1000_lines', '10000_lines', '20000_lines'
 # require "benchmark"
 
 # Benchmark.bmbm(2) do |x|
-#   x.report('20k lines:') do
-#     2.times do
-#       work("sample_data/20000_lines.txt")
-#     end
+#   x.report('Big file') do
+#     work("data_large.txt")
 #   end
 # end
 
@@ -165,7 +165,7 @@ filenames = ['10_lines', '100_lines', '1000_lines', '10000_lines', '20000_lines'
 # end
 
 # puts "rss before: #{print_memory_usage}"
-#   work("sample_data/20000_lines.txt")
+# work("data_large.txt")
 # puts "rss after: #{print_memory_usage}"
 
 # require 'memory_profiler'
@@ -175,7 +175,7 @@ filenames = ['10_lines', '100_lines', '1000_lines', '10000_lines', '20000_lines'
 # work("sample_data/20000_lines.txt")
 
 # report = MemoryProfiler.stop
-# report.pretty_print
+# report.pretty_print(scale_bytes: true)
 #
 # require 'ruby-prof'
 
