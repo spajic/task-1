@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Deoptimized version of homework task
 
 require 'json'
@@ -46,15 +47,13 @@ def work(filename)
           user_always_chrome = true if browsers.end_with?('CHROME')
           user_used_ie = true if !user_always_chrome && browsers.match?('INTERNET')
 
-          user = "\"#{user_name}\":{" << "#{SESSIONS}#{user_sessions_count},"<< "#{TOTAL_TIME}#{user_total_time} min.\"," <<
-              "#{LONGEST_SESSION}#{user_longest_session} min.\"," << "#{BROWSERS}#{browsers}\"," << "#{USED_IE}#{user_used_ie}," <<
-              "#{ALWAYS_CHROME}#{user_always_chrome},#{DATES}"
+          f.write("\"#{user_name}\":{#{SESSIONS}#{user_sessions_count},#{TOTAL_TIME}#{user_total_time} min.\","\
+            "#{LONGEST_SESSION}#{user_longest_session} min.\",#{BROWSERS}#{browsers}\",#{USED_IE}#{user_used_ie},"\
+              "#{ALWAYS_CHROME}#{user_always_chrome},#{DATES}")
 
           while date = user_dates.shift
-            user_dates.size == 0 ? user << "\"#{date}\"]}," : user << "\"#{date}\","
+            user_dates.size == 0 ? f.write("\"#{date}\"]},") : f.write("\"#{date}\",")
           end
-
-          f.write(user)
 
           report_general[:uniqueBrowsersCount].concat user_browsers
           report_general[:totalSessions] += user_sessions_count
@@ -85,19 +84,17 @@ def work(filename)
     user_always_chrome = true if browsers.end_with?('CHROME')
     user_used_ie = true if !user_always_chrome && browsers.match?('INTERNET')
 
-    user = "\"#{user_name}\":{" << "#{SESSIONS}#{user_sessions_count},"<< "#{TOTAL_TIME}#{user_total_time} min.\"," <<
-      "#{LONGEST_SESSION}#{user_longest_session} min.\"," << "#{BROWSERS}#{browsers}\"," << "#{USED_IE}#{user_used_ie}," <<
-        "#{ALWAYS_CHROME}#{user_always_chrome},#{DATES}"
+    f.write("\"#{user_name}\":{#{SESSIONS}#{user_sessions_count},#{TOTAL_TIME}#{user_total_time} min.\","\
+      "#{LONGEST_SESSION}#{user_longest_session} min.\",#{BROWSERS}#{browsers}\",#{USED_IE}#{user_used_ie},"\
+        "#{ALWAYS_CHROME}#{user_always_chrome},#{DATES}")
 
     while date = user_dates.shift
-      user_dates.size == 0 ? user << "\"#{date}\"]}," : user << "\"#{date}\","
+      user_dates.size == 0 ? f.write("\"#{date}\"]},") : f.write("\"#{date}\",")
     end
 
     report_general[:uniqueBrowsersCount].concat user_browsers
     report_general[:totalSessions] += user_sessions_count
     report_general[:totalUsers] += 1
-
-    f.write(user)
 
     report_general[:uniqueBrowsersCount].sort!.uniq!
     report_general[:allBrowsers] = report_general[:uniqueBrowsersCount].join(SEP).upcase!
