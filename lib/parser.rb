@@ -17,7 +17,6 @@ ALWAYS_CHROME = "\"alwaysUsedChrome\":\""
 DATES = "\"dates\":\""
 
 def work(filename)
-  # report = {}
   File.write(
     "#{$support_dir}/result.json",
     "{\"totalUsers\":%{totalUsers},"\
@@ -28,8 +27,12 @@ def work(filename)
   )
 
   longest_session = total_time = sessions_count = 0
-  uniqueBrowsers = dates = browsers = []
   always_chrome = used_ie = false
+
+  uniqueBrowsers = []
+  dates = []
+  browsers = []
+
 File.open("#{$support_dir}/result.json", 'a') do |f|
   CSV.foreach("#{$support_dir}/#{filename}", row_sep: "\n") do |row|
     if row[0] == 'user'
