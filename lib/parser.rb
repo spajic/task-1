@@ -38,8 +38,10 @@ def work(filename)
   File.open("#{$support_dir}/result.json", 'w') do |f|
     f.write("{\"usersStats\":{")
 
-    CSV.foreach("#{$support_dir}/#{filename}", row_sep: "\n") do |row|
-      if row[0] == 'user'
+    IO.foreach("#{$support_dir}/#{filename}") do |cols|
+      row = cols.split(SEP)
+
+      if cols.start_with?('user'.freeze)
         if user_sessions_count > 0
           user_dates.sort!.reverse!
 
@@ -48,11 +50,11 @@ def work(filename)
           user_used_ie = true if !user_always_chrome && browsers.match?('INTERNET')
 
           f.write("\"#{user_name}\":{#{SESSIONS}#{user_sessions_count},#{TOTAL_TIME}#{user_total_time} min.\","\
-            "#{LONGEST_SESSION}#{user_longest_session} min.\",#{BROWSERS}#{browsers}\",#{USED_IE}#{user_used_ie},"\
-              "#{ALWAYS_CHROME}#{user_always_chrome},#{DATES}")
+          "#{LONGEST_SESSION}#{user_longest_session} min.\",#{BROWSERS}#{browsers}\",#{USED_IE}#{user_used_ie},"\
+            "#{ALWAYS_CHROME}#{user_always_chrome},#{DATES}")
 
           while date = user_dates.shift
-            user_dates.size == 0 ? f.write("\"#{date}\"]},") : f.write("\"#{date}\",")
+            user_dates.size == 0 ? f.write("\"#{date.tr!("\n", '')}\"]},") : f.write("\"#{date.tr!("\n", '')}\",")
           end
 
           report_general[:uniqueBrowsersCount].concat user_browsers
@@ -89,7 +91,11 @@ def work(filename)
         "#{ALWAYS_CHROME}#{user_always_chrome},#{DATES}")
 
     while date = user_dates.shift
-      user_dates.size == 0 ? f.write("\"#{date}\"]},") : f.write("\"#{date}\",")
+      if user_dates.size == 0
+        f.write("\"#{date}\"]},")
+      else
+        f.write("\"#{date.tr!("\n", '')}\",")
+      end
     end
 
     report_general[:uniqueBrowsersCount].concat user_browsers
