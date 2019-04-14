@@ -2,8 +2,7 @@
 # Deoptimized version of homework task
 
 require 'json'
-require 'pry-byebug'
-require 'csv'
+require 'set'
 
 $support_dir = File.expand_path('../../spec/support', __FILE__ )
 $optimizations_dir = File.expand_path('../../optimizations', __FILE__ )
@@ -26,7 +25,7 @@ def work(filename)
 
   report_general = {}
   report_general[:totalUsers] = report_general[:totalSessions] = 0
-  report_general[:uniqueBrowsersCount] = []
+  report_general[:uniqueBrowsersCount] = Set.new
 
   user_name = ''
   user_longest_session = user_total_time = user_sessions_count = 0
@@ -56,7 +55,6 @@ def work(filename)
             user_dates.size == 0 ? f.write("\"#{date.tr!("\n", '')}\"]},") : f.write("\"#{date.tr!("\n", '')}\",")
           end
 
-          report_general[:uniqueBrowsersCount].concat user_browsers
           report_general[:totalSessions] += user_sessions_count
           report_general[:totalUsers] += 1
 
@@ -74,6 +72,7 @@ def work(filename)
         user_total_time += row[4].to_i
         user_longest_session = row[4].to_i if user_longest_session < row[4].to_i
         user_browsers << row[3]
+        report_general[:uniqueBrowsersCount] << row[3]
 
         user_dates << row[5]
       end
@@ -97,12 +96,10 @@ def work(filename)
       end
     end
 
-    report_general[:uniqueBrowsersCount].concat user_browsers
     report_general[:totalSessions] += user_sessions_count
     report_general[:totalUsers] += 1
 
-    report_general[:uniqueBrowsersCount].sort!.uniq!
-    report_general[:allBrowsers] = report_general[:uniqueBrowsersCount].join(SEP).upcase!
+    report_general[:allBrowsers] = report_general[:uniqueBrowsersCount].sort.join(SEP).upcase!
     report_general[:uniqueBrowsersCount] = report_general[:uniqueBrowsersCount].size
 
     f.write(report_general_str % report_general)
