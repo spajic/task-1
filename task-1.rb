@@ -112,7 +112,7 @@ def work(filename = 'data.txt')
   File.write("result.json", report.to_json << "\n")
 end
 
-filenames = ['10_lines', '100_lines', '1000_lines', '10000_lines', '20000_lines']
+filenames = ['100_lines', '1000_lines', '10000_lines', '20000_lines']
 # filenames = Array.new(5) { '100_lines' }
 # filenames.each do |fn|
 #   work("sample_data/#{fn}.txt")

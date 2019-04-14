@@ -21,12 +21,6 @@ RSpec.describe "Performance" do
       }.to perform_at_least(1150).within(0.4).warmup(0.2).ips
     end
 
-    it 'performs constants' do
-      expect {
-        work('sample_data/100_lines.txt')
-      }.to perform_linear
-    end
-
     # Not sure how to do this to get consistent result
     xit 'performs linear' do
       expect { |n, i|

@@ -4,6 +4,5 @@ result.json
 bin
 .DS_Store
 data_large.txt
-sample_data/
 tmp
 graphviz.png
