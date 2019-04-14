@@ -1,7 +1,7 @@
 require_relative '../lib/parser'
 
-report = MemoryProfiler.report do
+# report = MemoryProfiler.report do
   work('data_1m.txt')
-end
+# end
 
-report.pretty_print
+# report.pretty_print

@@ -4,7 +4,6 @@
 require 'json'
 require 'pry-byebug'
 require 'csv'
-require 'memory_profiler'
 
 $support_dir = File.expand_path('../../spec/support', __FILE__ )
 $optimizations_dir = File.expand_path('../../optimizations', __FILE__ )
