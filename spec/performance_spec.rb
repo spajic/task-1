@@ -24,13 +24,14 @@ RSpec.describe "Performance" do
     end
 
     it 'curs' do
+      PAT = 'string,'.freeze
       expect {
-        PAT = 'string,'.freeze
-        REP = ''.freeze
-        'string,two'.sub!(PAT, REP)
-        'string,two'.sub!(PAT, REP)
-        'string,two'.sub!(PAT, REP)
-      }.to perform_allocation(7)
+        'string,two'.delete_prefix!(PAT)
+        'string,two'.delete_prefix!(PAT)
+        'string,two'.delete_prefix!(PAT)
+        'string,two'.delete_prefix!(PAT)
+        'string,two'.delete_prefix!(PAT)
+      }.to perform_allocation(5)
     end
   end
 end

@@ -74,7 +74,7 @@ def work(filename = 'data.txt')
   report[:allBrowsers] = all_browsers
     .uniq!
     .sort!
-    .join(',')
+    .join(DELIMITER)
 
   report[:uniqueBrowsersCount] = all_browsers.size
 
@@ -94,7 +94,7 @@ def work(filename = 'data.txt')
     user_browsers = u.sessions.map { |s| s[:browser] }
 
     report['usersStats'][user_key] = {
-      'sessionsCount' => u.sessions.count,
+      'sessionsCount' => u.sessions.size,
       'totalTime' => user_sessions_time.sum.to_s << ' min.',
       'longestSession' => user_sessions_time.max.to_s << ' min.',
       'browsers' => user_browsers.sort.join(', '),
