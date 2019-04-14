@@ -46,7 +46,7 @@ def work(filename)
 
           browsers = user_browsers.sort!.join(SEP_SPACE).upcase!
           user_always_chrome = true if browsers.end_with?('CHROME')
-          user_used_ie = true if !user_always_chrome && browsers.match?('INTERNET')
+          user_used_ie = true if !user_always_chrome && browsers.include?('INTERNET')
 
           f.write("\"#{user_name}\":{#{SESSIONS}#{user_sessions_count},#{TOTAL_TIME}#{user_total_time} min.\","\
           "#{LONGEST_SESSION}#{user_longest_session} min.\",#{BROWSERS}#{browsers}\",#{USED_IE}#{user_used_ie},"\
@@ -83,7 +83,7 @@ def work(filename)
 
     browsers = user_browsers.sort!.join(', ').upcase!
     user_always_chrome = true if browsers.end_with?('CHROME')
-    user_used_ie = true if !user_always_chrome && browsers.match?('INTERNET')
+    user_used_ie = true if !user_always_chrome && browsers.include?('INTERNET')
 
     f.write("\"#{user_name}\":{#{SESSIONS}#{user_sessions_count},#{TOTAL_TIME}#{user_total_time} min.\","\
       "#{LONGEST_SESSION}#{user_longest_session} min.\",#{BROWSERS}#{browsers}\",#{USED_IE}#{user_used_ie},"\
