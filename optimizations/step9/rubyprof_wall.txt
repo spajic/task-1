@@ -1,0 +1,42 @@
+Measure Mode: wall_time
+Thread ID: 70132114317320
+Fiber ID: 70132118710860
+Total: 0.013361
+Sort by: self_time
+
+ %self      total      self      wait     child     calls  name
+ 51.97      0.013     0.007     0.000     0.006        1   <Class::IO>#foreach
+ 11.34      0.002     0.002     0.000     0.000     1646   String#split
+  5.10      0.001     0.001     0.000     0.000     1382   Set#add
+  4.52      0.001     0.001     0.000     0.000     3320   String#to_i
+  4.31      0.001     0.001     0.000     0.000     1381   String#tr!
+  4.21      0.001     0.001     0.000     0.000     1648   IO#write
+  3.55      0.000     0.000     0.000     0.000        1   File#initialize
+  2.56      0.000     0.000     0.000     0.000      528   Array#sort!
+  2.32      0.000     0.000     0.000     0.000     1646   String#start_with?
+  1.96      0.000     0.000     0.000     0.000     1646   Array#shift
+  1.88      0.000     0.000     0.000     0.000      265   Array#join
+  1.38      0.000     0.000     0.000     0.000      795   Integer#to_s
+  0.61      0.000     0.000     0.000     0.000        1   IO#close
+  0.57      0.000     0.000     0.000     0.000      264   String#include?
+  0.52      0.000     0.000     0.000     0.000      526   Array#clear
+  0.50      0.000     0.000     0.000     0.000      265   String#upcase!
+  0.50      0.000     0.000     0.000     0.000      264   String#end_with?
+  0.45      0.000     0.000     0.000     0.000      347   FalseClass#to_s
+  0.34      0.000     0.000     0.000     0.000      264   Array#reverse!
+  0.31      0.000     0.000     0.000     0.000        1   Enumerable#sort
+  0.28      0.013     0.000     0.000     0.013        1   <Class::IO>#open
+  0.28      0.000     0.000     0.000     0.000      181   TrueClass#to_s
+  0.18      0.013     0.000     0.000     0.013        1   [global]#[no method]
+  0.10      0.000     0.000     0.000     0.000        1   Hash#each_key
+  0.07      0.000     0.000     0.000     0.000        1   String#%
+  0.06      0.013     0.000     0.000     0.013        1   Object#work
+  0.04      0.000     0.000     0.000     0.000        1   Set#each
+  0.04      0.000     0.000     0.000     0.000        1   Set#initialize
+  0.02      0.000     0.000     0.000     0.000        1   Hash#initialize
+  0.01      0.000     0.000     0.000     0.000        1   IO#closed?
+  0.01      0.000     0.000     0.000     0.000        1   Set#size
+  0.01      0.000     0.000     0.000     0.000        2  *Class#new
+  0.00      0.000     0.000     0.000     0.000        1   NilClass#nil?
+
+* indicates recursively called methods

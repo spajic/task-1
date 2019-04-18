@@ -1,0 +1,57 @@
+==================================
+  Mode: wall(1000)
+  Samples: 4 (0.00% miss rate)
+  GC: 0 (0.00%)
+==================================
+     TOTAL    (pct)     SAMPLES    (pct)     FRAME
+         4 (100.0%)           4 (100.0%)     Object#work
+         4 (100.0%)           0   (0.0%)     block (2 levels) in <main>
+         4 (100.0%)           0   (0.0%)     block in <main>
+         4 (100.0%)           0   (0.0%)     Object#save_stdout_to_file
+         4 (100.0%)           0   (0.0%)     <main>
+         4 (100.0%)           0   (0.0%)     <main>
+Object#work (/Users/donasktello/Projects/task-1/lib/parser.rb:20)
+  samples:     4 self (100.0%)  /      4 total (100.0%)
+  callers:
+       8  (  200.0%)  Object#work
+       4  (  100.0%)  block (2 levels) in <main>
+  callees (0 total):
+       8  (    Inf%)  Object#work
+  code:
+                                  |    20  | def work(filename)
+                                  |    21  |   report_general_str = "\"totalUsers\":%{totalUsers},"\
+                                  |    22  |     "\"uniqueBrowsersCount\":%{uniqueBrowsersCount},"\
+                                  |    23  |     "\"totalSessions\":%{totalSessions},"\
+                                  |    24  |     "\"allBrowsers\":\"%{allBrowsers}\"}}\n"\
+                                  |    25  | 
+                                  |    26  |   report_general = {}
+                                  |    27  |   report_general[:totalUsers] = report_general[:totalSessions] = 0
+                                  |    28  |   report_general[:uniqueBrowsersCount] = Set.new
+                                  |    29  | 
+                                  |    30  |   user_name = ''
+                                  |    31  |   user_longest_session = user_total_time = user_sessions_count = 0
+                                  |    32  |   user_always_chrome = user_used_ie = false
+                                  |    33  |   user_dates = []
+                                  |    34  |   user_browsers = []
+                                  |    35  | 
+    4  (100.0%)                   |    36  |   File.open("#{$support_dir}/result.json", 'w') do |f|
+                                  |    37  |     f.write("{\"usersStats\":{")
+                                  |    38  | 
+    4  (100.0%)                   |    39  |     IO.foreach("#{$support_dir}/#{filename}") do |cols|
+                                  |    40  |       row = cols.split(SEP)
+                                  |    41  | 
+                                  |    42  |       if cols.start_with?('user'.freeze)
+                                  |    43  |         if user_sessions_count > 0
+                                  |    44  |           user_dates.sort!.reverse!
+                                  |    45  | 
+                                  |    46  |           browsers = user_browsers.sort!.join(SEP_SPACE).upcase!
+                                  |    47  |           user_always_chrome = true if browsers.end_with?('CHROME')
+                                  |    48  |           user_used_ie = true if !user_always_chrome && browsers.include?('INTERNET')
+                                  |    49  | 
+                                  |    50  |           f.write("\"#{user_name}\":{#{SESSIONS}#{user_sessions_count},#{TOTAL_TIME}#{user_total_time} min.\","\
+                                  |    51  |           "#{LONGEST_SESSION}#{user_longest_session} min.\",#{BROWSERS}#{browsers}\",#{USED_IE}#{user_used_ie},"\
+    1   (25.0%) /     1  (25.0%)  |    52  |             "#{ALWAYS_CHROME}#{user_always_chrome},#{DATES}")
+                                  |    53  | 
+    1   (25.0%) /     1  (25.0%)  |    54  |           while date = user_dates.shift
+    2   (50.0%) /     2  (50.0%)  |    55  |             user_dates.size == 0 ? f.write("\"#{date.tr!("\n", '')}\"]},") : f.write("\"#{date.tr!("\n", '')}\",")
+                                  |    56  |           end
