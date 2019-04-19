@@ -3,6 +3,7 @@
 
 require 'json'
 require 'set'
+require 'oj'
 
 $support_dir = File.expand_path('../../spec/support', __FILE__ )
 $optimizations_dir = File.expand_path('../../optimizations', __FILE__ )
@@ -47,13 +48,17 @@ def work(filename)
           user_always_chrome = true if browsers.end_with?('CHROME')
           user_used_ie = true if !user_always_chrome && browsers.include?('INTERNET')
 
-          f.write("\"#{user_name}\":{#{SESSIONS}#{user_sessions_count},#{TOTAL_TIME}#{user_total_time} min.\","\
-          "#{LONGEST_SESSION}#{user_longest_session} min.\",#{BROWSERS}#{browsers}\",#{USED_IE}#{user_used_ie},"\
-            "#{ALWAYS_CHROME}#{user_always_chrome},#{DATES}")
+          user_report = {
+            "sessionsCount": user_sessions_count,
+            "totalTime": "#{user_total_time} min.",
+            "longestSession": "#{user_longest_session} min.",
+            "browsers": browsers,
+            "usedIE": user_used_ie,
+            "alwaysUsedChrome": user_always_chrome,
+            "dates": user_dates
+          }
 
-          while date = user_dates.shift
-            user_dates.size == 0 ? f.write("\"#{date.tr!("\n", '')}\"]},") : f.write("\"#{date.tr!("\n", '')}\",")
-          end
+          f.write("\"#{user_name}\":#{Oj.dump(user_report, mode: :compat)},")
 
           report_general[:totalSessions] += user_sessions_count
           report_general[:totalUsers] += 1
@@ -74,7 +79,7 @@ def work(filename)
         user_browsers << row[3]
         report_general[:uniqueBrowsersCount] << row[3]
 
-        user_dates << row[5]
+        user_dates << row[5].strip
       end
     end
 
@@ -84,17 +89,17 @@ def work(filename)
     user_always_chrome = true if browsers.end_with?('CHROME')
     user_used_ie = true if !user_always_chrome && browsers.include?('INTERNET')
 
-    f.write("\"#{user_name}\":{#{SESSIONS}#{user_sessions_count},#{TOTAL_TIME}#{user_total_time} min.\","\
-      "#{LONGEST_SESSION}#{user_longest_session} min.\",#{BROWSERS}#{browsers}\",#{USED_IE}#{user_used_ie},"\
-        "#{ALWAYS_CHROME}#{user_always_chrome},#{DATES}")
+    user_report = {
+      "sessionsCount": user_sessions_count,
+      "totalTime": "#{user_total_time} min.",
+      "longestSession": "#{user_longest_session} min.",
+      "browsers": browsers,
+      "usedIE": user_used_ie,
+      "alwaysUsedChrome": user_always_chrome,
+      "dates": user_dates
+    }
 
-    while date = user_dates.shift
-      if user_dates.size == 0
-        f.write("\"#{date}\"]},")
-      else
-        f.write("\"#{date.tr!("\n", '')}\",")
-      end
-    end
+    f.write("\"#{user_name}\":#{Oj.dump(user_report, mode: :compat)},")
 
     report_general[:totalSessions] += user_sessions_count
     report_general[:totalUsers] += 1
