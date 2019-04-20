@@ -40,3 +40,13 @@ situation in terms of waisting it. So after measures i see that we have a lot of
 After removing all obvious places of redundant array allocations i used frozen_string_literal for avoiding allocations of 
 redundant strings
 
+## Step 6 - Final result
+All my next steps were connected with looking why memory using grows lineally to 400mb score and stops on that mark. The
+problem was that profilers didn't tell much about that just were showing that number of allocating object were extremely
+high. Finally i have figured out with massif-visualizer that all allocating memory related with collecting browsers and 
+i fixed it with using set. After that i used refactoring for decomposing all logic by domains area.
+
+Before refactoring i had result with using 37mb total for large file
+![Caption text](/optimizations/step10/before_refactoring.png)
+After refactoring memory usage grew but i think that in this case we don't need to dig deeper. This result is ok for us.
+![Caption text](/optimizations/step10/after_refactoring.png)
