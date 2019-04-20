@@ -50,3 +50,53 @@ Before refactoring i had result with using 37mb total for large file
 ![Before refactoring](/optimizations/step10/before.png)
 After refactoring memory usage grew but i think that in this case we don't need to dig deeper. This result is ok for us.
 ![After refactoring](/optimizations/step10/after.png)
+
+Assuming in the result we have parser that handles the task in `9` sec with `46 mb` used.
+
+Final asymptotic
+    
+    Warming up --------------------------------------
+                    65kb    15.000  i/100ms
+                   125kb     8.000  i/100ms
+                   250kb     4.000  i/100ms
+                    0.5m     2.000  i/100ms
+                      1m     1.000  i/100ms
+    Calculating -------------------------------------
+                    65kb    159.165  (± 4.3%) i/s -    330.000  in   2.078575s
+                   125kb     81.522  (± 8.3%) i/s -    168.000  in   2.095915s
+                   250kb     45.831  (± 3.6%) i/s -     92.000  in   2.013734s
+                    0.5m     24.744  (± 2.9%) i/s -     50.000  in   2.023426s
+                      1m     12.841  (± 3.3%) i/s -     26.000  in   2.028261s
+                      with 100.0% confidence
+    
+    Comparison:
+                    65kb:      159.2 i/s
+                   125kb:       81.5 i/s - 1.95x  (± 0.19) slower
+                   250kb:       45.8 i/s - 3.47x  (± 0.20) slower
+                    0.5m:       24.7 i/s - 6.43x  (± 0.34) slower
+                      1m:       12.8 i/s - 12.39x  (± 0.65) slower
+                      with 100.0% confidence 
+                  
+Comparing with what we had in the beginning
+
+    Warming up --------------------------------------
+                    65kb     1.000  i/100ms
+                   125kb     1.000  i/100ms
+                   250kb     1.000  i/100ms
+                    0.5m     1.000  i/100ms
+                      1m     1.000  i/100ms
+    Calculating -------------------------------------
+                    65kb     16.952  (± 4.2%) i/s -     34.000  in   2.015597s
+                   125kb      5.178  (± 2.1%) i/s -     11.000  in   2.125509s
+                   250kb      1.333  (± 2.0%) i/s -      3.000  in   2.251281s
+                    0.5m      0.370  (± 0.0%) i/s -      1.000  in   2.703453s
+                      1m      0.077  (± 0.0%) i/s -      1.000  in  13.051390s
+                      with 100.0% confidence
+    
+    Comparison:
+                    65kb:       17.0 i/s
+                   125kb:        5.2 i/s - 3.27x  (± 0.15) slower
+                   250kb:        1.3 i/s - 12.72x  (± 0.68) slower
+                    0.5m:        0.4 i/s - 45.84x  (± 1.94) slower
+                      1m:        0.1 i/s - 221.22x  (± 9.44) slower
+                      with 100.0% confidence
