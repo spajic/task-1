@@ -49,3 +49,4 @@ i fixed it with using set. After that i used refactoring for decomposing all log
 Before refactoring i had result with using 37mb total for large file
 ![Before refactoring](/optimizations/step10/before.png)
 After refactoring memory usage grew but i think that in this case we don't need to dig deeper. This result is ok for us.
+![After refactoring](/optimizations/step10/after.png)
