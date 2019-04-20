@@ -8,16 +8,6 @@ require 'oj'
 $support_dir = File.expand_path('../../spec/support', __FILE__ )
 $optimizations_dir = File.expand_path('../../optimizations', __FILE__ )
 
-SESSIONS = "\"sessionsCount\":".freeze
-TOTAL_TIME = "\"totalTime\":\"".freeze
-LONGEST_SESSION = "\"longestSession\":\"".freeze
-BROWSERS = "\"browsers\":\"".freeze
-USED_IE = "\"usedIE\":".freeze
-ALWAYS_CHROME = "\"alwaysUsedChrome\":".freeze
-DATES = "\"dates\":[".freeze
-SEP = ','.freeze
-SEP_SPACE = ', '.freeze
-
 def work(filename)
   report_general_str = "\"totalUsers\":%{totalUsers},"\
     "\"uniqueBrowsersCount\":%{uniqueBrowsersCount},"\
@@ -38,13 +28,13 @@ def work(filename)
     f.write("{\"usersStats\":{")
 
     IO.foreach("#{$support_dir}/#{filename}") do |cols|
-      row = cols.split(SEP)
+      row = cols.split(',')
 
-      if cols.start_with?('user'.freeze)
+      if cols.start_with?('user')
         if user_sessions_count > 0
           user_dates.sort!.reverse!
 
-          browsers = user_browsers.sort!.join(SEP_SPACE).upcase!
+          browsers = user_browsers.sort!.join(', ').upcase!
           user_always_chrome = true if browsers.end_with?('CHROME')
           user_used_ie = true if !user_always_chrome && browsers.include?('INTERNET')
 
@@ -104,7 +94,7 @@ def work(filename)
     report_general[:totalSessions] += user_sessions_count
     report_general[:totalUsers] += 1
 
-    report_general[:allBrowsers] = report_general[:uniqueBrowsersCount].sort.join(SEP).upcase!
+    report_general[:allBrowsers] = report_general[:uniqueBrowsersCount].sort.join(',').upcase!
     report_general[:uniqueBrowsersCount] = report_general[:uniqueBrowsersCount].size
 
     f.write(report_general_str % report_general)
