@@ -47,4 +47,6 @@ high. Finally i have figured out with massif-visualizer that all allocating memo
 i fixed it with using set. After that i used refactoring for decomposing all logic by domains area.
 
 Before refactoring i had result with using 37mb total for large file
+![Before refactoring](/optimizations/step10/before_refactoring.png)
 After refactoring memory usage grew but i think that in this case we don't need to dig deeper. This result is ok for us.
+![After refactoring](/optimizations/step10/after_refactoring.png)
