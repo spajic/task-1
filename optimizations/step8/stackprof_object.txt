@@ -1,0 +1,109 @@
+==================================
+  Mode: object(1)
+  Samples: 16879 (0.00% miss rate)
+  GC: 0 (0.00%)
+==================================
+     TOTAL    (pct)     SAMPLES    (pct)     FRAME
+     16878 (100.0%)       16878 (100.0%)     Object#work
+     16879 (100.0%)           1   (0.0%)     block (2 levels) in <main>
+     16879 (100.0%)           0   (0.0%)     block in <main>
+     16879 (100.0%)           0   (0.0%)     Object#save_stdout_to_file
+     16879 (100.0%)           0   (0.0%)     <main>
+     16879 (100.0%)           0   (0.0%)     <main>
+Object#work (/Users/donasktello/Projects/task-1/lib/parser.rb:21)
+  samples:  16878 self (100.0%)  /   16878 total (100.0%)
+  callers:
+    32073  (  190.0%)  Object#work
+    16878  (  100.0%)  block (2 levels) in <main>
+  callees (0 total):
+    32073  (    Inf%)  Object#work
+  code:
+                                  |    21  | def work(filename)
+                                  |    22  |   report_general_str = "\"totalUsers\":%{totalUsers},"\
+                                  |    23  |     "\"uniqueBrowsersCount\":%{uniqueBrowsersCount},"\
+                                  |    24  |     "\"totalSessions\":%{totalSessions},"\
+                                  |    25  |     "\"allBrowsers\":\"%{allBrowsers}\"}}\n"\
+                                  |    26  | 
+    1    (0.0%) /     1   (0.0%)  |    27  |   report_general = {}
+                                  |    28  |   report_general[:totalUsers] = report_general[:totalSessions] = 0
+    1    (0.0%) /     1   (0.0%)  |    29  |   report_general[:uniqueBrowsersCount] = []
+                                  |    30  | 
+                                  |    31  |   user_name = ''
+                                  |    32  |   user_longest_session = user_total_time = user_sessions_count = 0
+                                  |    33  |   user_always_chrome = user_used_ie = false
+    1    (0.0%) /     1   (0.0%)  |    34  |   user_dates = []
+    1    (0.0%) /     1   (0.0%)  |    35  |   user_browsers = []
+                                  |    36  | 
+ 16874  (100.0%) /     2   (0.0%)  |    37  |   File.open("#{$support_dir}/result.json", 'w') do |f|
+    1    (0.0%) /     1   (0.0%)  |    38  |     f.write("{\"usersStats\":{")
+                                  |    39  | 
+ 16850   (99.8%) /  1649   (9.8%)  |    40  |     IO.foreach("#{$support_dir}/#{filename}") do |cols|
+ 11258   (66.7%) /  11258  (66.7%)  |    41  |       row = cols.split(SEP)
+                                  |    42  | 
+                                  |    43  |       if cols.start_with?('user'.freeze)
+                                  |    44  |         if user_sessions_count > 0
+  230    (1.4%) /   230   (1.4%)  |    45  |           user_dates.sort!.reverse!
+                                  |    46  | 
+  493    (2.9%) /   493   (2.9%)  |    47  |           browsers = user_browsers.sort!.join(SEP_SPACE).upcase!
+                                  |    48  |           user_always_chrome = true if browsers.end_with?('CHROME')
+                                  |    49  |           user_used_ie = true if !user_always_chrome && browsers.include?('INTERNET')
+                                  |    50  | 
+  789    (4.7%) /   789   (4.7%)  |    51  |           f.write("\"#{user_name}\":{#{SESSIONS}#{user_sessions_count},#{TOTAL_TIME}#{user_total_time} min.\","\
+  526    (3.1%) /   526   (3.1%)  |    52  |           "#{LONGEST_SESSION}#{user_longest_session} min.\",#{BROWSERS}#{browsers}\",#{USED_IE}#{user_used_ie},"\
+  263    (1.6%) /   263   (1.6%)  |    53  |             "#{ALWAYS_CHROME}#{user_always_chrome},#{DATES}")
+                                  |    54  | 
+                                  |    55  |           while date = user_dates.shift
+ 1378    (8.2%) /  1378   (8.2%)  |    56  |             user_dates.size == 0 ? f.write("\"#{date.tr!("\n", '')}\"]},") : f.write("\"#{date.tr!("\n", '')}\",")
+                                  |    57  |           end
+                                  |    58  | 
+                                  |    59  |           report_general[:uniqueBrowsersCount].concat user_browsers
+                                  |    60  |           report_general[:totalSessions] += user_sessions_count
+                                  |    61  |           report_general[:totalUsers] += 1
+                                  |    62  | 
+                                  |    63  |           user_longest_session = user_total_time = user_sessions_count = 0
+                                  |    64  |           user_dates.clear
+                                  |    65  |           user_browsers.clear
+                                  |    66  | 
+                                  |    67  |           user_always_chrome = user_used_ie = false
+                                  |    68  |         end
+                                  |    69  | 
+  264    (1.6%) /   264   (1.6%)  |    70  |         user_name = "#{row[2]} #{row[3]}"
+                                  |    71  |       else
+                                  |    72  |         user_sessions_count += 1
+                                  |    73  | 
+                                  |    74  |         user_total_time += row[4].to_i
+                                  |    75  |         user_longest_session = row[4].to_i if user_longest_session < row[4].to_i
+                                  |    76  |         user_browsers << row[3]
+                                  |    77  | 
+                                  |    78  |         user_dates << row[5]
+                                  |    79  |       end
+                                  |    80  |     end
+                                  |    81  | 
+    1    (0.0%) /     1   (0.0%)  |    82  |     user_dates.sort!.reverse!
+                                  |    83  | 
+    2    (0.0%) /     2   (0.0%)  |    84  |     browsers = user_browsers.sort!.join(', ').upcase!
+                                  |    85  |     user_always_chrome = true if browsers.end_with?('CHROME')
+                                  |    86  |     user_used_ie = true if !user_always_chrome && browsers.include?('INTERNET')
+                                  |    87  | 
+    3    (0.0%) /     3   (0.0%)  |    88  |     f.write("\"#{user_name}\":{#{SESSIONS}#{user_sessions_count},#{TOTAL_TIME}#{user_total_time} min.\","\
+    2    (0.0%) /     2   (0.0%)  |    89  |       "#{LONGEST_SESSION}#{user_longest_session} min.\",#{BROWSERS}#{browsers}\",#{USED_IE}#{user_used_ie},"\
+    1    (0.0%) /     1   (0.0%)  |    90  |         "#{ALWAYS_CHROME}#{user_always_chrome},#{DATES}")
+                                  |    91  | 
+                                  |    92  |     while date = user_dates.shift
+                                  |    93  |       if user_dates.size == 0
+    1    (0.0%) /     1   (0.0%)  |    94  |         f.write("\"#{date}\"]},")
+                                  |    95  |       else
+    3    (0.0%) /     3   (0.0%)  |    96  |         f.write("\"#{date.tr!("\n", '')}\",")
+                                  |    97  |       end
+                                  |    98  |     end
+                                  |    99  | 
+                                  |   100  |     report_general[:uniqueBrowsersCount].concat user_browsers
+                                  |   101  |     report_general[:totalSessions] += user_sessions_count
+                                  |   102  |     report_general[:totalUsers] += 1
+                                  |   103  | 
+    2    (0.0%) /     2   (0.0%)  |   104  |     report_general[:uniqueBrowsersCount].sort!.uniq!
+    1    (0.0%) /     1   (0.0%)  |   105  |     report_general[:allBrowsers] = report_general[:uniqueBrowsersCount].join(SEP).upcase!
+                                  |   106  |     report_general[:uniqueBrowsersCount] = report_general[:uniqueBrowsersCount].size
+                                  |   107  | 
+    5    (0.0%) /     5   (0.0%)  |   108  |     f.write(report_general_str % report_general)
+                                  |   109  |   end

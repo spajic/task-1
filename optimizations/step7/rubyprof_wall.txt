@@ -1,0 +1,107 @@
+Measure Mode: wall_time
+Thread ID: 70279334387720
+Fiber ID: 70279335375600
+Total: 0.067638
+Sort by: self_time
+
+ %self      total      self      wait     child     calls  name
+ 16.20      0.066     0.011     0.000     0.055        1   CSV::Parser#parse
+ 11.08      0.011     0.007     0.000     0.004    11260   CSV::Parser::InputsScanner#scan
+ 10.11      0.012     0.007     0.000     0.005     9614   CSV::Parser::InputsScanner#scan_all
+  9.79      0.019     0.007     0.000     0.012     9613   CSV::Parser#parse_unquoted_column_value
+  7.71      0.005     0.005     0.000     0.000    20881   StringScanner#scan
+  7.57      0.012     0.005     0.000     0.006     1646   CSV::Parser#emit_row
+  7.51      0.024     0.005     0.000     0.019     9613   CSV::Parser#parse_column_value
+  5.90      0.013     0.004     0.000     0.009     9613   CSV::Parser#parse_column_end
+  3.39      0.002     0.002     0.000     0.000    17696   StringScanner#eos?
+  2.66      0.002     0.002     0.000     0.000     4134   String#inspect
+  1.99      0.001     0.001     0.000     0.000        1   <Class::IO>#write
+  1.72      0.003     0.001     0.000     0.002     1647   CSV::Parser#start_row
+  1.52      0.001     0.001     0.000     0.000     8847   Kernel#nil?
+  1.31      0.003     0.001     0.000     0.002      263   Array#inspect
+  1.04      0.001     0.001     0.000     0.000     1647   CSV::Parser::InputsScanner#keep_start
+  0.94      0.002     0.001     0.000     0.002     1647   CSV::Parser#parse_row_end
+  0.90      0.001     0.001     0.000     0.001     1646   CSV::FieldsConverter#convert
+  0.87      0.001     0.001     0.000     0.000     1646   CSV::FieldsConverter#need_convert?
+  0.81      0.001     0.001     0.000     0.000     3320   String#to_i
+  0.70      0.001     0.000     0.000     0.000     1647   CSV::Parser::InputsScanner#keep_drop
+  0.66      0.000     0.000     0.000     0.000      263   Array#join
+  0.61      0.000     0.000     0.000     0.000      263   IO#write
+  0.60      0.000     0.000     0.000     0.000     1647   CSV::Parser#skip_needless_lines
+  0.60      0.000     0.000     0.000     0.000      263   Array#sort!
+  0.50      0.000     0.000     0.000     0.000        8   IO#gets
+  0.47      0.000     0.000     0.000     0.000        8   IO#eof?
+  0.46      0.000     0.000     0.000     0.000     1382   String#start_with?
+  0.33      0.000     0.000     0.000     0.000     1647   Array#pop
+  0.33      0.000     0.000     0.000     0.000     1654   StringScanner#pos
+  0.31      0.000     0.000     0.000     0.000     1647   Array#push
+  0.24      0.000     0.000     0.000     0.000      789   Integer#to_s
+  0.18      0.000     0.000     0.000     0.000      789   Array#clear
+  0.16      0.000     0.000     0.000     0.000      263   String#upcase!
+  0.15      0.000     0.000     0.000     0.000        2   IO#close
+  0.15      0.000     0.000     0.000     0.000      526   FalseClass#to_s
+  0.08      0.001     0.000     0.000     0.001        8   CSV::Parser::InputsScanner#read_chunk
+  0.06      0.000     0.000     0.000     0.000        2   File#initialize
+  0.03      0.068     0.000     0.000     0.068        1   [global]#[no method]
+  0.03      0.001     0.000     0.000     0.001       20  *Class#new
+  0.03      0.000     0.000     0.000     0.000        7   Regexp#initialize
+  0.02      0.000     0.000     0.000     0.000        1   CSV::Parser#prepare_regexp
+  0.02      0.000     0.000     0.000     0.000        1   CSV#initialize
+  0.01      0.000     0.000     0.000     0.000        8   String#valid_encoding?
+  0.01      0.066     0.000     0.000     0.066        2  *<Class::IO>#open
+  0.01      0.000     0.000     0.000     0.000        8   Kernel#dup
+  0.01      0.066     0.000     0.000     0.066        1   <Class::CSV>#open
+  0.01      0.068     0.000     0.000     0.068        1   Object#work
+  0.01      0.000     0.000     0.000     0.000        1   CSV::Parser#prepare
+  0.01      0.000     0.000     0.000     0.000        8   String#[]
+  0.01      0.000     0.000     0.000     0.000        9   Kernel#respond_to?
+  0.01      0.000     0.000     0.000     0.000       12   Module#===
+  0.01      0.000     0.000     0.000     0.000        2   CSV::FieldsConverter#initialize
+  0.01      0.000     0.000     0.000     0.000       11   String#encode
+  0.01      0.000     0.000     0.000     0.000        2   CSV#normalize_converters
+  0.01      0.000     0.000     0.000     0.000        8   StringScanner#initialize
+  0.01      0.000     0.000     0.000     0.000        1   CSV#raw_encoding
+  0.01      0.000     0.000     0.000     0.000        1   CSV#parser_options
+  0.01      0.000     0.000     0.000     0.000        7   StringScanner#string
+  0.01      0.000     0.000     0.000     0.000        4   NilClass#nil?
+  0.01      0.000     0.000     0.000     0.000        4   Hash#merge
+  0.01      0.000     0.000     0.000     0.000        1   CSV::Parser#prepare_header
+  0.01      0.000     0.000     0.000     0.000        7   String#initialize_copy
+  0.01      0.000     0.000     0.000     0.000        8   Kernel#initialize_dup
+  0.00      0.000     0.000     0.000     0.000        8   Array#first
+  0.00      0.066     0.000     0.000     0.066        1   CSV#each
+  0.00      0.066     0.000     0.000     0.066        1   <Class::CSV>#foreach
+  0.00      0.000     0.000     0.000     0.000        1   CSV#close
+  0.00      0.000     0.000     0.000     0.000        1   CSV#build_fields_converter
+  0.00      0.000     0.000     0.000     0.000        5   Kernel#is_a?
+  0.00      0.000     0.000     0.000     0.000        1   CSV::Parser#prepare_variable
+  0.00      0.000     0.000     0.000     0.000        1   CSV::Parser#prepare_parser
+  0.00      0.000     0.000     0.000     0.000        3   String#to_s
+  0.00      0.001     0.000     0.000     0.001        1   CSV::Parser::InputsScanner#initialize
+  0.00      0.000     0.000     0.000     0.000        3   Array#collect
+  0.00      0.000     0.000     0.000     0.000        1   CSV::Parser#resolve_row_separator
+  0.00      0.000     0.000     0.000     0.000        7   Array#last
+  0.00      0.000     0.000     0.000     0.000        1   CSV#determine_encoding
+  0.00      0.000     0.000     0.000     0.000        2   Array#each
+  0.00      0.000     0.000     0.000     0.000        1   CSV::Parser#parse_quoted_column_value
+  0.00      0.000     0.000     0.000     0.000        1   CSV#parser
+  0.00      0.000     0.000     0.000     0.000        1   CSV::Parser::InputsScanner#eos?
+  0.00      0.000     0.000     0.000     0.000        1   CSV#build_header_fields_converter
+  0.00      0.001     0.000     0.000     0.001        1   CSV::Parser#build_scanner
+  0.00      0.000     0.000     0.000     0.000        1   Array#shift
+  0.00      0.000     0.000     0.000     0.000        3   Kernel#block_given?
+  0.00      0.000     0.000     0.000     0.000        1   CSV::Parser#initialize
+  0.00      0.000     0.000     0.000     0.000        1   IO#closed?
+  0.00      0.000     0.000     0.000     0.000        1   CSV::Parser#may_quoted?
+  0.00      0.000     0.000     0.000     0.000        1   CSV::Parser#prepare_line
+  0.00      0.000     0.000     0.000     0.000        1   CSV#fields_converter
+  0.00      0.000     0.000     0.000     0.000        2   CSV::FieldsConverter#need_static_convert?
+  0.00      0.000     0.000     0.000     0.000        1   CSV#header_fields_converter
+  0.00      0.000     0.000     0.000     0.000        1   Array#initialize_copy
+  0.00      0.000     0.000     0.000     0.000        1   IO#internal_encoding
+  0.00      0.000     0.000     0.000     0.000        2   NilClass#===
+  0.00      0.000     0.000     0.000     0.000        1   IO#external_encoding
+  0.00      0.000     0.000     0.000     0.000        4   <Class::Regexp>#escape
+  0.00      0.000     0.000     0.000     0.000        1   FalseClass#===
+
+* indicates recursively called methods

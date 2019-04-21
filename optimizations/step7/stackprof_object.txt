@@ -1,0 +1,95 @@
+==================================
+  Mode: object(1)
+  Samples: 35073 (0.00% miss rate)
+  GC: 0 (0.00%)
+==================================
+     TOTAL    (pct)     SAMPLES    (pct)     FRAME
+     35072 (100.0%)       12440  (35.5%)     Object#work
+      9654  (27.5%)        9616  (27.4%)     CSV::Parser::InputsScanner#scan_all
+      9612  (27.4%)        9612  (27.4%)     CSV::Parser::InputsScanner#scan
+      1647   (4.7%)        1647   (4.7%)     CSV::Parser::InputsScanner#keep_start
+     34990  (99.8%)        1647   (4.7%)     CSV::Parser#parse
+        41   (0.1%)          41   (0.1%)     CSV::Parser::InputsScanner#read_chunk
+        36   (0.1%)          35   (0.1%)     CSV::Parser#prepare_regexp
+     35053  (99.9%)           8   (0.0%)     CSV.open
+         4   (0.0%)           4   (0.0%)     CSV#normalize_converters
+         3   (0.0%)           3   (0.0%)     CSV#initialize
+         6   (0.0%)           3   (0.0%)     CSV#build_fields_converter
+         6   (0.0%)           3   (0.0%)     CSV#build_header_fields_converter
+         5   (0.0%)           2   (0.0%)     CSV::Parser::InputsScanner#initialize
+        14   (0.0%)           2   (0.0%)     CSV#parser_options
+         7   (0.0%)           2   (0.0%)     CSV::Parser#build_scanner
+     35055  (99.9%)           2   (0.0%)     CSV.foreach
+         2   (0.0%)           2   (0.0%)     CSV::FieldsConverter#initialize
+        52   (0.1%)           1   (0.0%)     CSV#parser
+     35073 (100.0%)           1   (0.0%)     block (2 levels) in <main>
+         1   (0.0%)           1   (0.0%)     CSV::Parser#resolve_row_separator
+        37   (0.1%)           1   (0.0%)     CSV::Parser#initialize
+     12423  (35.4%)           0   (0.0%)     CSV::Parser#emit_row
+     35073 (100.0%)           0   (0.0%)     block in <main>
+     35073 (100.0%)           0   (0.0%)     Object#save_stdout_to_file
+     35073 (100.0%)           0   (0.0%)     <main>
+     35073 (100.0%)           0   (0.0%)     <main>
+         6   (0.0%)           0   (0.0%)     CSV#fields_converter
+     35042  (99.9%)           0   (0.0%)     CSV#each
+         6   (0.0%)           0   (0.0%)     CSV#header_fields_converter
+        36   (0.1%)           0   (0.0%)     CSV::Parser#prepare
+      1647   (4.7%)           0   (0.0%)     CSV::Parser#start_row
+      9654  (27.5%)           0   (0.0%)     CSV::Parser#parse_unquoted_column_value
+      9654  (27.5%)           0   (0.0%)     CSV::Parser#parse_column_value
+      7966  (22.7%)           0   (0.0%)     CSV::Parser#parse_column_end
+      1646   (4.7%)           0   (0.0%)     CSV::Parser#parse_row_end
+Object#work (/Users/donasktello/Projects/task-1/lib/parser.rb:19)
+  samples:  12440 self (35.5%)  /   35072 total (100.0%)
+  callers:
+    35072  (  100.0%)  block (2 levels) in <main>
+    35060  (  100.0%)  Object#work
+    12423  (   35.4%)  CSV::Parser#emit_row
+  callees (22632 total):
+    35060  (  154.9%)  Object#work
+    35055  (  154.9%)  CSV.foreach
+  code:
+                                  |    19  | def work(filename)
+                                  |    20  |   # report = {}
+    5    (0.0%) /     5   (0.0%)  |    21  |   File.write(
+    1    (0.0%) /     1   (0.0%)  |    22  |     "#{$support_dir}/result.json",
+    1    (0.0%) /     1   (0.0%)  |    23  |     "{\"totalUsers\":%{totalUsers},"\
+                                  |    24  |     "\"uniqueBrowsersCount\":%{uniqueBrowsersCount},"\
+                                  |    25  |     "\"totalSessions\":%{totalSessions},"\
+                                  |    26  |     "\"allBrowsers\":\"%{allBrowsers},"\
+                                  |    27  |     "\"usersStats\":{"
+                                  |    28  |   )
+                                  |    29  | 
+                                  |    30  |   longest_session = total_time = sessions_count = 0
+    1    (0.0%) /     1   (0.0%)  |    31  |   uniqueBrowsers = dates = browsers = []
+                                  |    32  |   always_chrome = used_ie = false
+ 35064  (100.0%) /     4   (0.0%)  |    33  | File.open("#{$support_dir}/result.json", 'a') do |f|
+ 35057  (100.0%) /     2   (0.0%)  |    34  |   CSV.foreach("#{$support_dir}/#{filename}", row_sep: "\n") do |row|
+ 1646    (4.7%) /  1646   (4.7%)  |    35  |     if row[0] == 'user'
+                                  |    36  |       # report[:totalUsers] += 1
+                                  |    37  | 
+                                  |    38  |       if sessions_count > 0
+  789    (2.2%) /   789   (2.2%)  |    39  |         user = "\"#{row[2]} #{row[3]}\":{" << SESSIONS << sessions_count.to_s << "\"," <<
+ 1052    (3.0%) /  1052   (3.0%)  |    40  |             TOTAL_TIME << total_time.to_s << " min.\"," << LONGEST_SESSION << longest_session.to_s << " min.\"," <<
+ 2367    (6.7%) /  2367   (6.7%)  |    41  |             BROWSERS << browsers.sort!.join(', ').upcase! << "\"," << USED_IE << "#{used_ie}" << "\"," << ALWAYS_CHROME << "#{always_chrome}" <<
+ 4923   (14.0%) /  4923  (14.0%)  |    42  |             "\"," << DATES << dates.to_s << '},'
+                                  |    43  | 
+  264    (0.8%) /   264   (0.8%)  |    44  |         f.write(user)
+                                  |    45  | 
+                                  |    46  |         longest_session = total_time = sessions_count = 0
+                                  |    47  |         uniqueBrowsers.clear
+                                  |    48  |         dates.clear
+                                  |    49  |         browsers.clear
+                                  |    50  |         always_chrome = used_ie = false
+                                  |    51  |       end
+                                  |    52  |     else
+                                  |    53  |       # report['allBrowsers'] << row[3] << EMPTY_COMMA
+                                  |    54  |       # report['totalSessions'] += 1
+                                  |    55  |       uniqueBrowsers << row[3]
+                                  |    56  | 
+                                  |    57  |       sessions_count += 1
+                                  |    58  |       total_time += row[4].to_i
+                                  |    59  |       longest_session = row[4].to_i if longest_session < row[4].to_i
+                                  |    60  |       browsers << row[3]
+ 1382    (3.9%) /  1382   (3.9%)  |    61  |       used_ie = true if used_ie || row[3].start_with?('INTERNET')
+                                  |    62  |       always_chrome = false if used_ie || !always_chrome || !row[3].start_with?('CHROME')

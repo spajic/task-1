@@ -1,0 +1,258 @@
+events: memory
+
+fl=/Users/donasktello/ruby_runtime
+fn=IO::close
+0 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=IO::closed?
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=String::%
+0 4
+cfl=/Users/donasktello/ruby_runtime
+cfn=Integer::to_s
+calls=3 108
+108 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::uniq!
+0 56
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::clear
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::concat
+0 17
+
+fl=/Users/donasktello/ruby_runtime
+fn=String::tr!
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::shift
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=FalseClass::to_s
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=TrueClass::to_s
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=Integer::to_s
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=String::include?
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=String::end_with?
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=String::upcase!
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::join
+0 37
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::reverse!
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=Array::sort!
+0 12
+
+fl=/Users/donasktello/ruby_runtime
+fn=String::to_i
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=String::start_with?
+0 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=String::split
+0 0
+
+fl=/Users/donasktello/ruby_runtime
+fn=IO::^foreach
+0 144
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::split
+calls=1646 41
+41 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::start_with?
+calls=1646 43
+43 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::to_i
+calls=3320 75
+75 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::sort!
+calls=526 47
+47 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::reverse!
+calls=263 45
+45 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::join
+calls=263 47
+47 34
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::upcase!
+calls=263 47
+47 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::end_with?
+calls=263 48
+48 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::include?
+calls=263 49
+49 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Integer::to_s
+calls=789 51
+51 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=TrueClass::to_s
+calls=181 51
+51 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=FalseClass::to_s
+calls=345 51
+51 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::write
+calls=1641 56
+56 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::shift
+calls=1641 56
+56 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::tr!
+calls=1378 56
+56 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::concat
+calls=263 59
+59 17
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::clear
+calls=526 65
+65 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=IO::write
+0 9
+
+fl=/Users/donasktello/ruby_runtime
+fn=File::initialize
+0 1
+
+fl=/Users/donasktello/ruby_runtime
+fn=IO::^open
+0 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=File::initialize
+calls=1 37
+37 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::write
+calls=7 108
+108 9
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::^foreach
+calls=1 40
+40 203
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::sort!
+calls=3 104
+104 11
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::reverse!
+calls=1 82
+82 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::join
+calls=2 105
+105 3
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::upcase!
+calls=2 105
+105 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::end_with?
+calls=1 85
+85 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::include?
+calls=1 86
+86 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=Integer::to_s
+calls=3 88
+88 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=FalseClass::to_s
+calls=2 88
+88 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::shift
+calls=5 94
+94 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::tr!
+calls=3 96
+96 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::concat
+calls=1 100
+100 0
+cfl=/Users/donasktello/ruby_runtime
+cfn=Array::uniq!
+calls=1 104
+104 56
+cfl=/Users/donasktello/ruby_runtime
+cfn=String::%
+calls=1 108
+108 5
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::closed?
+calls=1 108
+108 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::close
+calls=1 108
+108 0
+
+fl=/Users/donasktello/Projects/task-1/lib/parser.rb
+fn=Object::work
+22 1
+cfl=/Users/donasktello/ruby_runtime
+cfn=IO::^open
+calls=1 37
+37 293
+
+fl=/Users/donasktello/Projects/task-1/optimizations/rubyprof_patched.rb
+fn=[global]::[no method]
+7 1
+cfl=/Users/donasktello/Projects/task-1/lib/parser.rb
+cfn=Object::work
+calls=1 7
+7 294
+

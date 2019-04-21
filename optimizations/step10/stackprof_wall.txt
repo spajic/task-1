@@ -1,0 +1,40 @@
+==================================
+  Mode: wall(1000)
+  Samples: 5 (0.00% miss rate)
+  GC: 0 (0.00%)
+==================================
+     TOTAL    (pct)     SAMPLES    (pct)     FRAME
+         3  (60.0%)           2  (40.0%)     Report.add_parsed
+         1  (20.0%)           1  (20.0%)     User#nullify
+         5 (100.0%)           1  (20.0%)     Object#work
+         1  (20.0%)           1  (20.0%)     User#prepare
+         5 (100.0%)           0   (0.0%)     <main>
+         5 (100.0%)           0   (0.0%)     <main>
+         1  (20.0%)           0   (0.0%)     User#reset
+         1  (20.0%)           0   (0.0%)     Parser.clear_cache
+         5 (100.0%)           0   (0.0%)     block (2 levels) in <main>
+         5 (100.0%)           0   (0.0%)     block in <main>
+         5 (100.0%)           0   (0.0%)     Object#save_stdout_to_file
+Object#work (/Users/donasktello/Projects/task-1/lib/parser.rb:121)
+  samples:     1 self (20.0%)  /      5 total (100.0%)
+  callers:
+      10  (  200.0%)  Object#work
+       5  (  100.0%)  block (2 levels) in <main>
+  callees (4 total):
+      10  (  250.0%)  Object#work
+       3  (   75.0%)  Report.add_parsed
+       1  (   25.0%)  Parser.clear_cache
+  code:
+                                  |   121  | def work(filename)
+    5  (100.0%)                   |   122  |   File.open("#{$support_dir}/result.json", 'w') do |f|
+                                  |   123  |     Report.prepare(f)
+                                  |   124  | 
+    5  (100.0%)                   |   125  |     IO.foreach("#{$support_dir}/#{filename}") do |cols|
+                                  |   126  |       row = cols.split(',')
+                                  |   127  | 
+    1   (20.0%) /     1  (20.0%)  |   128  |       if cols.start_with?('user')
+                                  |   129  |         if Parser.parsed_exists?
+    3   (60.0%)                   |   130  |           Report.add_parsed(Parser.parsed_user)
+                                  |   131  | 
+    1   (20.0%)                   |   132  |           Parser.clear_cache
+                                  |   133  |         end

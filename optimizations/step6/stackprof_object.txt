@@ -1,0 +1,137 @@
+==================================
+  Mode: object(1)
+  Samples: 51966 (0.00% miss rate)
+  GC: 0 (0.00%)
+==================================
+     TOTAL    (pct)     SAMPLES    (pct)     FRAME
+     51965 (100.0%)       29080  (56.0%)     Object#work
+     11056  (21.3%)       11056  (21.3%)     Object#parse_session
+     19516  (37.6%)        9777  (18.8%)     Object#collect_stats_from_users
+      1848   (3.6%)        1848   (3.6%)     Object#parse_user
+       201   (0.4%)         201   (0.4%)     Set#add
+         2   (0.0%)           2   (0.0%)     Set#each
+         1   (0.0%)           1   (0.0%)     Set#initialize
+     51966 (100.0%)           1   (0.0%)     block (2 levels) in <main>
+     51966 (100.0%)           0   (0.0%)     block in <main>
+     51966 (100.0%)           0   (0.0%)     <main>
+     51966 (100.0%)           0   (0.0%)     Object#save_stdout_to_file
+     51966 (100.0%)           0   (0.0%)     <main>
+Object#work (/Users/donasktello/Projects/task-1/lib/parser.rb:50)
+  samples:  29080 self (56.0%)  /   51965 total (100.0%)
+  callers:
+    51965  (  100.0%)  block (2 levels) in <main>
+    28888  (   55.6%)  Object#work
+    9739  (   18.7%)  Object#collect_stats_from_users
+  callees (22885 total):
+    28888  (  126.2%)  Object#work
+    19516  (   85.3%)  Object#collect_stats_from_users
+    11056  (   48.3%)  Object#parse_session
+    1848  (    8.1%)  Object#parse_user
+     201  (    0.9%)  Set#add
+       2  (    0.0%)  Set#each
+       1  (    0.0%)  Set#initialize
+  code:
+                                  |    50  | def work(filename)
+ 1650    (3.2%) /  1650   (3.2%)  |    51  |   file_lines = File.read("#{$support_dir}/#{filename}").split("\n")
+                                  |    52  | 
+    1    (0.0%) /     1   (0.0%)  |    53  |   users = []
+    1    (0.0%) /     1   (0.0%)  |    54  |   sessions = []
+                                  |    55  | 
+ 24426   (47.0%)                   |    56  |   file_lines.each do |line|
+ 11258   (21.7%) /  11258  (21.7%)  |    57  |     cols = line.split(',')
+                                  |    58  | 
+                                  |    59  |     if cols[0] == 'user'
+ 1848    (3.6%)                   |    60  |       users << parse_user(line)
+                                  |    61  | 
+  264    (0.5%) /   264   (0.5%)  |    62  |       sessions << []
+                                  |    63  |     else
+ 11056   (21.3%)                   |    64  |       sessions[-1] << parse_session(line)
+                                  |    65  |     end
+                                  |    66  |   end
+                                  |    67  | 
+                                  |    68  |   # Отчёт в json
+                                  |    69  |   #   - Сколько всего юзеров +
+                                  |    70  |   #   - Сколько всего уникальных браузеров +
+                                  |    71  |   #   - Сколько всего сессий +
+                                  |    72  |   #   - Перечислить уникальные браузеры в алфавитном порядке через запятую и капсом +
+                                  |    73  |   #
+                                  |    74  |   #   - По каждому пользователю
+                                  |    75  |   #     - сколько всего сессий +
+                                  |    76  |   #     - сколько всего времени +
+                                  |    77  |   #     - самая длинная сессия +
+                                  |    78  |   #     - браузеры через запятую +
+                                  |    79  |   #     - Хоть раз использовал IE? +
+                                  |    80  |   #     - Всегда использовал только Хром? +
+                                  |    81  |   #     - даты сессий в порядке убывания через запятую +
+    2    (0.0%) /     2   (0.0%)  |    82  |   flatten = sessions.flatten
+    1    (0.0%) /     1   (0.0%)  |    83  |   report = {}
+                                  |    84  | 
+                                  |    85  |   report[:totalUsers] = users.count
+                                  |    86  | 
+                                  |    87  |   # Подсчёт количества уникальных браузеров
+    2    (0.0%) /     1   (0.0%)  |    88  |   uniqueBrowsers = Set.new
+  201    (0.4%)                   |    89  |   flatten.each do |session|
+                                  |    90  |     browser = session['browser']
+  201    (0.4%)                   |    91  |     uniqueBrowsers << browser
+                                  |    92  |   end
+                                  |    93  | 
+    4    (0.0%) /     2   (0.0%)  |    94  |   report['uniqueBrowsersCount'] = uniqueBrowsers.count
+                                  |    95  | 
+                                  |    96  |   report['totalSessions'] = flatten.count
+                                  |    97  | 
+                                  |    98  |   report['allBrowsers'] =
+                                  |    99  |     flatten
+    1    (0.0%) /     1   (0.0%)  |   100  |       .map { |s| s['browser'] }
+    2    (0.0%) /     2   (0.0%)  |   101  |       .sort
+    2    (0.0%) /     2   (0.0%)  |   102  |       .uniq
+    3    (0.0%) /     3   (0.0%)  |   103  |       .join(',').upcase
+                                  |   104  | 
+                                  |   105  |   # Статистика по пользователям
+    1    (0.0%) /     1   (0.0%)  |   106  |   users_objects = []
+                                  |   107  | 
+ 1320    (2.5%)                   |   108  |   users.each_index do |i|
+                                  |   109  |     attributes = users[i]
+                                  |   110  |     user_sessions = sessions[i]
+  792    (1.5%) /   792   (1.5%)  |   111  |     user_object = User.new(attributes: attributes, sessions: user_sessions)
+  528    (1.0%) /   528   (1.0%)  |   112  |     users_objects = users_objects + [user_object]
+                                  |   113  |   end
+                                  |   114  | 
+    1    (0.0%) /     1   (0.0%)  |   115  |   report['usersStats'] = {}
+                                  |   116  | 
+                                  |   117  |   # Собираем количество сессий по пользователям
+ 2115    (4.1%)                   |   118  |   collect_stats_from_users(report, users_objects) do |user|
+                                  |   119  |     { 'sessionsCount' => user.sessions.count }
+                                  |   120  |   end
+                                  |   121  | 
+                                  |   122  |   # Собираем количество времени по пользователям
+ 2641    (5.1%)                   |   123  |   collect_stats_from_users(report, users_objects) do |user|
+ 1056    (2.0%) /  1056   (2.0%)  |   124  |     { 'totalTime' => user.sessions.map {|s| s['time']}.map {|t| t.to_i}.sum.to_s + ' min.' }
+                                  |   125  |   end
+                                  |   126  | 
+                                  |   127  |   # Выбираем самую длинную сессию пользователя
+ 2641    (5.1%)                   |   128  |   collect_stats_from_users(report, users_objects) do |user|
+ 1056    (2.0%) /  1056   (2.0%)  |   129  |     { 'longestSession' => user.sessions.map {|s| s['time']}.map {|t| t.to_i}.max.to_s + ' min.' }
+                                  |   130  |   end
+                                  |   131  | 
+                                  |   132  |   # Браузеры пользователя через запятую
+ 4254    (8.2%)                   |   133  |   collect_stats_from_users(report, users_objects) do |user|
+ 4051    (7.8%) /  2669   (5.1%)  |   134  |     { 'browsers' => user.sessions.map {|s| s['browser']}.map {|b| b.upcase}.sort.join(', ') }
+                                  |   135  |   end
+                                  |   136  | 
+                                  |   137  |   # Хоть раз использовал IE?
+ 2894    (5.6%)                   |   138  |   collect_stats_from_users(report, users_objects) do |user|
+ 2354    (4.5%) /  1309   (2.5%)  |   139  |     { 'usedIE' => user.sessions.map{|s| s['browser']}.any? { |b| b.upcase =~ /INTERNET EXPLORER/ } }
+                                  |   140  |   end
+                                  |   141  | 
+                                  |   142  |   # Всегда использовал только Chrome?
+ 2363    (4.5%)                   |   143  |   collect_stats_from_users(report, users_objects) do |user|
+ 1292    (2.5%) /   778   (1.5%)  |   144  |     { 'alwaysUsedChrome' => user.sessions.map{|s| s['browser']}.all? { |b| b.upcase =~ /CHROME/ } }
+                                  |   145  |   end
+                                  |   146  | 
+                                  |   147  |   # Даты сессий через запятую в обратном порядке в формате iso8601
+ 2608    (5.0%)                   |   148  |   collect_stats_from_users(report, users_objects) do |user|
+ 1023    (2.0%) /  1023   (2.0%)  |   149  |     { 'dates' => user.sessions.map{|s| s['date']}.sort.reverse }
+                                  |   150  |   end
+                                  |   151  | 
+ 4831    (9.3%) /  4831   (9.3%)  |   152  |   File.write("#{$support_dir}/result.json", "#{report.to_json}\n")
+                                  |   153  | end

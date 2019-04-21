@@ -1,85 +1,102 @@
-### Note
-*Для работы скрипта требуется Ruby 2.4+*
+# Users statistics calculator
 
-# Задание №1
-В файле `task-1.rb` находится ruby-программа, которая выполняет обработку данных из файла.
+## Problem
+In our project we have a problem of calculating statistics for users. Report works with a large files without any signs
+of work could be done in reasonable time. That is why we think that we should check this report for bottlenecks and fix 
+them if they are exist.
 
-В файл встроен тест, который показывает, как программа должна работать.
+## Warranty of correctness of work
+We have tests that verify correct logic of the algorithm and assure that we won't go wrong.
 
-С помощью этой программы нужно обработать файл данных `data_large.txt`.
+## Feedback loop
+We implemented logic that measures our algorithm by iterations per time on a sample of data of 65kb size. So after 
+evaluation of this metric we will seek for bottlenecks with help of various cpu and memory profilers. When we'll find any
+of these bottlenecks and fix them we'll reevaluate this metric and repeat these steps until we'll have algorithm that don't
+bother us.
 
-**Проблема в том, что это происходит слишком долго, дождаться пока никому не удавалось.**
+## Step 1
+I tried to turn off GC in our sample test and check whether memory issues could cause such problems with the speed.
+Metrics didn't change a lot hence i understood that main problem for now is in algorithm by itself and we should seek 
+where CPU works mostly. Maybe we could apply certain optimization there. Additionally we disabled GC to be focused only 
+in algorithm issue.
 
+After all measures we figured out the problem in sequential looping over an array without any using of ids for fast search.
 
-## Задача
-- Оптимизировать эту программу, выстроив процесс согласно "общему фреймворку оптимизации" из первой лекции;
-- Профилировать программу с помощью инструментов, с которыми мы познакомились в первой лекции;
-- Добиться того, чтобы программа корректно обработала файл `data_large.txt`;
-- Написать кейс-стади о вашей оптимизации по шаблону `case-study-template.md`.
+## Step 2
+After refactoring in step1 where i replaced sequential looping through array with using of ids i reduced algorithm
+complexity at least x3. I applied stackprof and rubyprof once more for checking what we've got for now and next problem we
+saw using of all? method for checking of existing sessions in presaved array.
 
-## Сдача задания
-Для сдачи задания нужно сделать `PR` в этот репозиторий.
+## Step 3
+We applied set data structure for making unique assembling for us. After next measures we saw problem with date parsing
+in the final part of the report.
 
-В `PR`
-- должны быть внесены оптимизации в `task-1.rb`;
-- должен быть файл `case-study.md` с описанием проделанной оптимизации;
+## Step 4 
+Exactly in our case this part of algorithm do nothing so we excluded it without any breaking of law. Finally we are at
+the point where we can't gain much of performance with simple refactorings. It's a good moment for capturing our memory 
+situation in terms of waisting it. So after measures i see that we have a lot of redundant array allocations. 
 
+## Step 5
+After removing all obvious places of redundant array allocations i used frozen_string_literal for avoiding allocations of 
+redundant strings
 
-# Комментарии
+## Step 6 - Final result
+All my next steps were connected with looking why memory using grows lineally to 400mb score and stops on that mark. The
+problem was that profilers didn't tell much about that just were showing that number of allocating object were extremely
+high. Finally i have figured out with massif-visualizer that all allocating memory related with collecting browsers and 
+i fixed it with using set. After that i used refactoring for decomposing all logic by domains area.
 
-## Какую пользу нужно получить от этого задания
-Задание моделирует такую ситуацию: вы получили неффективную систему, в которой код и производительность оставляет желать лучшего. При этом актуальной проблемой является именно производительность.
-Вам нужно оптимизировать эту систему.
+Before refactoring i had result with using 37mb total for large file
+![Before refactoring](/optimizations/step10/before.png)
+After refactoring memory usage grew but i think that in this case we don't need to dig deeper. This result is ok for us.
+![After refactoring](/optimizations/step10/after.png)
 
-С какими искушениями вы сталкиваететь:
-- вы “с ходу” видите проблемы в коде и у вас возникает импульс потратить время на их рефакторинг;
-- вы “с ходу” замечаете какие-то непроизводительные идиомы, и у вас возникает соблазн их сразу исправить;
+Assuming in the result we have parser that handles the task in `9` sec with `46 mb` used.
 
-Эти искушения типичны и часто возникают в моделируемой ситуации.
+Final asymptotic
+    
+    Warming up --------------------------------------
+                    65kb    15.000  i/100ms
+                   125kb     8.000  i/100ms
+                   250kb     4.000  i/100ms
+                    0.5m     2.000  i/100ms
+                      1m     1.000  i/100ms
+    Calculating -------------------------------------
+                    65kb    159.165  (± 4.3%) i/s -    330.000  in   2.078575s
+                   125kb     81.522  (± 8.3%) i/s -    168.000  in   2.095915s
+                   250kb     45.831  (± 3.6%) i/s -     92.000  in   2.013734s
+                    0.5m     24.744  (± 2.9%) i/s -     50.000  in   2.023426s
+                      1m     12.841  (± 3.3%) i/s -     26.000  in   2.028261s
+                      with 100.0% confidence
+    
+    Comparison:
+                    65kb:      159.2 i/s
+                   125kb:       81.5 i/s - 1.95x  (± 0.19) slower
+                   250kb:       45.8 i/s - 3.47x  (± 0.20) slower
+                    0.5m:       24.7 i/s - 6.43x  (± 0.34) slower
+                      1m:       12.8 i/s - 12.39x  (± 0.65) slower
+                      with 100.0% confidence 
+                  
+Comparing with what we had in the beginning
 
-Их риски:
-- перед рефакторингом “очевидных” косяков не написать тестов и незаметно внести регрессию;
-- потратить время на рефакторинг, хотя время было только на оптимизацию;
-- исправить все очевидные на глаз проблемы производительности, не получить заметного результата, решить что наверное просто Ruby слишком медленный для этой задачи
-
-## Советы
-- Найдите объём данных, на которых программа отрабатывает достаточно быстро - это позволит вам выстроить фидбек-луп; если улучшите метрику для части данных, то улучшите и для полного объёма данных;
-- Попробуйте прикинуть ассимтотику роста времени работы в зависимости от объёма входных данных (попробуйте объём x, 2x, 4x, 8x)
-- Оцените, как долго программа будет обрабатывать полный обём данных
-- Оцените, сколько времени занимает работа GC
-
-Возможно, что оптимизаций только памяти вам не хватит, чтобы довести производительность системы до приемлемой.
-
-Если вы придёте к такому выводу, то возможны такие варианты:
-- попробуйте использовать какой-нибудь из рассмотренных нами профилировщиков в режиме профилирования CPU (wall), найти точки роста и оптимизировать их;
-- подойдёт и вариант, если вы с помощью профилирования найдёте несколько главных точек роста, оптимизируете их, покажете, что дальнейшие оптимизации только памяти не приведут к желаемому результату, и опишете это в case-study.
-
-## Что можно делать
-- рефакторить код
-- рефакторить/дописывать тесты
-- разбивать скрипт на несколько файлов
-
-## Что нужно делать
-- исследовать предложенную вам на рассмотрение систему
-- построить фидбек-луп, который позволит вам быстро тестировать гипотезы и измерять их эффект
-- применить инструменты профилирования памяти, интроспекции GC, чтобы найти самые горячие проблемы по памяти, оценить кол-во времени которое уходит на сборку мусора
-- выписывать в case-study несколько пунктов: каким профилировщиком вы нашли точку роста, как её оптимизировали, какой получили прирост метрики;
-
-## Что не нужно делать
-- переписывать с нуля
-- забивать на выстраивание фидбек-лупа
-- вносить оптимизации по наитию, без профилировщика и без оценки эффективности
-
-## Основная польза задания
-Главная польза этого задания - попрактиковаться в применении грамотного подхода к оптимизации, почуствовать этот процесс:
-- как взяли незнакомую систему и исследовали её
-- как выстроили фидбек луп
-- как с помощью профилировщиков нашли что именно даст вам наибольший эффект
-- как быстро протестировали гипотезу, получили измеримый результат и зафиксировали его
-- как в итоге написали небольшой отчёт об успешных шагах этого процесса
-
-## PS
-Обсудим с Виталием, возможно уделю время на 2й лекции разбору подобной ситуации, а заданием 2й недели будет дооптимизировать эту программу, уже используя инструментарий оптимизации CPU.
-
-## PPS
-Делайте задание, изучайте предложенную систему, смотрите на неё под разными углами с помощью разных инстурментов. Оптимизируйте. Попрактикуйтесь в этой работе
+    Warming up --------------------------------------
+                    65kb     1.000  i/100ms
+                   125kb     1.000  i/100ms
+                   250kb     1.000  i/100ms
+                    0.5m     1.000  i/100ms
+                      1m     1.000  i/100ms
+    Calculating -------------------------------------
+                    65kb     16.952  (± 4.2%) i/s -     34.000  in   2.015597s
+                   125kb      5.178  (± 2.1%) i/s -     11.000  in   2.125509s
+                   250kb      1.333  (± 2.0%) i/s -      3.000  in   2.251281s
+                    0.5m      0.370  (± 0.0%) i/s -      1.000  in   2.703453s
+                      1m      0.077  (± 0.0%) i/s -      1.000  in  13.051390s
+                      with 100.0% confidence
+    
+    Comparison:
+                    65kb:       17.0 i/s
+                   125kb:        5.2 i/s - 3.27x  (± 0.15) slower
+                   250kb:        1.3 i/s - 12.72x  (± 0.68) slower
+                    0.5m:        0.4 i/s - 45.84x  (± 1.94) slower
+                      1m:        0.1 i/s - 221.22x  (± 9.44) slower
+                      with 100.0% confidence

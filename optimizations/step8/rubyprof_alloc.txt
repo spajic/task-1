@@ -1,0 +1,35 @@
+Measure Mode: allocations
+Thread ID: 70185105154080
+Fiber ID: 70185102929120
+Total: 16879.000000
+Sort by: self_time
+
+ %self      total      self      wait     child     calls  name
+ 66.70  11258.000 11258.000     0.000     0.000     1646   String#split
+ 21.05  16849.000  3553.000     0.000 13296.000        1   <Class::IO>#foreach
+  4.71    795.000   795.000     0.000     0.000      795   Integer#to_s
+  2.74    463.000   463.000     0.000     0.000      529   Array#sort!
+  2.06    347.000   347.000     0.000     0.000      347   FalseClass#to_s
+  1.57    265.000   265.000     0.000     0.000      265   Array#join
+  1.07    181.000   181.000     0.000     0.000      181   TrueClass#to_s
+  0.04  16873.000     7.000     0.000 16866.000        1   <Class::IO>#open
+  0.03  16878.000     5.000     0.000 16873.000        1   Object#work
+  0.01      2.000     2.000     0.000     0.000     1648   IO#write
+  0.01  16879.000     1.000     0.000 16878.000        1   [global]#[no method]
+  0.01      4.000     1.000     0.000     3.000        1   String#%
+  0.01      1.000     1.000     0.000     0.000        1   Array#uniq!
+  0.00      0.000     0.000     0.000     0.000        1   IO#closed?
+  0.00      0.000     0.000     0.000     0.000      526   Array#clear
+  0.00      0.000     0.000     0.000     0.000      264   Array#concat
+  0.00      0.000     0.000     0.000     0.000     1381   String#tr!
+  0.00      0.000     0.000     0.000     0.000     1646   Array#shift
+  0.00      0.000     0.000     0.000     0.000      264   String#include?
+  0.00      0.000     0.000     0.000     0.000      264   String#end_with?
+  0.00      0.000     0.000     0.000     0.000      265   String#upcase!
+  0.00      0.000     0.000     0.000     0.000      264   Array#reverse!
+  0.00      0.000     0.000     0.000     0.000     3320   String#to_i
+  0.00      0.000     0.000     0.000     0.000     1646   String#start_with?
+  0.00      0.000     0.000     0.000     0.000        1   File#initialize
+  0.00      0.000     0.000     0.000     0.000        1   IO#close
+
+* indicates recursively called methods

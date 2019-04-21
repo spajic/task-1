@@ -1,0 +1,35 @@
+Measure Mode: wall_time
+Thread ID: 70185105154080
+Fiber ID: 70185102929120
+Total: 0.015218
+Sort by: self_time
+
+ %self      total      self      wait     child     calls  name
+ 48.64      0.014     0.007     0.000     0.006        1   <Class::IO>#foreach
+ 12.54      0.002     0.002     0.000     0.000     1646   String#split
+  5.30      0.001     0.001     0.000     0.000     3320   String#to_i
+  5.12      0.001     0.001     0.000     0.000      529   Array#sort!
+  4.86      0.001     0.001     0.000     0.000     1381   String#tr!
+  4.75      0.001     0.001     0.000     0.000     1648   IO#write
+  3.23      0.000     0.000     0.000     0.000        1   File#initialize
+  2.56      0.000     0.000     0.000     0.000     1646   String#start_with?
+  2.07      0.000     0.000     0.000     0.000     1646   Array#shift
+  1.94      0.000     0.000     0.000     0.000      265   Array#join
+  1.41      0.000     0.000     0.000     0.000      795   Integer#to_s
+  1.06      0.000     0.000     0.000     0.000        1   IO#close
+  0.94      0.000     0.000     0.000     0.000      264   Array#concat
+  0.93      0.000     0.000     0.000     0.000        1   Array#uniq!
+  0.81      0.000     0.000     0.000     0.000      526   Array#clear
+  0.66      0.000     0.000     0.000     0.000      264   String#include?
+  0.63      0.000     0.000     0.000     0.000      265   String#upcase!
+  0.60      0.000     0.000     0.000     0.000      347   FalseClass#to_s
+  0.51      0.000     0.000     0.000     0.000      264   String#end_with?
+  0.44      0.000     0.000     0.000     0.000      264   Array#reverse!
+  0.38      0.015     0.000     0.000     0.015        1   <Class::IO>#open
+  0.25      0.000     0.000     0.000     0.000      181   TrueClass#to_s
+  0.18      0.015     0.000     0.000     0.015        1   [global]#[no method]
+  0.11      0.000     0.000     0.000     0.000        1   String#%
+  0.05      0.015     0.000     0.000     0.015        1   Object#work
+  0.03      0.000     0.000     0.000     0.000        1   IO#closed?
+
+* indicates recursively called methods
