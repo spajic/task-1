@@ -86,8 +86,6 @@ class Parser
       unique_browsers = []
       File.open(file, 'r').each do |f|
         f.each_line do |line|
-          
-      
           if line.start_with?('user')
             cols = line.split(',')
             self.user = parse_user(cols)
@@ -122,35 +120,37 @@ class Parser
       #     - Хоть раз использовал IE? +
       #     - Всегда использовал только Хром? +
       #     - даты сессий в порядке убывания через запятую +
+        report = {}
 
-      report = {}
+        report[:totalUsers] = users.count
 
-      report[:totalUsers] = users.count
+        report[:uniqueBrowsersCount] = unique_browsers.count
 
-      report[:uniqueBrowsersCount] = unique_browsers.count
+        report[:totalSessions] = total_sessions
 
-      report[:totalSessions] = total_sessions
+        report[:allBrowsers] = create_sort_uniq_browsers(unique_browsers)
 
-      report[:allBrowsers] =
-        unique_browsers
-          .sort
-          .join(COMMA_SEPARATOR)
+        report[:usersStats] = {}
 
-      report[:usersStats] = {}
-
-      users_objects = []
-      
-      users.each do |user|
-        user_sessions = sessions[user[:id]]
-        users_objects << User.new(attributes: user, sessions: user_sessions)
-      end
+        users_objects = []
         
+        users.each do |user|
+          user_sessions = sessions[user[:id]]
+          users_objects << User.new(attributes: user, sessions: user_sessions)
+        end
+          
 
-      collect_stats_from_users(report, users_objects)
+        collect_stats_from_users(report, users_objects)
 
 
-      File.write('result.json', "#{report.to_json}\n")
+        File.write('result.json', "#{report.to_json}\n")
   end 
+
+  def create_sort_uniq_browsers(unique_browsers)
+    unique_browsers
+      .sort
+      .join(COMMA_SEPARATOR)
+  end
 end
 
 ######## To use program:
@@ -159,11 +159,32 @@ end
 # parser = Parser.new()
 
 # time = Benchmark.realtime do
-#   parser.work('data_large.txt')
+#   # puts "rss before parsing: #{print_memory_usage}"
+#   parser = Parser.new()
+#   # report = MemoryProfiler.report do
+#     parser.work('tmp/data_small.txt') # 1MB
+#   # end
+#   # report.pretty_print(scale_bytes: true)
+#   # puts "rss after parsing: #{print_memory_usage}"
 # end
 
 # puts "Finish in #{time.round(2)}"
 
 
+# def print_memory_usage
+#   "%d MB" % (`ps -o rss= -p #{Process.pid}`.to_i / 1024)
+# end
+
+
 
  
+# Stackprof ObjectAllocations and Flamegraph
+# stackprof tmp/stackprof.dump --text --limit 3
+# stackprof tmp/stackprof.dump --method 'Object#make_csv_of_data'
+#
+# Flamegraph
+# raw: true
+# stackprof --flamegraph tmp/stackprof.dump > tmp/flamegraph
+# stackprof --flamegraph-viewer=tmp/flamegraph
+#
+# dot -Tpng graphviz.dot > graphviz.png
