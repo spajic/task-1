@@ -16,10 +16,10 @@ printer.print(File.open("ruby_prof_allocations_profile.dot", "w+"))
 printer = RubyProf::GraphHtmlPrinter.new(result)
 printer.print(File.open("ruby_prof_graph_allocations_profile.html", "w+"))
 
-ruby ruby_prof.rb
-dot -Tpng ruby_prof_allocations_profile.dot > ruby_prof.png
-brew install imgcat
-imgcat ruby_prof.png
+# ruby ruby_prof.rb
+# dot -Tpng ruby_prof_allocations_profile.dot > ruby_prof.png
+# brew install imgcat
+# imgcat ruby_prof.png
 
 # run separately
 # qcachegrind tmp/profile.callgrind.out.92522
